@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+$:.unshift(::File.expand_path('./',  __FILE__))
+# require ::File.expand_path('../rodauth_demo',  __FILE__)
+
 require "dotenv/load"
 
 ENV["RACK_ENV"] ||= "development"

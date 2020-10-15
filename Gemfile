@@ -40,6 +40,8 @@ group :development do
 end
 
 group :test do
+  gem "minitest"
+  gem "rack-test"
 end
 
 group :test, :development do

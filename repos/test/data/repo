@@ -1,0 +1,3 @@
+#!fossil
+directory: ./data/
+notfound: /404
