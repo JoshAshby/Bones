@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+echo "Installing gems ..."
+bundle install
+
+echo "Setting up the database ..."
+echo 'DATABASE_URL="sqlite://bones.db"' | cat > .env
+bundle exec rake db:migrate
+
+echo 'SESSION_SECRET="changemetosomethingthatisalotlongerandhardertoguessthanthisrandomstring"' | cat >> .env
+
+echo "All done! Run 'thin start' and navigate to http://localhost:3000 to get started!"

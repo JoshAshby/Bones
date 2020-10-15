@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Bones Fossil SCM Hosting</title>
+
+    <%#<link rel="stylesheet" href="/dark.min.css" />%>
+
+    <%= content_for :head %>
+  </head>
+
+  <body>
+    <% if flash["info"] %>
+      <q><%= flash["info"] %></q>
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>

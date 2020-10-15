@@ -1,0 +1,128 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+ENV['RACK_ENV'] ||= 'development'
+
+require "tty-option"
+require "sequel/core"
+
+class CreateUserCommand
+  include TTY::Option
+
+  usage do
+    command "create"
+
+    desc "Create a new user"
+  end
+
+  flag :help do
+    short "-h"
+    long "--help"
+    desc "Print usage"
+  end
+
+  argument :email do
+    required
+    desc "The email of the user"
+  end
+
+  argument :username do
+    required
+    desc "The username of the user"
+  end
+
+  option :password do
+    desc "The users password. Leave blank to autogenerate one."
+  end
+
+  def run
+    if params[:help]
+      print help
+      exit
+    end
+
+    unless params.valid?
+      puts params.errors.summary
+      print help
+      exit
+    end
+
+    require_relative '../env'
+
+    account_id = DB[:accounts].insert(
+      email:     params[:email],
+      username:  params[:username],
+      status_id: 2, # verified
+    )
+
+    password = params[:password]
+    password = SecureRandom.hex(20) unless params[:password]
+
+    DB[:account_password_hashes].insert(
+      id:            account_id,
+      password_hash: BCrypt::Password.create(password).to_s,
+    )
+
+    puts "Created user #{params[:username]}"
+    puts "  email: #{params[:email]}"
+    puts "  password: #{password}" unless params[:password]
+
+  rescue Sequel::UniqueConstraintViolation => e
+    puts "Uh oh, this is embarrassing, something went wrong!"
+    puts e.wrapped_exception.message
+  end
+end
+
+# I spent way too much time on this file ... is there a better way to do this?
+class CommandMapper
+  include TTY::Option
+
+  COMMANDS = {
+    "create" => CreateUserCommand
+  }.freeze
+
+  usage do
+    no_command
+    command []
+
+    footer "Run a command followed by --help to see more info"
+  end
+
+  flag :help do
+    short "-h"
+    long "--help"
+    desc "Print usage"
+  end
+
+  argument :command do
+    required
+    permit COMMANDS.keys
+  end
+
+  def run
+    if params[:help]
+      commands = COMMANDS.map do |(k, v)|
+        "  #{k}\t#{v.desc.flatten.join}\n"
+      end.join("\n")
+
+      helper = help do |sections|
+        sections.add_after :options, :commands,
+                           "\nCommands:\n#{commands}"
+      end
+
+      print helper
+      exit
+    end
+
+    unless params.valid?
+      puts params.errors.summary
+      exit
+    end
+
+    COMMANDS[params[:command]].new.parse.run
+  end
+end
+
+cmd = CommandMapper.new
+cmd.parse([ARGV.shift || "--help"])
+cmd.run
