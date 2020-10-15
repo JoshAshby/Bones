@@ -15,12 +15,15 @@ GEM
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     mini_mime (1.0.2)
+    minitest (5.14.1)
     parallel (1.19.2)
     parser (2.7.2.0)
       ast (~> 2.4.1)
     pastel (0.8.0)
       tty-color (~> 0.5)
     rack (2.2.3)
+    rack-test (1.1.0)
+      rack (>= 1.0, < 3)
     rainbow (3.0.0)
     rake (13.0.1)
     rb-fsevent (0.10.4)
@@ -71,6 +74,8 @@ DEPENDENCIES
   forme
   listen
   mail
+  minitest
+  rack-test
   rake
   roda
   rodauth
