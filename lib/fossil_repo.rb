@@ -1,9 +1,13 @@
 class FossilRepo
-  attr_reader :username, :root
+  def self.root
+    @root ||= Pathname.new ENV["REPO_ROOT"]
+  end
+
+  attr_reader :username, :user_root, :repo_root
 
   def initialize username
     @username = username
-    @user_root = Pathname.new(ENV["REPO_ROOTS"]).join username
+    @user_root = FossilRepo.root.join username
     @repo_root = @user_root.join "data"
 
     ensure_dirs!
