@@ -17,4 +17,9 @@ describe FossilRepo do
     assert 0, fossil.create_repository("test")
     assert fossil.repository_file("test").exist?
   end
+
+  it "throws making a dup fossil repo" do
+    assert 0, fossil.create_repository("test")
+    assert_raises(RuntimeError) { fossil.create_repository("test") }
+  end
 end
