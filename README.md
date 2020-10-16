@@ -1,12 +1,13 @@
 # Bones
 ##### Dammit Jim, I'm a developer, not a magician.
 
-A [Fossil]() repository managment site in the lines of [Flint, backing Chisel](https://chiselapp.com).
+A [Fossil](https://fossil-scm.org/) repository managment site in the lines of
+[Flint, backing Chisel](https://chiselapp.com/user/rkeene/repository/flint).
 
 ---
 
 Provides a bare-bones interface for managing multiple Fossil repositories on a
-per user basis; To be used along side Fossil server in some way - see [below](#Fossil).
+per user basis.
 
 # Deploy
 
@@ -40,7 +41,7 @@ Finally use the user tool to make youself a new user:
 An IRB shell is available with the environment loaded up via:
 
 ```shell
-bin/console
+./bin/console
 ```
 
 Debuggers, via the `break` gem, can be dropped in with:
