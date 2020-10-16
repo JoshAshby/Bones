@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Routes::Base < Roda
+  secret = ENV.delete("SESSION_SECRET") || SecureRandom.random_bytes(64)
+
   plugin RequestLogger
   plugin :public
 
@@ -10,24 +12,22 @@ class Routes::Base < Roda
   plugin :run_append_slash
 
   plugin :forme
-  forme_secret = ENV.delete("FORME_SECRET") || SecureRandom.hex(64)
-  plugin :forme_set, secret: forme_secret
+  plugin :forme_set, secret: secret
 
   plugin :flash
 
   plugin :route_csrf
 
-  session_secret = ENV.delete("SESSION_SECRET") || SecureRandom.random_bytes(64)
-  plugin :sessions, secret: session_secret
+  plugin :sessions, secret: secret
 
   plugin :rodauth, csrf: :route_csrf do
     db DB
 
-    enable :login, :logout, :remember,
+    enable :login, :logout, :remember, :close_account,
            :reset_password, :change_password, :change_password_notify,
-           :create_account, :close_account
+           :create_account
 
-    hmac_secret session_secret
+    hmac_secret secret
 
     prefix "/account"
     create_account_route "create"
