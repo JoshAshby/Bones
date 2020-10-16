@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Routes::Base < Roda
-  secret = ENV.delete("SESSION_SECRET") || SecureRandom.random_bytes(64)
+  secret = ENV.fetch("SESSION_SECRET", SecureRandom.random_bytes(64))
 
   plugin RequestLogger
   plugin :public
@@ -25,12 +25,14 @@ class Routes::Base < Roda
 
     enable :login, :logout, :remember, :close_account,
            :reset_password, :change_password, :change_password_notify,
+           :change_login,
            :create_account
 
     hmac_secret secret
 
     prefix "/account"
     create_account_route "create"
+    close_account_route "close"
 
     require_login_confirmation? false
     create_account_additional_form_tags <<~HTML
@@ -45,6 +47,14 @@ class Routes::Base < Roda
       throw_error_status(422, "username", "must be present") unless username
 
       account[:username] = username
+    end
+
+    after_create_account do
+      Bones::UserFossil.new(username: account[:username]).ensure_fs!
+    end
+
+    after_login do
+      remember_login
     end
   end
 

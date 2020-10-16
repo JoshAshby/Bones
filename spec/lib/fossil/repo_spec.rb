@@ -4,7 +4,6 @@ require "spec_helper"
 
 describe Fossil::Repo do
   after do
-    # FileUtils.remove_dir Fossil.root, true
     FileUtils.remove_file repo_path
   end
 
