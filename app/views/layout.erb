@@ -16,18 +16,18 @@
       <ul>
         <% if rodauth.logged_in? %>
           <li><%= DB[:accounts].where(:id=>rodauth.session_value).get(:email) %></li>
-          <li><a href="/account/change-login">Change Login</a></li>
-          <li><a href="/account/change-password">Change Password</a></li>
-          <li><a href="/account/close-account">Close Account</a></li>
           <li><a href="/user">Dashboard</a></li>
+          <li><a href="/user/repository/create">Create Repository</a></li>
+          <li><a href="/account">Account</a></li>
+          <li><a href="/account/logout">Logout</a></li>
         <% else %>
-          <li><a href="/account/login">login</a></li>
+          <li><a href="/account/login">Login</a></li>
         <% end %>
       </ul>
     </nav>
 
-    <% if flash["info"] %>
-      <q><%= flash["info"] %></q>
+    <% flash.each do |key, message| %>
+      <q><%= key %>: <%= message %></q>
     <% end %>
 
     <%= yield %>

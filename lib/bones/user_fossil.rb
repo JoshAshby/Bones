@@ -3,7 +3,7 @@
 class Bones::UserFossil
   attr_reader :username, :user_root, :repo_root
 
-  def initialize username:
+  def initialize username
     @username = username
 
     @user_root = Bones.root.join username
@@ -13,6 +13,17 @@ class Bones::UserFossil
   def ensure_fs!
     ensure_repo_dirs!
     ensure_cgi_script!
+  end
+
+  def repositories
+    @repo_root.children(false)
+      .map(&:basename)
+      .map(&:to_s)
+  end
+
+  def repository repo
+    repo = "#{repo}.fossil" unless repo.end_with? ".fossil"
+    Fossil::Repo.new @repo_root.join(repo)
   end
 
   protected

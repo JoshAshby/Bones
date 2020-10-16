@@ -5,7 +5,7 @@ require "open3"
 class Fossil::Repo
   attr_reader :repo, :repository_file
 
-  def initialize repository_file:
+  def initialize repository_file
     @repository_file = repository_file
 
     @repo = repository_file.basename.sub_ext("").to_s
@@ -21,6 +21,10 @@ class Fossil::Repo
     fail "abnormal status creating new fossil #{ self } - #{ status.exitstatus }" unless status.success?
 
     nil
+  end
+
+  # TODO
+  def clone_repository url:, username:, password:
   end
 
   def create_user username:, contact_info:, password:
