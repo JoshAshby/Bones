@@ -34,7 +34,9 @@ require "rake/testtask"
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
   t.libs << "./"
-  t.test_files = FileList["test/**/test_*.rb"]
+  t.pattern = "spec/**/*_spec.rb"
+  # t.test_files = FileList["spec/**/*_spec.rb"]
+  t.verbose = true
 end
 
 task default: :test

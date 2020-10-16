@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require "open3"
 
 class FossilRepo
   def self.root
@@ -22,17 +23,11 @@ class FossilRepo
       throw "Attempted to create an existing repo #{ repository_file(repo) }"
     end
 
-    run_fossil_command "new", "--admin-user", @username
+    run_fossil_command "new", "--admin-user", @username, repository_file(repo).to_s
   end
 
   def repository_file repo
     @repo_root.join "#{ repo }.fossil"
-  end
-
-  protected
-
-  def fossil_binary
-    "fossil"
   end
 
   def run_fossil_command *args
@@ -40,6 +35,12 @@ class FossilRepo
     LOGGER.fossil "Ran fossil command with args [#{ args.join ', ' }]", status: status
     LOGGER.fossil log
     status
+  end
+
+  protected
+
+  def fossil_binary
+    ENV["FOSSIL_BINARY"]
   end
 
   def ensure_dirs!
