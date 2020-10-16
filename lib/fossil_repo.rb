@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "open3"
 
 class FossilRepo
@@ -20,10 +21,34 @@ class FossilRepo
   def create_repository repo
     if repository_file(repo).exist?
       LOGGER.fossil "Attempted to create an existing repo #{ repository_file(repo) }"
-      throw "Attempted to create an existing repo #{ repository_file(repo) }"
+      fail "Attempted to create an existing repo #{@username}/#{repo}"
     end
 
-    run_fossil_command "new", "--admin-user", @username, repository_file(repo).to_s
+    status = run_fossil_command "new", "--admin-user", @username, repository_file(repo).to_s
+    fail "abnormal status creating new fossil #{@username}/#{repo} - #{status.exitstatus}" unless status.success?
+
+    nil
+  end
+
+  def create_user repo, user
+    password = SecureRandom.hex(20)
+
+    status = run_fossil_command "user", "new", user, "Bones User", password, "--repository", repository_file(repo).to_s
+    fail "abnormal status creating a new user in fossil #{@username}/#{repo} - #{status.exitstatus}" unless status.success?
+
+    status = run_fossil_command "user", "capabilities", user, "s", "--repository", repository_file(repo).to_s
+    fail "new user doesn't have superadmin capabilities in fossil #{@username}/#{repo} - #{status.exitstatus}" unless status.success?
+
+    password
+  end
+
+  def change_password repo, user, password = nil
+    password ||= SecureRandom.hex(20)
+
+    status = run_fossil_command "user", "password", user, password, "--repository", repository_file(repo).to_s
+    fail "abnormal status creating a new user in fossil #{@username}/#{repo} - #{status.exitstatus}" unless status.success?
+
+    password
   end
 
   def repository_file repo
@@ -35,6 +60,14 @@ class FossilRepo
     LOGGER.fossil "Ran fossil command with args [#{ args.join ', ' }]", status: status
     LOGGER.fossil log
     status
+  end
+
+  def repository_db repo
+    db = Sequel.connect "sqlite://#{repository_file(repo).to_s}", logger: LOGGER
+
+    yield db
+
+    db.disconnect
   end
 
   protected
