@@ -9,6 +9,7 @@ class Routes::Root < Routes::Base
 
     r.on "account" do
       r.rodauth
+      r.root { view :index }
     end
 
     r.on "user" do
@@ -16,8 +17,6 @@ class Routes::Root < Routes::Base
       r.run Routes::User
     end
 
-    r.root do
-      view :index
-    end
+    r.root { view :index }
   end
 end

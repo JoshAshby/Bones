@@ -33,6 +33,7 @@ namespace :db do
 
   desc "rollback version"
   task :rollback do |_, _args|
+    require_relative "env"
     current_version = DB.fetch("SELECT * FROM schema_info").first[:version]
     migrate.call(current_version - 1)
   end

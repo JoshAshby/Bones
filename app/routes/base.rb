@@ -55,11 +55,16 @@ class Routes::Base < Roda
 
     after_login do
       remember_login
+
+      # username is used a lot for the fossil ops, so lets just cache it
+      session[:username] = DB[:accounts].where(id: account[:id]).get(:username)
     end
   end
 
   plugin :error_handler do |e|
     @page_title = "Internal Server Error"
+
+    LOGGER.error e
 
     view content: <<~HTML
       #{ h e.class }: #{ h e.message }
