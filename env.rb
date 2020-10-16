@@ -39,6 +39,10 @@ LOGGER = TTY::Logger.new do |config|
       }
     }]
   ]
+
+  logfile = Pathname.new("logs/#{ ENV['RACK_ENV'] }.log")
+  logfile.parent.mkpath
+  config.output = [$stderr, logfile.open("a+")]
 end
 
 # Delete DATABASE_URL from the environment, so it isn't accidently

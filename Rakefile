@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
-require_relative "./env"
+require "rake/testtask"
+
+Rake::TestTask.new(:test) do |t|
+  t.libs << "spec"
+  t.libs << "./"
+  t.verbose = true
+  t.pattern = "spec/**/*_spec.rb"
+end
+
+task default: :test
 
 MIGRATION_DIR = "migrations"
 
@@ -28,15 +37,3 @@ namespace :db do
     migrate.call(current_version - 1)
   end
 end
-
-require "rake/testtask"
-
-Rake::TestTask.new(:test) do |t|
-  t.libs << "test"
-  t.libs << "./"
-  t.pattern = "spec/**/*_spec.rb"
-  # t.test_files = FileList["spec/**/*_spec.rb"]
-  t.verbose = true
-end
-
-task default: :test
