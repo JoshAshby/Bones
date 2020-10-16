@@ -2,9 +2,6 @@
 
 ENV["RACK_ENV"] = "test"
 
-require "capybara/dsl"
-require "rack/test"
-
 require "minitest"
 require "minitest/test"
 require "minitest/spec"

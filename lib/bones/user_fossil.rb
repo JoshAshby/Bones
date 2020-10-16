@@ -8,14 +8,16 @@ class Bones::UserFossil
 
     @user_root = Bones.root.join username
     @repo_root = @user_root.join "data"
+  end
 
-    ensure_dirs!
+  def ensure_fs!
+    ensure_repo_dirs!
     ensure_cgi_script!
   end
 
   protected
 
-  def ensure_dirs!
+  def ensure_repo_dirs!
     @repo_root.mkpath unless @repo_root.exist?
   end
 

@@ -1,11 +1,1 @@
-<ul>
-<% if rodauth.logged_in? %>
-  <li><%= DB[:accounts].where(:id=>rodauth.session_value).get(:email) %></li>
-  <li><a href="/account/change-login">Change Login</a></li>
-  <li><a href="/account/change-password">Change Password</a></li>
-  <li><a href="/account/close-account">Close Account</a></li>
-  <li><a href="/account/remember">Change Remember Settings</a></li>
-<% else %>
-  <li><a href="/account/login">login</a></li>
-<% end %>
-</ul>
+
