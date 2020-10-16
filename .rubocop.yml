@@ -1,0 +1,278 @@
+AllCops:
+  TargetRubyVersion: 2.7
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  Include:
+    - '**/*.rb'
+    - '**/Rakefile'
+  Exclude:
+    - 'bin/*'
+
+# Configuration parameters: Include, TreatCommentsAsGroupSeparators.
+# Include: **/Gemfile, **/gems.rb
+Bundler/OrderedGems:
+  TreatCommentsAsGroupSeparators: true
+
+Metrics/AbcSize:
+  Max: 30
+
+# This is an issue for most DSL's and since ruby is highly conducive to DSL's
+# this rule doesn't really make a lot of sense and is really a deterant towards
+# a tool of the language
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+# Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
+# URISchemes: http, https
+Layout/LineLength:
+  Max: 120
+  AllowHeredoc: true
+  AllowURI: true
+  IgnoredPatterns:
+    - logger.* # Ignore lines that log info, sometimes its better to have it all on a longer line
+    - \A# # Exclude comment lines, not sure why it doesn't already but ¯\_(ツ)_/¯
+    - fail*
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/ModuleLength:
+  Enabled: false
+
+# Multi-line method chaining should be done with leading dots.
+Layout/DotPosition:
+  EnforcedStyle: leading
+
+# Use empty lines between defs.
+Layout/EmptyLineBetweenDefs:
+  # If `true`, this parameter means that single line method definitions don't
+  # need an empty line between them.
+  AllowAdjacentOneLineDefs: true
+  # Can be array to specify minimum and maximum number of empty lines, e.g. [1, 2]
+  NumberOfEmptyLines: 1
+
+# Configuration parameters: SupportedStyles, IndentationWidth.
+# SupportedStyles: special_inside_parentheses, consistent, align_braces
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+# Ashby tends to put a space after a not so that its easier to see and pick out
+Layout/SpaceAfterNot:
+  Enabled: false
+
+# Configuration parameters: SupportedStyles.
+# SupportedStyles: space, no_space
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+# SupportedStyles: space, no_space
+Layout/SpaceBeforeBlockBraces:
+  EnforcedStyle: space
+
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+# SupportedStyles: space, no_space
+Layout/SpaceInsideStringInterpolation:
+  EnforcedStyle: space
+
+Layout/SpaceInsideReferenceBrackets:
+  Enabled: false
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+
+Layout/SpaceInsideParens:
+  Enabled: false
+
+# Spaces make things easier to read
+Layout/SpaceInsidePercentLiteralDelimiters:
+  Enabled: false
+
+# Need a new line but don't have a blank line
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+# SupportedStyles: final_newline, final_blank_line
+Layout/TrailingEmptyLines:
+  EnforcedStyle: final_newline
+
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+# SupportedStyles: prefer_alias, prefer_alias_method
+Style/Alias:
+  Enabled: false # Use either as we see fit
+
+# All of rails uses this compact definition so lets just not fight it
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# This is the ugliest rule and makes it hard to read what is getting
+# assigned, imo.
+Style/ConditionalAssignment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false # Eventually this should be turned of but for now lots of things remain undocumented
+
+# Why use a method to check if a number is a number?
+# This normally wants you to use #zero? instead of == 0 which seems rightly
+# ludicrous.
+Style/NumericPredicate:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+# SupportedStyles: require_parentheses, require_no_parentheses, require_no_parentheses_except_multiline
+Style/MethodDefParentheses:
+  Enabled: false
+  #EnforcedStyle: require_no_parentheses_except_multiline
+
+# Configuration parameters: EnforcedStyle, SupportedStyles, AllowInnerSlashes.
+# SupportedStyles: slashes, percent_r, mixed
+Style/RegexpLiteral:
+  EnforcedStyle: percent_r # use %r{} for defining regex instead of //
+
+Style/SignalException:
+  EnforcedStyle: only_fail
+
+# Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
+# SupportedStyles: single_quotes, double_quotes
+Style/StringLiterals:
+  AutoCorrect: true
+  EnforcedStyle: double_quotes
+
+# This is the ugliest and most unreadable and not clear rule
+# Don't use %i[] for symbol arrays, just make them [ :symbol ] for readability
+Style/SymbolArray:
+  Enabled: false
+
+# Don't always use %w[] to define arrays of words, as its not really nice
+# reading for short two or three word arrays.
+Style/WordArray:
+  Enabled: false
+
+# Use StandardError when rescuing instead of the => e shortcut.
+# I like the like shortcut though
+Style/RescueStandardError:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  AutoCorrect: true
+
+
+Layout/BeginEndAlignment: # (new in 0.91)
+  Enabled: true
+Layout/EmptyLinesAroundAttributeAccessor: # (new in 0.83)
+  Enabled: true
+Layout/SpaceAroundMethodCallOperator: # (new in 0.82)
+  Enabled: true
+Lint/BinaryOperatorWithIdenticalOperands: # (new in 0.89)
+  Enabled: true
+Lint/ConstantDefinitionInBlock: # (new in 0.91)
+  Enabled: true
+Lint/DeprecatedOpenSSLConstant: # (new in 0.84)
+  Enabled: true
+Lint/DuplicateElsifCondition: # (new in 0.88)
+  Enabled: true
+Lint/DuplicateRequire: # (new in 0.90)
+  Enabled: true
+Lint/DuplicateRescueException: # (new in 0.89)
+  Enabled: true
+Lint/EmptyConditionalBody: # (new in 0.89)
+  Enabled: true
+Lint/EmptyFile: # (new in 0.90)
+  Enabled: true
+Lint/FloatComparison: # (new in 0.89)
+  Enabled: true
+Lint/HashCompareByIdentity: # (new in 0.93)
+  Enabled: true
+Lint/IdentityComparison: # (new in 0.91)
+  Enabled: true
+Lint/MissingSuper: # (new in 0.89)
+  Enabled: true
+Lint/MixedRegexpCaptureTypes: # (new in 0.85)
+  Enabled: true
+Lint/OutOfRangeRegexpRef: # (new in 0.89)
+  Enabled: true
+Lint/RaiseException: # (new in 0.81)
+  Enabled: true
+Lint/RedundantSafeNavigation: # (new in 0.93)
+  Enabled: true
+Lint/SelfAssignment: # (new in 0.89)
+  Enabled: true
+Lint/StructNewOverride: # (new in 0.81)
+  Enabled: true
+Lint/TopLevelReturnWithArgument: # (new in 0.89)
+  Enabled: true
+Lint/TrailingCommaInAttributeDeclaration: # (new in 0.90)
+  Enabled: true
+Lint/UnreachableLoop: # (new in 0.89)
+  Enabled: true
+Lint/UselessMethodDefinition: # (new in 0.90)
+  Enabled: true
+Lint/UselessTimes: # (new in 0.91)
+  Enabled: true
+Style/AccessorGrouping: # (new in 0.87)
+  Enabled: true
+Style/BisectedAttrAccessor: # (new in 0.87)
+  Enabled: true
+Style/CaseLikeIf: # (new in 0.88)
+  Enabled: true
+Style/ClassEqualityComparison: # (new in 0.93)
+  Enabled: true
+Style/CombinableLoops: # (new in 0.90)
+  Enabled: true
+Style/ExplicitBlockArgument: # (new in 0.89)
+  Enabled: true
+Style/ExponentialNotation: # (new in 0.82)
+  Enabled: true
+Style/GlobalStdStream: # (new in 0.89)
+  Enabled: true
+Style/HashAsLastArrayItem: # (new in 0.88)
+  Enabled: true
+Style/HashLikeCase: # (new in 0.88)
+  Enabled: true
+Style/KeywordParametersOrder: # (new in 0.90)
+  Enabled: true
+Style/OptionalBooleanParameter: # (new in 0.89)
+  Enabled: true
+Style/RedundantAssignment: # (new in 0.87)
+  Enabled: true
+Style/RedundantFetchBlock: # (new in 0.86)
+  Enabled: true
+Style/RedundantFileExtensionInRequire: # (new in 0.88)
+  Enabled: true
+Style/RedundantRegexpCharacterClass: # (new in 0.85)
+  Enabled: true
+Style/RedundantRegexpEscape: # (new in 0.85)
+  Enabled: true
+Style/RedundantSelfAssignment: # (new in 0.90)
+  Enabled: true
+Style/SingleArgumentDig: # (new in 0.89)
+  Enabled: true
+Style/SlicingWithRange: # (new in 0.83)
+  Enabled: true
+Style/SoleNestedConditional: # (new in 0.89)
+  Enabled: true
+Style/StringConcatenation: # (new in 0.89)
+  Enabled: true

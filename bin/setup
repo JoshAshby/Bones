@@ -6,9 +6,11 @@ echo "Installing gems ..."
 bundle install
 
 echo "Setting up the database ..."
-echo 'DATABASE_URL="sqlite://bones.db"' | cat > .env
+echo 'DATABASE_URL="sqlite://bones.db"' > .env
 bundle exec rake db:migrate
 
-echo 'SESSION_SECRET="changemetosomethingthatisalotlongerandhardertoguessthanthisrandomstring"' | cat >> .env
+echo 'SESSION_SECRET="changemetosomethingthatisalotlongerandhardertoguessthanthisrandomstring"' >> .env
+echo 'REPO_ROOT="./repos/"' >> .env
+echo 'FOSSIL_BINARY="fossil"' >> .env
 
 echo "All done! Run 'thin start' and navigate to http://localhost:3000 to get started!"

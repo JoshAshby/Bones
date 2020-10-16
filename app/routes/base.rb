@@ -17,13 +17,15 @@ class Routes::Base < Roda
 
   plugin :route_csrf
 
-  session_secret = ENV.delete('SESSION_SECRET') || SecureRandom.random_bytes(64)
+  session_secret = ENV.delete("SESSION_SECRET") || SecureRandom.random_bytes(64)
   plugin :sessions, secret: session_secret
 
   plugin :rodauth, csrf: :route_csrf do
     db DB
 
-    enable :login, :logout, :remember, :reset_password, :create_account, :close_account, :change_password, :change_password_notify
+    enable :login, :logout, :remember,
+           :reset_password, :change_password, :change_password_notify,
+           :create_account, :close_account
 
     hmac_secret session_secret
 
@@ -39,9 +41,8 @@ class Routes::Base < Roda
     HTML
 
     before_create_account do
-      unless username = param_or_nil("username")
-        throw_error_status(422, "username", "must be present")
-      end
+      username = param_or_nil("username")
+      throw_error_status(422, "username", "must be present") unless username
 
       account[:username] = username
     end
@@ -51,9 +52,9 @@ class Routes::Base < Roda
     @page_title = "Internal Server Error"
 
     view content: <<~HTML
-      #{h e.class}: #{h e.message}
+      #{ h e.class }: #{ h e.message }
       <br />
-      #{e.backtrace.map{|line| h line}.join("<br />")}
+      #{ e.backtrace.map { |line| h line }.join('<br />') }
     HTML
   end
 
