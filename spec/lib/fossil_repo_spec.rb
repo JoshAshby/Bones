@@ -7,19 +7,19 @@ describe FossilRepo do
     FileUtils.remove_dir FossilRepo.root, true
   end
 
-  let(:fossil) { FossilRepo.new "test" }
+  let(:fossil) { FossilRepo.new username: "test", repo: "test" }
 
   it "makes the user dir on creation" do
     assert fossil.repo_root.exist?
   end
 
   it "makes a new fossil repo" do
-    assert 0, fossil.create_repository("test")
-    assert fossil.repository_file("test").exist?
+    assert 0, fossil.create_repository!
+    assert fossil.repository_file.exist?
   end
 
   it "throws making a dup fossil repo" do
-    assert 0, fossil.create_repository("test")
-    assert_raises(RuntimeError) { fossil.create_repository("test") }
+    assert 0, fossil.create_repository!
+    assert_raises(RuntimeError) { fossil.create_repository! }
   end
 end
