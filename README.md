@@ -36,6 +36,21 @@ Additionally the project is configured with
 code in development, the only time you should have to manually restart the
 server is when changing `env.rb` or `config.ru`.
 
+
+## Release Prep
+
+Rubocop:
+
+```shell
+bundle exec rubocop -A
+```
+
+Tests:
+
+```shell
+bundle exec rake
+```
+
 # Fossil
 
 As this project only provides the management of Fossil repository files, you'll
