@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-$:.unshift(::File.expand_path('./',  __FILE__))
-# require ::File.expand_path('../rodauth_demo',  __FILE__)
+$LOAD_PATH.unshift(::File.expand_path(__FILE__))
 
 require "dotenv/load"
 
@@ -18,7 +17,7 @@ LOGGER = TTY::Logger.new do |config|
   config.types = {
     database: { level: :debug },
     request: { level: :info },
-    fossil: { level: :debug },
+    fossil: { level: :debug }
   }
 
   config.handlers = [
@@ -68,8 +67,8 @@ Sequel::Model.plugin :forme_set
 # require "shrine/storage/file_system"
 
 # Shrine.storages = {
-  # cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
-  # store: Shrine::Storage::FileSystem.new("public", prefix: "uploads")
+# cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
+# store: Shrine::Storage::FileSystem.new("public", prefix: "uploads")
 # }
 
 # Shrine.plugin :sequel
