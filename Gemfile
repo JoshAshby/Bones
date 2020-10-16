@@ -41,7 +41,9 @@ end
 
 group :test do
   gem "minitest"
+
   gem "rack-test"
+  gem "capybara"
 end
 
 group :test, :development do
