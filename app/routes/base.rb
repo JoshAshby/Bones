@@ -9,7 +9,7 @@ class Routes::Base < Roda
   plugin :render, views: "app/views"
   plugin :content_for
 
-  plugin :run_append_slash
+  # plugin :run_append_slash
 
   plugin :forme
   plugin :forme_set, secret: secret
