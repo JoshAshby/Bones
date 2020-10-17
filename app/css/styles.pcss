@@ -1,0 +1,46 @@
+@tailwind base;
+
+@tailwind components;
+
+button,
+select,
+input[type='submit'],
+input[type='button'],
+input[type='checkbox'],
+input[type='range'],
+input[type='radio'] {
+  @apply cursor-pointer;
+}
+
+input:not([type='checkbox']):not([type='radio']),
+select {
+  @apply block;
+}
+
+input,
+button,
+textarea,
+select {
+  @apply text-gray-800 bg-gray-200 mr-2 mb-2 p-2 rounded outline-none;
+}
+
+input:focus,
+select:focus,
+button:focus,
+textarea:focus {
+  @apply shadow-outline;
+}
+
+input:not([type='checkbox']):not([type='radio']),
+input[type='range'],
+select,
+button,
+textarea {
+  -webkit-appearance: none;
+}
+
+fieldset {
+  @apply border-2 border-steelblue-500 rounded p-4;
+}
+
+@tailwind utilities;
