@@ -8,7 +8,7 @@ class Routes::Root < Routes::Base
 
     rodauth.load_memory
 
-    shared[:account]= DB[:accounts].where(id: rodauth.session_value).first || {}
+    shared[:account] = DB[:accounts].where(id: rodauth.session_value).first || {}
     shared[:breadcrumbs] = []
 
     r.on "account" do

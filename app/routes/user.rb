@@ -67,7 +67,11 @@ class Routes::User < Routes::Base
             url: form.clone_url
           )
 
-          repo_id = DB[:repositories].insert account_id: rodauth.session_value, name: form.name, cloned_from: form.clone_url
+          repo_id = DB[:repositories].insert(
+            account_id: rodauth.session_value,
+            name: form.name,
+            cloned_from: form.clone_url
+          )
 
           # Stash this so we can display it on the next page
           flash[:repository_password] = password
