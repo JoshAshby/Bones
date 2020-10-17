@@ -1,6 +1,6 @@
 @tailwind base;
 
-@tailwind components;
+/*@tailwind components;*/
 
 /*
  * TODO: This setup isn't super inclusive, on default styling for input types
@@ -48,6 +48,8 @@ fieldset {
   @apply border-2 border-steelblue-500 rounded p-4;
 }
 
+/* From here down we have the individual items in an ABEM "like" setup. */
+
 .o-body__container {
   @apply flex flex-row min-h-screen bg-gray-100 text-gray-800;
 }
@@ -80,7 +82,7 @@ fieldset {
   @apply inline-flex flex-row items-center;
 }
 
-.a-logo__icon {
+.m-logo__link > svg {
   @apply w-10 h-10 text-palevioletred-400;
 }
 
@@ -127,13 +129,96 @@ fieldset {
   @apply flex items-center justify-center text-lg;
 }
 
-.m-meny-link__icon > svg {
-  @apply h-6 w-6;
+.m-menu-link__icon.-gray {
+  @apply text-gray-400;
+}
+
+.m-menu-link__icon.-green {
+  @apply text-green-400;
+}
+
+.m-menu-link__icon.-red {
+  @apply text-indianred-600;
+}
+
+.m-menu-link__icon.-purple {
+  @apply text-plum-600;
+}
+
+.m-menu-link__icon > svg {
+  @apply h-6 w-6 stroke-current;
 }
 
 .a-menu-link__title {
   @apply ml-3;
 }
 
+/* Sidebar account info */
+.o-account-info__item {
+  @apply m-2;
+}
 
-@tailwind utilities;
+.m-account-info__container {
+  @apply flex flex-col;
+}
+
+.a-account-info__username {
+  @apply text-palevioletred-400 font-semibold tracking-wide leading-none;
+}
+
+.a-account-info__email {
+  @apply text-gray-500 text-xs leading-none mt-1;
+}
+
+
+/* Main Content Area */
+.o-main__container {
+  @apply flex flex-col flex-grow ml-0;
+}
+
+@screen md {
+  .o-main__container {
+    @apply ml-64;
+  }
+}
+
+.m-main__header {
+  @apply bg-white shadow py-4 px-4;
+}
+
+/* Main Header */
+.o-header__container {
+  @apply flex items-center flex-row;
+}
+
+.m-header__left {
+  @apply flex ml-auto;
+}
+
+/* Content */
+.o-content__container {
+  @apply flex flex-col flex-grow p-4;
+}
+
+.a-content__header {
+  @apply font-bold text-2xl text-gray-700;
+}
+
+.m-content__body {
+  @apply flex flex-col flex-grow bg-white rounded mt-4 p-2;
+}
+
+/* Footer */
+.o-footer__container {
+  @apply px-4 py-6;
+}
+
+.m-footer__content {
+  /*@apply*/
+}
+
+.a-footer__text {
+  @apply text-sm text-gray-600 text-center;
+}
+
+/*@tailwind utilities;*/
