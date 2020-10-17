@@ -27,12 +27,6 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.1)
-    minitest-global_expectations (1.0.1)
-      minitest (> 5)
-    minitest-hooks (1.5.0)
-      minitest (> 5.3)
-    minitest-spec-expect (2.0.0)
-      minitest (~> 5.0)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     parallel (1.19.2)
@@ -98,9 +92,6 @@ DEPENDENCIES
   listen
   mail
   minitest
-  minitest-global_expectations
-  minitest-hooks
-  minitest-spec-expect
   rack-test
   rake
   roda

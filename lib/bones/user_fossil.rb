@@ -15,14 +15,31 @@ class Bones::UserFossil
     ensure_cgi_script!
   end
 
-  def repositories
+  def repository_names
     @repo_root.children(false)
       .map(&:basename)
       .map(&:to_s)
   end
 
+  def create_repository name, admin_password:, project_name:
+    repo = repository name
+
+    repo.create_repository! username: username
+    password = repo.change_password username: username, password: admin_password
+
+    repo.repository_db do |db|
+      # little bit of security, prevents someone on the server from accessing
+      # the web ui without credentials
+      db[:config].where(name: "localauth").update(value: 1)
+
+      db[:config].where(name: "project-name").update(value: project_name) if project_name
+    end
+
+    password
+  end
+
   def repository repo
-    repo = "#{repo}.fossil" unless repo.end_with? ".fossil"
+    repo = "#{ repo }.fossil" unless repo.end_with? ".fossil"
     Fossil::Repo.new @repo_root.join(repo)
   end
 
