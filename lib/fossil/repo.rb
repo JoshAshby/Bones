@@ -24,8 +24,7 @@ class Fossil::Repo
   end
 
   # TODO
-  def clone_repository url:, username:, password:
-  end
+  def clone_repository url:, username:, password:; end
 
   def create_user username:, contact_info:, password:
     password ||= SecureRandom.hex(20)
@@ -33,8 +32,11 @@ class Fossil::Repo
     status = run_fossil_command "user", "new", username, contact_info, password, "--repository", repository_file.to_s
     fail "abnormal status creating a new user in fossil #{ self } - #{ status.exitstatus }" unless status.success?
 
+    # Check to see if the user is a setup/superuser. not 100% sure why this is
+    # necessary yet but Flint does it so :shrug:
+    # https://fossil-scm.org/home/doc/trunk/www/caps/admin-v-setup.md
     status = run_fossil_command "user", "capabilities", username, "s", "--repository", repository_file.to_s
-    fail "new user doesn't have superadmin capabilities in fossil #{ self } - #{ status.exitstatus }" unless status.success?
+    fail "new user doesn't have superuser capabilities in fossil #{ self } - #{ status.exitstatus }" unless status.success?
 
     password
   end

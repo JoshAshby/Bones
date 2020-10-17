@@ -54,9 +54,9 @@ DB.extension :date_arithmetic
 
 Sequel.extension :core_refinements
 
-Sequel::Model.plugin :timestamps, update_on_create: true
-Sequel::Model.plugin :forme
-Sequel::Model.plugin :forme_set
+# Sequel::Model.plugin :timestamps, update_on_create: true
+# Sequel::Model.plugin :forme
+# Sequel::Model.plugin :forme_set
 
 # Sequel::Model.cache_associations = false if ENV["RACK_ENV"] == "development"
 
@@ -92,7 +92,7 @@ LOADER = Zeitwerk::Loader.new
 FOLDERS.each(&LOADER.method(:push_dir))
 
 if ENV["RACK_ENV"] == "development"
-  # LOADER.log!
+  LOADER.log! if ENV["DEBUG_LOADER"]
   LOADER.enable_reloading
 
   Listen.to(*FOLDERS, wait_for_delay: 1) do

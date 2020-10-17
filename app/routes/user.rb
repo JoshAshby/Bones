@@ -1,47 +1,87 @@
 # frozen_string_literal: true
 
-CreateForm = Struct.new :name, :password, :project_name, keyword_init: true
-CloneForm = Struct.new :name, :password, :clone_url, keyword_init: true
-
 class Routes::User < Routes::Base
   route do |r|
-    @account_id = rodauth.session_value
-
     r.on "repository" do
+      shared[:breadcrumbs] << "Repository"
+
+      r.on "id", Integer do
+        shared[:breadcrumbs] << r.params[:id]
+
+        r.on "edit" do
+          shared[:breadcrumbs] << "Edit"
+          r.get { view "repository/edit" }
+          r.post {}
+        end
+
+        r.on "delete" do
+          shared[:breadcrumbs] << "Delete?"
+          r.get { view "repository/delete" }
+          r.post {}
+        end
+      end
+
       r.on "create" do
-        r.get { @form = CreateForm.new; view "repository/create" }
+        shared[:breadcrumbs] << "Create Repository"
+
+        r.get do
+          @form = Forms::CreateRepository.new
+          view "repository/create"
+        end
+
         r.post do
-          form = CreateForm.new r.params.slice(*CreateForm.members.map(&:to_s))
+          form = Forms::CreateRepository.from_params r.params
 
-          username = DB[:accounts].where(id: @account_id).get(:username)
-          repo = Bones::UserFossil.new(username).repository form.name
+          password = Bones::UserFossil.new(shared[:account][:username]).create_repository(
+            form.name,
+            admin_password: form.password,
+            project_name: form.project_name
+          )
 
-          repo.create_repository! username: username
-          password = repo.change_password username: username, password: form.password
+          repo_id = DB[:repositories].insert account_id: rodauth.session_value, name: form.name
 
-          repo.repository_db do |db|
-            db[:config].where(name: 'localauth').update(value: 1)
-            db[:config].where(name: 'project-name').update(value: form.project_name) if form.project_name
-          end
-
-          DB[:repositories].insert account_id: @account_id, name: form.name
-
+          # Stash this so we can display it on the next page
           flash[:repository_password] = password
-          flash[:info] = "Successfully created repository #{form.name}!"
-          r.redirect "/user"
+          flash[:repository_id] = repo_id
+
+          flash[:info] = "Successfully created repository #{ form.name }!"
+
+          r.redirect "/dashboard"
         end
       end
 
       r.on "clone" do
-        r.get {view "repository/clone" }
-        r.post do
+        shared[:breadcrumbs] << "Clone Repository"
 
+        r.get do
+          @form = Forms::CloneRepository.new
+          view "repository/clone"
+        end
+
+        r.post do
+          form = Forms::CloneRepository.from_params r.params
+
+          password = Bones::UserFossil.new(shared[:account][:username]).clone_repository(
+            form.name,
+            admin_password: form.password,
+            url: form.clone_url
+          )
+
+          repo_id = DB[:repositories].insert account_id: rodauth.session_value, name: form.name, cloned_from: form.clone_url
+
+          # Stash this so we can display it on the next page
+          flash[:repository_password] = password
+          flash[:repository_id] = repo_id
+
+          flash[:info] = "Successfully cloned repository #{ form.name }!"
+
+          r.redirect "/user"
         end
       end
     end
 
     r.root do
-      @repositories = DB[:repositories].where(account_id: @account_id)
+      @repositories = DB[:repositories].where(account_id: rodauth.session_value)
       view "user/index"
     end
   end

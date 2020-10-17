@@ -19,6 +19,7 @@ class Routes::Base < Roda
   plugin :route_csrf
 
   plugin :sessions, secret: secret
+  plugin :shared_vars
 
   plugin :rodauth, csrf: :route_csrf do
     db DB
@@ -62,8 +63,6 @@ class Routes::Base < Roda
   end
 
   plugin :error_handler do |e|
-    @page_title = "Internal Server Error"
-
     LOGGER.error e
 
     view content: <<~HTML
@@ -74,7 +73,6 @@ class Routes::Base < Roda
   end
 
   plugin :not_found do
-    @page_title = "File Not Found"
     view content: <<~HTML
       <h4>404 Not Found :(</h4>
     HTML
