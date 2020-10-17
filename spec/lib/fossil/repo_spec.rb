@@ -13,12 +13,12 @@ describe Fossil::Repo do
   let(:username) { "test-user" }
 
   it "makes a new repo" do
-    assert 0, subject.create_repository!(username)
+    assert 0, subject.create_repository!(username: username)
     assert subject.repository_file.exist?
   end
 
   it "throws making a dup repo" do
-    assert 0, subject.create_repository!(username)
-    assert_raises(RuntimeError) { subject.create_repository! username }
+    assert 0, subject.create_repository!(username: username)
+    assert_raises(RuntimeError) { subject.create_repository! username: username }
   end
 end
