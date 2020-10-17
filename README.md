@@ -11,6 +11,8 @@ per user basis.
 
 # Deploy
 
+TODO
+
 # Development
 
 As this project only provides the management of Fossil repository files, you'll
@@ -54,6 +56,15 @@ Additionally the project is configured with
 [Zeitwerk](https://github.com/fxn/zeitwerk) for auto-loading and reloading of
 code in development, the only time you should have to manually restart the
 server is when changing `env.rb` or `config.ru`.
+
+### Frontend Styles
+
+There is a [Tailwind CSS](https://tailwindcss.com/) setup for styling. Make style changes to
+`app/styles.pcss` and then run tailwind to regnerate the styles file.
+
+```shell
+npx tailwindcss build app/css/styles.pcss -o public/styles.css
+```
 
 ## Release Prep
 
