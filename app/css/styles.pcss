@@ -2,6 +2,11 @@
 
 @tailwind components;
 
+/*
+ * TODO: This setup isn't super inclusive, on default styling for input types
+ * but it's enough for now.
+ */
+
 button,
 select,
 input[type='submit'],
@@ -42,5 +47,93 @@ textarea {
 fieldset {
   @apply border-2 border-steelblue-500 rounded p-4;
 }
+
+.o-body__container {
+  @apply flex flex-row min-h-screen bg-gray-100 text-gray-800;
+}
+
+/* Sidebar */
+.o-sidebar__container {
+  @apply w-64 transform -translate-x-full bg-brand flex;
+}
+
+@screen md {
+  .o-sidebar__container {
+    @apply shadow transform translate-x-0 flex-col h-screen fixed;
+  }
+}
+
+.m-sidebar__header {
+  @apply flex items-center justify-center py-4 pt-10;
+}
+
+.m-sidebar__content {
+  @apply px-4 pb-10;
+}
+
+/* Logo/Brandname Header */
+.o-logo__container {
+  @apply inline-flex;
+}
+
+.m-logo__link {
+  @apply inline-flex flex-row items-center;
+}
+
+.a-logo__icon {
+  @apply w-10 h-10 text-palevioletred-400;
+}
+
+.a-logo__brandname {
+  @apply leading-10 text-steelblue-50 text-2xl font-bold ml-2 uppercase;
+}
+
+/* Sidebar Menu */
+.o-sidebar-menu__container {
+  @apply flex flex-col flex-grow;
+}
+
+.m-sidebar-menu__list {
+  @apply flex flex-col;
+}
+
+.m-sidebar-menu__list.-grow {
+  @apply w-full flex-grow;
+}
+
+.a-sidebar-menu__list-item {
+  @apply my-px;
+}
+
+/* Menu */
+.a-menu__header {
+  @apply flex font-medium text-sm text-steelblue-50 px-4 my-4 uppercase;
+}
+
+/* Menu Link */
+.o-menu-link__container {
+  @apply flex flex-row items-center h-10 px-3 rounded-lg text-steelblue-100;
+}
+
+.o-menu-link__container.-active {
+  @apply text-gray-700 bg-plum-200;
+}
+
+.o-menu-link__container:hover {
+  @apply text-gray-700 bg-plum-50;
+}
+
+.m-menu-link__icon {
+  @apply flex items-center justify-center text-lg;
+}
+
+.m-meny-link__icon > svg {
+  @apply h-6 w-6;
+}
+
+.a-menu-link__title {
+  @apply ml-3;
+}
+
 
 @tailwind utilities;

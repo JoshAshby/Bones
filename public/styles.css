@@ -614,6 +614,11 @@ video {
   }
 }
 
+/*
+ * TODO: This setup isn't super inclusive, on default styling for input types
+ * but it's enough for now.
+ */
+
 button,
 select,
 input[type='submit'],
@@ -669,6 +674,189 @@ fieldset {
   border-color: rgba(78, 142, 193, var(--border-opacity));
   border-radius: 0.25rem;
   padding: 1rem;
+}
+
+.o-body__container {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
+}
+
+/* Sidebar */
+
+.o-sidebar__container {
+  width: 16rem;
+  --transform-translate-x: 0;
+  --transform-translate-y: 0;
+  --transform-rotate: 0;
+  --transform-skew-x: 0;
+  --transform-skew-y: 0;
+  --transform-scale-x: 1;
+  --transform-scale-y: 1;
+  transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate)) skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
+  --transform-translate-x: -100%;
+  --bg-opacity: 1;
+  background-color: #23334B;
+  background-color: rgba(35, 51, 75, var(--bg-opacity));
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .o-sidebar__container {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --transform-translate-x: 0;
+    --transform-translate-y: 0;
+    --transform-rotate: 0;
+    --transform-skew-x: 0;
+    --transform-skew-y: 0;
+    --transform-scale-x: 1;
+    --transform-scale-y: 1;
+    transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate)) skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
+    --transform-translate-x: 0;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+  }
+}
+
+.m-sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 2.5rem;
+}
+
+.m-sidebar__content {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 2.5rem;
+}
+
+/* Logo/Brandname Header */
+
+.o-logo__container {
+  display: inline-flex;
+}
+
+.m-logo__link {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.a-logo__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  --text-opacity: 1;
+  color: #d79fc1;
+  color: rgba(215, 159, 193, var(--text-opacity));
+}
+
+.a-logo__brandname {
+  line-height: 2.5rem;
+  --text-opacity: 1;
+  color: #f7fafb;
+  color: rgba(247, 250, 251, var(--text-opacity));
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  text-transform: uppercase;
+}
+
+/* Sidebar Menu */
+
+.o-sidebar-menu__container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.m-sidebar-menu__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.m-sidebar-menu__list.-grow {
+  width: 100%;
+  flex-grow: 1;
+}
+
+.a-sidebar-menu__list-item {
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+/* Menu */
+
+.a-menu__header {
+  display: flex;
+  font-weight: 500;
+  font-size: 0.875rem;
+  --text-opacity: 1;
+  color: #f7fafb;
+  color: rgba(247, 250, 251, var(--text-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+/* Menu Link */
+
+.o-menu-link__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 2.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-radius: 0.5rem;
+  --text-opacity: 1;
+  color: #eef7f8;
+  color: rgba(238, 247, 248, var(--text-opacity));
+}
+
+.o-menu-link__container.-active {
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  --bg-opacity: 1;
+  background-color: #f0e5ec;
+  background-color: rgba(240, 229, 236, var(--bg-opacity));
+}
+
+.o-menu-link__container:hover {
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  --bg-opacity: 1;
+  background-color: #fbfafa;
+  background-color: rgba(251, 250, 250, var(--bg-opacity));
+}
+
+.m-menu-link__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+}
+
+.m-meny-link__icon > svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.a-menu-link__title {
+  margin-left: 0.75rem;
 }
 
 .space-y-0 > :not(template) ~ :not(template) {
