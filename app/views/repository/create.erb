@@ -1,10 +1,1 @@
-<% form @form, method: :post, action: "/user/repository/create" do |f| %>
-  <% f.inputs legend: "Create Repository" do %>
-    <%= f.input :name, type: :text, label: "Repository Name", required: true %>
-    <%= f.input :password, type: :password, label: "Admin Password" %>
-
-    <%= f.input :project_name, type: :text, label: "Project Name" %>
-
-    <%= f.button "Create Repository" %>
-  <% end %>
-<% end %>
+<%= @form.to_forme action: "/user/repository/create" %>

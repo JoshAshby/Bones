@@ -1,10 +1,1 @@
-<% form @form, method: :post, action: "/user/repository/clone" do |f| %>
-  <% f.inputs legend: "Clone Repository" do %>
-    <%= f.input :name, type: :text %>
-    <%= f.input :password, type: :password %>
-
-    <%= f.input :clone_url, type: :url %>
-
-    <%= f.button "Clone Repository" %>
-  <% end %>
-<% end %>
+<%= @form.to_forme action: "/dashboard/repository/clone" %>
