@@ -1,24 +1,29 @@
 # frozen_string_literal: true
 
-module Forms
-  CreateRepository = Struct.new :name, :password, :project_name, keyword_init: true do
-    def self.from_params params
-      new(params.slice(*members.map(&:to_s)))
-    end
+class Forms::CreateRepository < Forms::Base
+  forme_namespace "repository"
 
-    def to_forme(**opts)
-      opts[:method] ||= :post
+  attribute :name, Forms::Types::String
+  attribute? :password, Forms::Types::String.optional
+  attribute? :project_name, Forms::Types::String.optional
 
-      Forme.form(self, **opts) do |f|
-        f.input :name, type: :text, label: "Repository Name", required: true
-        f.input :password, type: :password, label: "Admin Password"
+  def repository
+    @repository ||= DB[:repositories].where(id: id).first
+  end
 
-        f.input :project_name, type: :text, label: "Project Name"
+  def save account_id:, username:
+    self.password = Bones::UserFossil.new(username).clone_repository(
+      name,
+      admin_password: password,
+      project_name: project_name
+    )
 
-        yield f if block_given?
+    # This is a bit of a hack ... ¯\_(ツ)_/¯
+    @repository = {
+      account_id: account_id,
+      name: name
+    }.yield_self { _1[:id] = DB[:repositories].insert _1 }
 
-        f.button "Create Repository"
-      end
-    end
+    true
   end
 end

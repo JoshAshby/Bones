@@ -1,23 +1,30 @@
 # frozen_string_literal: true
 
-module Forms
-  CloneRepository = Struct.new :name, :password, :clone_url, keyword_init: true do
-    def self.from_params params
-      new(params.slice(*members.map(&:to_s)))
-    end
+class Forms::CloneRepository < Forms::Base
+  forme_namespace "repository"
 
-    def to_forme(**opts)
-      opts[:method] ||= :post
+  attribute :name, Forms::Types::String
+  attribute :clone_url, Forms::Types::String
+  attribute? :password, Forms::Types::String.optional
 
-      Forme.form(self, **opts) do |f|
-        f.input :name, type: :text, label: "Repository Name", required: true
-        f.input :password, type: :password, label: "Admin Password"
-        f.input :clone_url, type: :url, label: "Clone From URL", required: true
+  def repository
+    @repository ||= DB[:repositories].where(id: id).first
+  end
 
-        yield f if block_given?
+  def save account_id:, username:
+    self.password = Bones::UserFossil.new(username).clone_repository(
+      name,
+      admin_password: password,
+      url: clone_url
+    )
 
-        f.button "Clone Repository"
-      end
-    end
+    # This is a bit of a hack ... ¯\_(ツ)_/¯
+    @repository = {
+      account_id: account_id,
+      name: name,
+      cloned_from: clone_url
+    }.yield_self { _1[:id] = DB[:repositories].insert _1 }
+
+    true
   end
 end

@@ -23,8 +23,17 @@ class Fossil::Repo
     nil
   end
 
-  # TODO
-  def clone_repository url:, username:, password:; end
+  def clone_repository url:, username:, password:
+    if repository_file.exist?
+      LOGGER.fossil "Attempted to clone an existing repo #{ repository_file }"
+      fail "Attempted to clone an existing repo #{ self }"
+    end
+
+    status = run_fossil_command "clone", "--admin-user", username, url, repository_file.to_s
+    fail "abnormal status cloning fossil #{ url } #{ self } - #{ status.exitstatus }" unless status.success?
+
+    change_password username: username, password: password
+  end
 
   def create_user username:, contact_info:, password:
     password ||= SecureRandom.hex(20)

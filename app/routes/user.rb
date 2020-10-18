@@ -2,22 +2,47 @@
 
 class Routes::User < Routes::Base
   route do |r|
+    shared[:breadcrumbs] << "Dashboard"
+    set_layout_options template: :layout_logged_in
+
     r.on "repository" do
       shared[:breadcrumbs] << "Repository"
 
-      r.on "id", Integer do
-        shared[:breadcrumbs] << r.params[:id]
+      r.on Integer do |id|
+        shared[:breadcrumbs] << id
 
         r.on "edit" do
           shared[:breadcrumbs] << "Edit"
-          r.get { view "repository/edit" }
-          r.post {}
+
+          r.get do
+            @form = Forms::EditRepository.new id: id
+            view "dashboard/repository/edit"
+          end
+
+          r.post do
+            @form = Forms::EditRepository.from_params(r.params) do |params|
+              params.merge id: id
+            end
+
+            next view "dashboard/repository/edit" unless @form.save
+
+            flash[:info] = "Repository #{ @form.repository[:name] } updated!"
+
+            unless @form.password.blank?
+              flash[:repository_password] = @form.password
+              flash[:repository_id] = @form.id
+            end
+
+            r.redirect "/dashboard"
+          end
         end
 
         r.on "delete" do
-          shared[:breadcrumbs] << "Delete?"
-          r.get { view "repository/delete" }
-          r.post {}
+          r.get { view "dashboard/repository/delete" }
+
+          r.post do
+            binding.irb
+          end
         end
       end
 
@@ -25,26 +50,25 @@ class Routes::User < Routes::Base
         shared[:breadcrumbs] << "Create Repository"
 
         r.get do
-          @form = Forms::CreateRepository.new
-          view "repository/create"
+          @form = Forms::CreateRepository.new name: nil
+          view "dashboard/repository/create"
         end
 
         r.post do
-          form = Forms::CreateRepository.from_params r.params
+          @form = Forms::CreateRepository.from_params(r.params) do |params|
+            params.merge id: id
+          end
 
-          password = Bones::UserFossil.new(shared[:account][:username]).create_repository(
-            form.name,
-            admin_password: form.password,
-            project_name: form.project_name
-          )
+          unless @form.save account_id: rodauth.session_value, username: shared[:account][:username]
+            next view "dashboard/repository/edit"
+          end
 
-          repo_id = DB[:repositories].insert account_id: rodauth.session_value, name: form.name
+          flash[:info] = "Repository #{ @form.repository[:name] } created!"
 
-          # Stash this so we can display it on the next page
-          flash[:repository_password] = password
-          flash[:repository_id] = repo_id
-
-          flash[:info] = "Successfully created repository #{ form.name }!"
+          unless @form.password.blank?
+            flash[:repository_password] = @form.password
+            flash[:repository_id] = @form.id
+          end
 
           r.redirect "/dashboard"
         end
@@ -54,39 +78,34 @@ class Routes::User < Routes::Base
         shared[:breadcrumbs] << "Clone Repository"
 
         r.get do
-          @form = Forms::CloneRepository.new
-          view "repository/clone"
+          @form = Forms::CloneRepository.new name: nil, clone_url: nil
+          view "dashboard/repository/clone"
         end
 
         r.post do
-          form = Forms::CloneRepository.from_params r.params
+          @form = Forms::CloneRepository.from_params(r.params) do |params|
+            params.merge id: id
+          end
 
-          password = Bones::UserFossil.new(shared[:account][:username]).clone_repository(
-            form.name,
-            admin_password: form.password,
-            url: form.clone_url
-          )
+          unless @form.save account_id: rodauth.session_value, username: shared[:account][:username]
+            next view "dashboard/repository/edit"
+          end
 
-          repo_id = DB[:repositories].insert(
-            account_id: rodauth.session_value,
-            name: form.name,
-            cloned_from: form.clone_url
-          )
+          flash[:info] = "Repository #{ @form.repository[:name] } cloned from #{ @form.clone_url }!"
 
-          # Stash this so we can display it on the next page
-          flash[:repository_password] = password
-          flash[:repository_id] = repo_id
+          unless @form.password.blank?
+            flash[:repository_password] = @form.password
+            flash[:repository_id] = @form.id
+          end
 
-          flash[:info] = "Successfully cloned repository #{ form.name }!"
-
-          r.redirect "/user"
+          r.redirect "/dashboard"
         end
       end
     end
 
     r.root do
       @repositories = DB[:repositories].where(account_id: rodauth.session_value)
-      view "user/index"
+      view "dashboard/index"
     end
   end
 end

@@ -28,6 +28,10 @@ gem "rodauth"
 # gem "shrine", "~> 3.0"
 gem "forme"
 
+gem 'dry-struct'
+gem 'dry-types'
+gem 'dry-validation'
+
 # gem "rufus-scheduler"
 # gem "localjob"
 

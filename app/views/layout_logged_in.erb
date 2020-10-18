@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Bones Fossil SCM Hosting</title>
+
+  <link rel="stylesheet" href="/styles.css" />
+
+  <script type="module" src="/alpine.min.js"></script>
+  <script nomodule src="/alpine-ie11.min.js" defer></script>
+
+  <%= content_for :head %>
+</head>
+
+<body class="o-body__container">
+  <aside class="o-sidebar__container">
+    <div class="m-sidebar__header">
+      <div class="o-logo__container ">
+        <a href="/" class="m-logo__link">
+          <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"><g><g><g><path d="M65.901,77.251c-7.771,0-16.688-1.632-26.502-4.846c-7.233-2.369-12.014-2.456-15.178-2.512     c-2.687-0.048-4.63-0.085-6.167-1.475C13.94,64.696,4.486,54.315,5.581,38.365C6.546,24.301,20.255,15.168,25.81,13.728     c1.28-0.333,2.84-0.499,4.64-0.499c3.701,0,7.4,0.697,8.254,0.867c0.972,0.021,2.38-0.033,3.918-0.098     c2.672-0.113,5.734-0.236,7.967-0.01c4.522,0.447,9.199,0.913,12.267,4.89c1.146,1.481,8.62,9.655,9.991,10.495     c1.503,0.751,9.367,5.184,10.855,6.298l1.086,0.8c6.593,4.823,7.914,6.012,8.383,6.856c0.861,1.554,4.769,9.872-3.046,20.912     c-1.22,1.721-5.76,4.752-7.506,5.884c-1.115,1.321-5.612,6.356-9.756,6.722l-0.736,0.07     C70.742,77.048,68.651,77.251,65.901,77.251z M30.45,17.242c-1.46,0-2.683,0.124-3.632,0.371     c-3.404,0.882-16.366,8.382-17.234,21.027c-0.972,14.197,7.483,23.474,11.162,26.802c0.424,0.381,1.871,0.408,3.548,0.438     c3.405,0.061,8.55,0.153,16.355,2.711c9.411,3.083,17.905,4.646,25.253,4.646c2.559,0,4.453-0.185,5.84-0.319l0.768-0.071     c2.225-0.196,5.815-3.796,7.206-5.509c0.134-0.167,0.296-0.311,0.474-0.426c2.767-1.775,6.104-4.204,6.66-4.989     c6.428-9.085,3.47-15.463,2.81-16.65c-0.61-0.714-5.598-4.363-7.239-5.563l-1.126-0.828c-1.191-0.894-8.771-5.187-10.283-5.945     c-2.215-1.107-10.742-10.85-11.33-11.609c-1.875-2.431-4.833-2.887-9.488-3.35c-2.066-0.201-4.921-0.075-7.401,0.029     c-1.772,0.072-3.365,0.132-4.413,0.092c-0.113-0.005-0.222-0.02-0.33-0.042C38.009,18.049,34.147,17.242,30.45,17.242z"/></g><g><path fill="none" d="M80.826,67.821"/></g><g><path d="M52.648,47.412c-2.911,1.558-13.884,0.325-17.809-2.172c-7.345-4.671-10.852-11.337-8.194-16.798     c1.505-3.093,5.249-5.931,8.862-5.853c3.397,0.074,8.014,4.75,11.036,7.692c3.178,3.094,8.77,5.903,10.118,9.95     C57.414,42.489,55.91,45.666,52.648,47.412z"/></g><g><path d="M85.006,55.365c1.61-0.419,1.756-4.85,1.589-6.104c-0.167-1.254-2.049-5.1-4.683-6.522     c-1.471-0.794-5.183,2.501-3.429,5.938c0.854,1.664,2.144,1.17,3.853,3.177C83.255,52.932,83.906,55.65,85.006,55.365z"/></g><g><path d="M47.18,67.564L47.18,67.564c-0.982,0-1.59-0.382-1.928-0.703c-0.397-0.377-0.623-0.901-0.625-1.449     c-0.002-0.771-0.489-3.556-1.215-5.995c-0.389-1.306-0.188-2.583,0.57-3.599c1.569-2.108,4.76-2.214,5.384-2.214     c0.356,0,0.673,0.024,0.929,0.066c1.541,0.244,3.344,1.525,4.384,3.111c0.903,1.383,1.187,2.882,0.808,4.335     C54.451,65.117,49.519,67.564,47.18,67.564z M49.366,57.616c-1.002,0-1.99,0.359-2.166,0.601c0.499,1.587,0.933,3.449,1.191,4.96     c1.226-0.561,2.856-1.699,3.21-3.065c0.03-0.119,0.124-0.48-0.244-1.074c-0.52-0.835-1.44-1.351-1.702-1.404     C49.581,57.621,49.48,57.616,49.366,57.616z"/></g><g><path d="M56.007,69.965L56.007,69.965c-0.982,0-1.592-0.382-1.93-0.703c-0.396-0.377-0.621-0.901-0.624-1.448     c-0.002-0.773-0.489-3.559-1.215-5.997c-0.389-1.304-0.189-2.582,0.569-3.598c1.571-2.109,4.761-2.215,5.386-2.215     c0.355,0,0.672,0.025,0.928,0.065c1.541,0.245,3.343,1.527,4.384,3.112c0.904,1.384,1.187,2.882,0.808,4.335     C63.278,67.518,58.345,69.965,56.007,69.965z M58.193,60.016c-1.004,0-1.99,0.359-2.167,0.601c0.5,1.588,0.934,3.45,1.192,4.961     c1.225-0.562,2.855-1.7,3.211-3.065c0.028-0.119,0.124-0.481-0.245-1.075c-0.521-0.835-1.44-1.35-1.701-1.404     C58.408,60.021,58.305,60.016,58.193,60.016z"/></g><g><path d="M64.806,71.468L64.806,71.468c-0.982,0-1.591-0.383-1.928-0.704c-0.398-0.376-0.622-0.9-0.624-1.449     c-0.004-0.772-0.488-3.557-1.215-5.996c-0.39-1.305-0.188-2.582,0.57-3.598c1.569-2.108,4.759-2.215,5.384-2.215     c0.355,0,0.671,0.026,0.928,0.067c1.541,0.244,3.345,1.525,4.384,3.111c0.904,1.384,1.187,2.882,0.808,4.335     C72.078,69.02,67.144,71.468,64.806,71.468z M66.993,61.519c-1.004,0-1.991,0.359-2.165,0.601     c0.498,1.588,0.933,3.448,1.189,4.96c1.226-0.562,2.856-1.7,3.213-3.066c0.028-0.118,0.122-0.479-0.246-1.073     c-0.521-0.835-1.439-1.35-1.701-1.404C67.207,61.522,67.106,61.519,66.993,61.519z"/></g><g><path d="M74.032,73.335L74.032,73.335c-0.982,0-1.591-0.384-1.929-0.705c-0.396-0.378-0.622-0.901-0.624-1.449     c-0.003-0.771-0.489-3.555-1.215-5.994c-0.39-1.306-0.188-2.583,0.57-3.597c1.571-2.109,4.759-2.217,5.385-2.217     c0.354,0,0.67,0.026,0.927,0.066c1.541,0.246,3.344,1.525,4.384,3.111c0.904,1.383,1.187,2.883,0.808,4.335     C81.304,70.886,76.37,73.335,74.032,73.335z M76.22,63.386c-1.004,0-1.991,0.359-2.168,0.6c0.501,1.587,0.934,3.451,1.192,4.961     c1.227-0.56,2.855-1.699,3.212-3.065c0.027-0.12,0.123-0.479-0.246-1.075c-0.521-0.834-1.438-1.349-1.701-1.404     C76.434,63.389,76.331,63.386,76.22,63.386z"/></g></g></g></svg>
+          <span class="a-logo__brandname">Bones</span>
+        </a>
+      </div>
+    </div>
+    <div class="m-sidebar__content o-sidebar-menu__container">
+      <ul class="m-sidebar-menu__list -grow">
+        <%= render :_sidebar_header, locals: { header: "Repositories" } %>
+        <li class="a-sidebar-menu__list-item">
+          <a href="/dashboard" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Dashboard" %>-active<% end %>">
+            <span class="m-menu-link__icon -purple">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </span>
+            <span class="a-menu-link__title">Dashboard</span>
+          </a>
+        </li>
+        <%#<li class="a-sidebar-menu__list-item">%>
+          <%#<a href="/dashboard" class="o-menu_link__container">%>
+            <%#<span class="m-menu-link__icon">%>
+              <%#<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye-off"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>%>
+
+            <%#</span>%>
+            <%#<span class="a-menu_link__title">Private</span>%>
+            <%#<span%>
+              <%#class="flex items-center justify-center text-xs text-red-500 font-semibold bg-red-100 h-6 px-2 rounded-full ml-auto"%>
+            <%#>10</span>%>
+          <%#</a>%>
+        <%#</li>%>
+        <li class="a-sidebar-menu__list-item">
+          <a href="/dashboard/repository/create" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Create Repository" %>-active<% end %>">
+            <span class="m-menu-link__icon -green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+
+            </span>
+            <span class="a-menu-link__title">Create Repository</span>
+          </a>
+        </li>
+        <li class="a-sidebar-menu__list-item">
+          <a href="/dashboard/repository/clone" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Clone Repository" %>-active<% end %>">
+            <span class="m-menu-link__icon -green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </span>
+            <span class="a-menu-link__title">Clone Repository</span>
+          </a>
+        </li>
+        <%= render :_sidebar_header, locals: { header: "Account" } %>
+        <li class="a-sidebar-menu__list-item">
+          <a href="/account" class="o-menu-link__container <% if shared[:breadcrumbs].include? "Account" %>-active<% end %>">
+            <span class="m-menu-link__icon -gray">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </span>
+            <span class="a-menu-link__title">Profile</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="m-sidebar-menu__list">
+        <li class="a-sidebar-menu__list-item o-account-info__item">
+          <span class="m-account-info__container">
+            <span class="a-account-info__username"><%= shared[:account][:username] %></span>
+            <span class="a-account-info__email"><%= shared[:account][:email] %></span>
+          </span>
+        </li>
+        <%#<li class="a-sidebar-menu__list-item">%>
+          <%#<form method="post" action="/account/logout">%>
+            <%#<%= rodauth.csrf_tag %>%>
+            <%#<div class="o-menu-link__container">%>
+            <%#<span class="m-menu-link__icon -red">%>
+              <%#<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>%>
+            <%#</span>%>
+            <%#<buttom type="submit" class="a-menu-link__title">Logout</submit>%>
+            <%#</div>%>
+          <%#</form>%>
+        <%#</li>%>
+        <li class="a-sidebar-menu__list-item">
+          <a href="/account/logout" class="o-menu-link__container">
+            <span class="m-menu-link__icon -red">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            </span>
+            <span class="a-menu-link__title">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="o-main__container">
+    <%#= render :_header_content %>
+
+    <div class="o-content__container">
+      <h1 class="a-content__header"><%= shared[:breadcrumbs].last %></h1>
+
+      <div class="m-content__body">
+        <div class="w-full md:w-1/2 flex flex-col">
+        <% flash.slice("info", "warn", "alert").each do |(key, message)| %>
+          <div class="">
+            <div class="inline-flex items-center bg-white leading-none text-plum-600 rounded shadow text-sm">
+              <span class="inline-flex bg-plum-600 text-white rounded-l p-2 px-3 justify-center items-center"><%= key %></span>
+              <span class="inline-flex px-3"><%= message %></span>
+            </div>
+          </div>
+        <% end %>
+        </div>
+
+        <%= yield %>
+      </div>
+    </div>
+
+    <footer class="o-footer__container">
+      <div class="m-footer__content">
+        <p class="a-footer__text">
+        © Joshua Ashby 2020 - <a href="/credits">Credits</a>
+        |
+        <a href="https://thenounproject.com/term/dinosaur-skull/347287/">dinosaur skull by Erik Kuroow</a>
+        </p>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
