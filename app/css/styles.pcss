@@ -26,8 +26,19 @@ input,
 button,
 textarea,
 select {
-  @apply rounded px-4 py-1 bg-gray-200 border border-gray-400 mb-6 text-gray-700; /* placeholder-gray-700 focus:bg-white focus:outline-none; */
-  /*@apply text-gray-800 bg-gray-200 mr-2 mb-2 p-2 rounded outline-none;*/
+  @apply rounded px-4 py-1 bg-gray-200 border border-gray-400 mb-2 text-gray-700;
+}
+
+input::placeholder,
+textarea::placeholder {
+  @apply text-gray-700;
+}
+
+input:hover,
+select:hover,
+button:hover,
+textarea:hover {
+  @apply bg-gray-100;
 }
 
 input:focus,
@@ -49,10 +60,26 @@ fieldset {
   @apply border-2 border-steelblue-500 rounded p-4;
 }
 
+label {
+  @apply font-bold text-gray-800;
+}
+
+a {
+  @apply text-steelblue-600;
+}
+
+h1 {
+  @apply text-5xl font-bold;
+}
+
+h2 {
+  @apply text-2xl leading-normal;
+}
+
 /* From here down we have the individual items in an ABEM "like" setup. */
 
 .o-body__container {
-  @apply flex flex-row min-h-screen bg-gray-100 text-gray-800;
+  @apply flex flex-col min-h-screen bg-gray-100 text-gray-800;
 }
 
 /* Sidebar */
@@ -62,7 +89,7 @@ fieldset {
 
 @screen md {
   .o-sidebar__container {
-    @apply shadow transform translate-x-0 flex-col h-screen fixed;
+    @apply transform translate-x-0 flex-col h-screen fixed;
   }
 }
 
@@ -71,7 +98,7 @@ fieldset {
 }
 
 .m-sidebar__content {
-  @apply px-4 pb-10;
+  @apply pb-10 pl-4;
 }
 
 /* Logo/Brandname Header */
@@ -115,35 +142,51 @@ fieldset {
 
 /* Menu Link */
 .o-menu-link__container {
-  @apply flex flex-row items-center h-10 px-3 rounded-lg text-steelblue-100;
+  @apply flex flex-row rounded-l-lg items-center h-10 text-steelblue-100;
 }
 
 .o-menu-link__container.-active {
-  @apply text-gray-700 bg-plum-200;
+  @apply text-gray-800 bg-gray-100;
 }
 
 .o-menu-link__container:hover {
-  @apply text-gray-700 bg-plum-50;
+  @apply text-gray-800 bg-white;
 }
 
 .m-menu-link__icon {
-  @apply flex items-center justify-center text-lg;
+  @apply flex items-center rounded-l-lg justify-center text-lg h-full p-3;
 }
 
 .m-menu-link__icon.-gray {
-  @apply text-gray-400;
+  @apply text-gray-600;
+}
+
+.o-menu-link__container.-active > .m-menu-link__icon.-gray {
+  @apply bg-gray-600 text-gray-100;
 }
 
 .m-menu-link__icon.-green {
-  @apply text-green-400;
+  @apply text-green-500;
+}
+
+.o-menu-link__container.-active > .m-menu-link__icon.-green {
+  @apply bg-green-500 text-green-100;
 }
 
 .m-menu-link__icon.-red {
   @apply text-indianred-600;
 }
 
+.o-menu-link__container.-active > .m-menu-link__icon.-red {
+  @apply bg-indianred-600 text-indianred-50;
+}
+
 .m-menu-link__icon.-purple {
-  @apply text-plum-600;
+  @apply text-palevioletred-600;
+}
+
+.o-menu-link__container.-active > .m-menu-link__icon.-purple {
+  @apply bg-palevioletred-600 text-palevioletred-50;
 }
 
 .m-menu-link__icon > svg {
@@ -151,7 +194,7 @@ fieldset {
 }
 
 .a-menu-link__title {
-  @apply ml-3;
+  @apply ml-3 w-full;
 }
 
 /* Sidebar account info */
@@ -202,11 +245,11 @@ fieldset {
 }
 
 .a-content__header {
-  @apply font-bold text-2xl text-gray-700;
+  @apply font-bold text-2xl text-gray-800;
 }
 
 .m-content__body {
-  @apply flex flex-col flex-grow bg-white rounded mt-4 p-2;
+  @apply flex flex-col flex-grow bg-white rounded mt-4 p-2 shadow;
 }
 
 /* Footer */
@@ -221,5 +264,51 @@ fieldset {
 .a-footer__text {
   @apply text-sm text-gray-600 text-center;
 }
+
+/* Split Hero */
+.o-split-hero__container {
+  @apply flex flex-col items-center justify-center px-5 text-gray-800;
+}
+
+@screen md {
+  .o-split-hero__container {
+    @apply flex-row;
+  }
+}
+
+.m-split-hero__split {
+  @apply max-w-lg;
+}
+
+.m-split-hero__split.-md {
+  @apply max-w-md;
+}
+
+.m-split-hero__split > svg {
+  @apply w-full;
+}
+
+.a-split-hero__title {
+  @apply text-5xl font-bold;
+}
+
+.a-split-hero__subtitle {
+  @apply text-2xl leading-normal mb-8;
+}
+
+@screen md {
+  .a-split-hero__subtitle {
+    @apply text-3xl;
+  }
+}
+
+.a-split-hero__content {
+  @apply mb-2;
+}
+
+.o-subtitle__link {
+  @apply flex flex-row;
+}
+
 
 @tailwind utilities;

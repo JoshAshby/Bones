@@ -33,13 +33,14 @@ class Routes::Base < Roda
     hmac_secret secret
 
     prefix "/account"
+    login_label { "Email" }
+
     create_account_route "create"
-    close_account_route "close"
 
     require_login_confirmation? false
     create_account_additional_form_tags <<~HTML
       <div class="form-group">
-        <label for="username">Username:</label>
+        <label for="username">Username</label>
         <input name='username' id='username' type="text">
       </div>
     HTML
@@ -55,11 +56,29 @@ class Routes::Base < Roda
       Bones::UserFossil.new(username: account[:username]).ensure_fs!
     end
 
+    # before_login_route { scope.set_layout_options template: :layout_centered }
+    # login_view { view :index, layout: :layout }
+
     after_login do
       remember_login
 
       # username is used a lot for the fossil ops, so lets just cache it
       session[:username] = DB[:accounts].where(id: account[:id]).get(:username)
+    end
+
+    logout_redirect { "/" }
+
+    close_account_route "close"
+    before_close_account_route do
+      scope.set_layout_options template: :layout_logged_in
+    end
+
+    before_change_password_route do
+      scope.set_layout_options template: :layout_logged_in
+    end
+
+    before_change_login_route do
+      scope.set_layout_options template: :layout_logged_in
     end
   end
 
@@ -73,6 +92,6 @@ class Routes::Base < Roda
   end
 
   plugin :not_found do
-    view :not_found
+    view :not_found, layout: :layout_centered
   end
 end
