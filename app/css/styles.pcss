@@ -1,6 +1,6 @@
 @tailwind base;
 
-/*@tailwind components;*/
+@tailwind components;
 
 /*
  * TODO: This setup isn't super inclusive, on default styling for input types
@@ -26,14 +26,15 @@ input,
 button,
 textarea,
 select {
-  @apply text-gray-800 bg-gray-200 mr-2 mb-2 p-2 rounded outline-none;
+  @apply rounded px-4 py-1 bg-gray-200 border border-gray-400 mb-6 text-gray-700; /* placeholder-gray-700 focus:bg-white focus:outline-none; */
+  /*@apply text-gray-800 bg-gray-200 mr-2 mb-2 p-2 rounded outline-none;*/
 }
 
 input:focus,
 select:focus,
 button:focus,
 textarea:focus {
-  @apply shadow-outline;
+  @apply bg-white outline-none;
 }
 
 input:not([type='checkbox']):not([type='radio']),
@@ -221,4 +222,4 @@ fieldset {
   @apply text-sm text-gray-600 text-center;
 }
 
-/*@tailwind utilities;*/
+@tailwind utilities;

@@ -8,8 +8,9 @@ class Routes::Base < Roda
 
   plugin :render, views: "app/views"
   plugin :content_for
+  plugin :view_options
 
-  # plugin :run_append_slash
+  plugin :run_append_slash
 
   plugin :forme
   plugin :forme_set, secret: secret
@@ -65,16 +66,13 @@ class Routes::Base < Roda
   plugin :error_handler do |e|
     LOGGER.error e
 
-    view content: <<~HTML
-      #{ h e.class }: #{ h e.message }
-      <br />
-      #{ e.backtrace.map { |line| h line }.join('<br />') }
-    HTML
+    @exception_code = 500
+    @exception = e
+
+    view :error
   end
 
   plugin :not_found do
-    view content: <<~HTML
-      <h4>404 Not Found :(</h4>
-    HTML
+    view :not_found
   end
 end

@@ -1,0 +1,5 @@
+<% form @form, method: :post, action: "/dashboard/repository/#{@form.attributes[:id]}/edit" do |f| %>
+  <%= f.input :password, type: :password, label: "Reset Admin Password" %>
+
+  <%= f.button "Update Repository" %>
+<% end %>

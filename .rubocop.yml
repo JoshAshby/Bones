@@ -276,3 +276,6 @@ Style/SoleNestedConditional: # (new in 0.89)
   Enabled: true
 Style/StringConcatenation: # (new in 0.89)
   Enabled: true
+
+Style/AsciiComments:
+  Enabled: false

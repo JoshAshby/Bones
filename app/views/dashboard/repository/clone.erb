@@ -1,0 +1,8 @@
+<% form @form, method: :post, action: "/dashboard/repository/clone" do |f| %>
+  <%= f.input :name, type: :text, label: "Repository Name" %>
+  <%= f.input :clone_url, type: :url, label: "Repository Clone URL" %>
+
+  <%= f.input :password, type: :password, label: "Admin Password" %>
+
+  <%= f.button "Clone Repository" %>
+<% end %>
