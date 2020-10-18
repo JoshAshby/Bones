@@ -1,0 +1,10 @@
+<div class="w-full md:w-1/2 flex flex-col">
+<% flash.slice("info", "warn", "notice", "alert").each do |(key, message)| %>
+  <div class="">
+    <div class="inline-flex items-center bg-white leading-none text-plum-600 rounded shadow text-sm">
+      <span class="inline-flex bg-plum-600 text-white rounded-l p-2 px-3 justify-center items-center"><%= key %></span>
+      <span class="inline-flex px-3"><%= message %></span>
+    </div>
+  </div>
+<% end %>
+</div>
