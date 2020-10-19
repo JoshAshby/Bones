@@ -1,12 +1,12 @@
-<div class="mx-auto">
-  <div class="o-split-hero__container">
+<div class="o-split-hero__container">
+  <div class="o-split-hero__hero">
     <div class="m-split-hero__split">
       <h1 class="a-split-hero__title"><%= @exception_code %></h1>
       <h2 class="a-split-hero__subtitle">That's not gone well, has it?</h2>
 
       <% if ENV["RACK_ENV"] != "production" %>
-        <p class="a-split-hero__content"><%= @exception.class %></p>
-        <p class="a-split-hero__content"><%= @exception.message %></p>
+        <p class="a-split-hero__content"><%= h @exception.class %></p>
+        <p class="a-split-hero__content"><%= h @exception.message %></p>
       <% end %>
     </div>
     <div class="m-split-hero__split">
@@ -15,7 +15,7 @@
   </div>
 
   <% if ENV["RACK_ENV"] != "production" %>
-  <details class="max-w-5xl w-full overflow-scroll">
+  <details>
     <summary class="a-split-hero__subtitle">Backtrace</summary>
     <pre class="text-xs"><code><% @exception.backtrace.each do |line| -%>
   <%= h line -%>

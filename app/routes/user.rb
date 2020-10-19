@@ -73,19 +73,17 @@ class Routes::User < Routes::Base
         end
 
         r.post do
-          @form = Forms::CreateRepository.from_params(r.params) do |params|
-            params.merge id: id
-          end
+          @form = Forms::CreateRepository.from_params(r.params)
 
           unless @form.save account_id: rodauth.session_value, username: shared[:account][:username]
-            next view "dashboard/repository/edit"
+            next view "dashboard/repository/create"
           end
 
           flash[:info] = "Repository #{ @form.repository[:name] } created!"
 
           unless @form.password.blank?
             flash[:repository_password] = @form.password
-            flash[:repository_id] = @form.id
+            flash[:repository_id] = @form.repository[:id]
           end
 
           r.redirect "/dashboard"
@@ -101,19 +99,17 @@ class Routes::User < Routes::Base
         end
 
         r.post do
-          @form = Forms::CloneRepository.from_params(r.params) do |params|
-            params.merge id: id
-          end
+          @form = Forms::CloneRepository.from_params(r.params)
 
           unless @form.save account_id: rodauth.session_value, username: shared[:account][:username]
-            next view "dashboard/repository/edit"
+            next view "dashboard/repository/clone"
           end
 
           flash[:info] = "Repository #{ @form.repository[:name] } cloned from #{ @form.clone_url }!"
 
           unless @form.password.blank?
             flash[:repository_password] = @form.password
-            flash[:repository_id] = @form.id
+            flash[:repository_id] = @form.repository[:id]
           end
 
           r.redirect "/dashboard"

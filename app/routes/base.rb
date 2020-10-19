@@ -108,7 +108,6 @@ class Routes::Base < Roda
     Mail::TestMailer.deliveries.clear
   end
 
-  # rubocop:disable Style/HashLikeCase
   def flash_key key
     case key
     when "info" then "Info"
@@ -118,5 +117,4 @@ class Routes::Base < Roda
     else "Notice"
     end
   end
-  # rubocop:enable Style/HashLikeCase
 end
