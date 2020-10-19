@@ -30,18 +30,6 @@
             <span class="a-menu-link__title">Dashboard</span>
           </a>
         </li>
-        <%#<li class="a-sidebar-menu__list-item">%>
-          <%#<a href="/dashboard" class="o-menu_link__container">%>
-            <%#<span class="m-menu-link__icon">%>
-              <%#<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye-off"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>%>
-
-            <%#</span>%>
-            <%#<span class="a-menu_link__title">Private</span>%>
-            <%#<span%>
-              <%#class="flex items-center justify-center text-xs text-red-500 font-semibold bg-red-100 h-6 px-2 rounded-full ml-auto"%>
-            <%#>10</span>%>
-          <%#</a>%>
-        <%#</li>%>
         <li class="a-sidebar-menu__list-item">
           <a href="/dashboard/repository/create" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Create Repository" %>-active<% end %>">
             <span class="m-menu-link__icon -green">
@@ -78,24 +66,18 @@
             <span class="a-account-info__email"><%= shared[:account][:email] %></span>
           </span>
         </li>
-        <%#<li class="a-sidebar-menu__list-item">%>
-          <%#<form method="post" action="/account/logout">%>
-            <%#<%= rodauth.csrf_tag %>%>
-            <%#<div class="o-menu-link__container">%>
-            <%#<span class="m-menu-link__icon -red">%>
-              <%#<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>%>
-            <%#</span>%>
-            <%#<buttom type="submit" class="a-menu-link__title">Logout</submit>%>
-            <%#</div>%>
-          <%#</form>%>
-        <%#</li>%>
         <li class="a-sidebar-menu__list-item">
-          <a href="/account/logout" class="o-menu-link__container">
-            <span class="m-menu-link__icon -red">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-            </span>
-            <span class="a-menu-link__title">Logout</span>
-          </a>
+          <form method="post" action="/account/logout">
+            <%= rodauth.csrf_tag("/account/logout") %>
+
+            <button type="submit" class="o-menu-link__container m-menu-link__button">
+              <span class="m-menu-link__icon -red">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+              </span>
+              <span class="a-menu-link__title a-menu_link__button-text">Logout</span>
+            </button>
+
+          </form>
         </li>
       </ul>
     </div>

@@ -60,7 +60,7 @@ GEM
       dry-equalizer (~> 0.2)
       dry-initializer (~> 3.0)
       dry-schema (~> 1.5, >= 1.5.2)
-    erubis (2.7.0)
+    erubi (1.9.0)
     eventmachine (1.2.7)
     ffi (1.13.1)
     forme (1.11.0)
@@ -137,7 +137,7 @@ DEPENDENCIES
   dry-struct
   dry-types
   dry-validation
-  erubis
+  erubi
   forme
   listen
   mail

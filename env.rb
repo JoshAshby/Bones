@@ -87,6 +87,8 @@ Sequel.extension :core_refinements
 # Shrine.plugin :validation
 # Shrine.plugin :validation_helpers
 
+require "erubi/capture_end"
+
 require_relative "lib/forme/bones"
 Forme.default_config = :bones
 

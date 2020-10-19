@@ -1,6 +1,6 @@
 @tailwind base;
 
-@tailwind components;
+/*@tailwind components;*/
 
 /*
  * TODO: This setup isn't super inclusive, on default styling for input types
@@ -229,6 +229,14 @@ h2 {
   @apply ml-3 w-full;
 }
 
+.m-menu-link__button {
+  @apply w-full rounded-r-none bg-transparent border-0 p-0 appearance-none;
+}
+
+.a-menu_link__button-text {
+  @apply justify-self-start flex;
+}
+
 /* Sidebar account info */
 .o-account-info__item {
   @apply m-2;
@@ -281,7 +289,7 @@ h2 {
 }
 
 .m-content__body {
-  @apply flex flex-col flex-grow bg-white rounded mt-4 p-2 shadow;
+  @apply flex flex-col flex-grow bg-white rounded mt-4 p-8 shadow;
 }
 
 .a-content__flashes {
@@ -400,4 +408,44 @@ h2 {
   @apply flex-grow px-3 p-1 flex items-center;
 }
 
-@tailwind utilities;
+/* Info Card */
+.o-card__container {
+  @apply rounded-md shadow bg-gray-100 mb-4;
+}
+
+.m-card__header {
+  @apply flex justify-between border-b border-gray-200 p-4;
+}
+
+.m-card-header__left {
+  @apply flex;
+}
+
+.m-card-header__right {}
+
+.a-card__icon {}
+.a-card__icon.-blue {
+  @apply text-blue-500;
+}
+
+.a-card__title {
+  @apply font-bold text-gray-800 text-lg ml-2;
+}
+
+.a-card__close-button {
+  @apply text-gray-500;
+}
+
+.a-card__close-button:hover {
+  @apply text-red-600;
+}
+
+.m-card__body {
+  @apply p-4 text-gray-700;
+}
+
+.m-card__body > * {
+  @apply mb-2;
+}
+
+/*@tailwind utilities;*/

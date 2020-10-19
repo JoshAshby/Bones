@@ -1,0 +1,39 @@
+<% if flash["repository_id"] %>
+<div class="o-card__container" x-data="">
+  <div class="m-card__header">
+    <div class="m-card-header__left">
+      <span class="a-card__icon -blue">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+      </span>
+      <span class="a-card__title">Repository Information</span>
+    </div>
+    <div class="m-card-header__right">
+      <button class="a-card__close-button" @click="$el.remove()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="m-card__body">
+    <p>
+      Your repository has been created, however please remember that since
+      Fossil is an all-in-one solution and Bones only handles creating and managing
+      hosted repositories but does not have control over a Fossil's permissions,
+      you are required to go in and lock it down as you see fit.
+    </p>
+    <p>
+      The created superuser in your new Fossil repository is the same as your
+      username, <code><%= session["username"] %></code> and the password is
+      <code><%= flash["repository_password"] %></code>. We'd recommend you go in
+      and change this during setup.
+    </p>
+    <p>
+      <% @repositories.find { _1[:id] == flash["repository_id"] }&.tap do |repository| %>
+        <strong>URL:</strong> <a href="https://bones.isin.space/user/<%= session["username"] %>/repository/<%= repository[:name] %>"><code>https://bones.isin.space/user/<%= session["username"] %>/repository/<%= repository[:name] %></code></a><br />
+        <strong>User:</strong> <code><%= session["username"] %></code><br />
+        <strong>Password:</strong> <code><%= flash["repository_password"] %></code>
+      <% end %>
+    </p>
+  </div>
+</div>
+<% end %>

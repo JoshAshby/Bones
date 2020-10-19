@@ -6,7 +6,7 @@ class Routes::Base < Roda
   plugin RequestLogger
   plugin :public
 
-  plugin :render, views: "app/views"
+  plugin :render, views: "app/views", template_opts: { engine_class: Erubi::CaptureEndEngine, outvar: '@_out_buf' }
   plugin :content_for
   plugin :view_options
 
@@ -93,7 +93,7 @@ class Routes::Base < Roda
     @exception_code = 500
     @exception = e
 
-    view :error
+    view :error, layout: :layout_centered
   end
 
   plugin :not_found do

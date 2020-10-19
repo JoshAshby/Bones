@@ -118,6 +118,8 @@ class Routes::User < Routes::Base
     end
 
     r.root do
+      flash.now["repository_id"] = 19
+      flash.now["repository_password"] = "asdfjfasd"
       @repositories = DB[:repositories].where(account_id: rodauth.session_value)
       view "dashboard/index"
     end
