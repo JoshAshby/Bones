@@ -26,7 +26,7 @@ input,
 button,
 textarea,
 select {
-  @apply rounded px-4 py-1 bg-gray-200 border border-gray-400 mb-2 text-gray-700;
+  @apply rounded px-4 py-1 bg-gray-200 border border-gray-400 text-gray-700;
 }
 
 input::placeholder,
@@ -63,6 +63,38 @@ fieldset {
 label {
   @apply font-bold text-gray-800;
 }
+
+.o-form {}
+.o-form__fielset {}
+.m-form__input-group {
+  @apply mb-2;
+}
+
+.a-form__label {}
+.a-form__label.-error {
+  @apply text-indianred-600;
+}
+
+.a-form__button {}
+
+.a-form__button.-primary {
+  @apply bg-brand text-steelblue-50;
+}
+
+.a-form__button.-primary:hover {
+  @apply bg-steelblue-700 text-steelblue-50;
+}
+
+.a-form__input {}
+.a-form__input.-error {
+  @apply border-indianred-600 text-indianred-700;
+}
+
+.a-form__error-message {
+  @apply text-indianred-600;
+}
+
+/* Non-form defaults */
 
 a {
   @apply text-steelblue-600;

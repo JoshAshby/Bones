@@ -1,8 +1,8 @@
 <% form @form, method: :post, action: "/dashboard/repository/create" do |f| %>
   <%= f.input :name, type: :text, label: "Repository Name", required: true %>
-  <%= f.input :password, type: :password, label: "Admin Password" %>
+  <%= f.input :password, type: :password, label: "Admin Password", help: "Leave this blank to auto-generate an admin password" %>
 
-  <%= f.input :project_name, type: :text, label: "Project Name" %>
+  <%= f.input :project_name, type: :text, label: "Project Name", help: "Optional, will set the project-name config on the Fossil repository" %>
 
   <%= f.button "Create Repository" %>
 <% end %>
