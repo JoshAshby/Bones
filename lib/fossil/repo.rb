@@ -11,7 +11,7 @@ class Fossil::Repo
     @repo = repository_file.basename.sub_ext("").to_s
   end
 
-  def create_repository! username:
+  def create_repository username:
     if repository_file.exist?
       LOGGER.fossil "Attempted to create an existing repo #{ repository_file }"
       fail "Attempted to create an existing repo #{ self }"
@@ -23,11 +23,7 @@ class Fossil::Repo
     nil
   end
 
-  def delete_repository!
-    FileUtils.remove_file repository_file.to_s
-  end
-
-  def clone_repository url:, username:, password:
+  def clone_repository url:, username:
     if repository_file.exist?
       LOGGER.fossil "Attempted to clone an existing repo #{ repository_file }"
       fail "Attempted to clone an existing repo #{ self }"
@@ -36,7 +32,11 @@ class Fossil::Repo
     status = run_fossil_command "clone", "--admin-user", username, url, repository_file.to_s
     fail "abnormal status cloning fossil #{ url } #{ self } - #{ status.exitstatus }" unless status.success?
 
-    change_password username: username, password: password
+    nil
+  end
+
+  def delete_repository!
+    FileUtils.remove_file repository_file.to_s
   end
 
   def create_user username:, contact_info:, password:

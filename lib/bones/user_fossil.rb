@@ -11,8 +11,8 @@ class Bones::UserFossil
   end
 
   def ensure_fs!
-    ensure_repo_dirs!
-    ensure_cgi_script!
+    ensure_repo_dirs
+    ensure_cgi_script
   end
 
   def repository_names
@@ -24,7 +24,7 @@ class Bones::UserFossil
   def create_repository name, admin_password:, project_name:
     repo = repository name
 
-    repo.create_repository! username: username
+    repo.create_repository username: username
     password = repo.change_password username: username, password: admin_password
 
     repo.repository_db do |db|
@@ -38,6 +38,21 @@ class Bones::UserFossil
     password
   end
 
+  def clone_repository name, url:, admin_password:
+    repo = repository name
+
+    repo.clone_repository username: username, url: url
+    password = repo.change_password username: username, password: admin_password
+
+    repo.repository_db do |db|
+      # little bit of security, prevents someone on the server from accessing
+      # the web ui without credentials
+      db[:config].where(name: "localauth").update(value: 1)
+    end
+
+    password
+  end
+
   def repository repo
     repo = "#{ repo }.fossil" unless repo.end_with? ".fossil"
     Fossil::Repo.new @repo_root.join(repo)
@@ -45,11 +60,11 @@ class Bones::UserFossil
 
   protected
 
-  def ensure_repo_dirs!
+  def ensure_repo_dirs
     @repo_root.mkpath unless @repo_root.exist?
   end
 
-  def ensure_cgi_script!
+  def ensure_cgi_script
     script = @user_root.join("repo")
 
     return if script.exist?
