@@ -21,12 +21,12 @@
             <div class="flex items-center justify-center">
               <h2 class="text-2xl font-bold tracking-wide">Welcome Back</h2> 
             </div>
-            <h2 class="text-xl text-center font-semibold text-gray-800 mb-2">Log In</h2>
+            <h3 class="text-xl text-center font-semibold text-gray-800 mb-2">Log In</h2>
             <%= f.input :text, name: :login, placeholder: "Email Address", class: "w-full" %>
             <%= f.input :password, name: :password, placeholder: "Password", class: "w-full" %>
             <div class="flex items-center justify-between">
               <a href="/account/reset-password-request" class="text-gray-600 hover:text-gray-800">Forget Password?</a>
-              <%= f.button value: "Log In", class: "bg-brand text-gray-200 px-2 py-1 rounded" %>
+              <%= f.button value: "Log In" %>
             </div>
           <% end %>
         </div>

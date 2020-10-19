@@ -650,7 +650,6 @@ select {
   --border-opacity: 1;
   border-color: #cbd5e0;
   border-color: rgba(203, 213, 224, var(--border-opacity));
-  margin-bottom: 0.5rem;
   --text-opacity: 1;
   color: #4a5568;
   color: rgba(74, 85, 104, var(--text-opacity));
@@ -718,6 +717,66 @@ label {
   color: #2d3748;
   color: rgba(45, 55, 72, var(--text-opacity));
 }
+
+.o-form {
+}
+
+.o-form__fielset {
+}
+
+.m-form__input-group {
+  margin-bottom: 0.5rem;
+}
+
+.a-form__label {
+}
+
+.a-form__label.-error {
+  --text-opacity: 1;
+  color: #a85053;
+  color: rgba(168, 80, 83, var(--text-opacity));
+}
+
+.a-form__button {
+}
+
+.a-form__button.-primary {
+  --bg-opacity: 1;
+  background-color: #23334B;
+  background-color: rgba(35, 51, 75, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #f7fafb;
+  color: rgba(247, 250, 251, var(--text-opacity));
+}
+
+.a-form__button.-primary:hover {
+  --bg-opacity: 1;
+  background-color: #2f527d;
+  background-color: rgba(47, 82, 125, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #f7fafb;
+  color: rgba(247, 250, 251, var(--text-opacity));
+}
+
+.a-form__input {
+}
+
+.a-form__input.-error {
+  --border-opacity: 1;
+  border-color: #a85053;
+  border-color: rgba(168, 80, 83, var(--border-opacity));
+  --text-opacity: 1;
+  color: #783d43;
+  color: rgba(120, 61, 67, var(--text-opacity));
+}
+
+.a-form__error-message {
+  --text-opacity: 1;
+  color: #a85053;
+  color: rgba(168, 80, 83, var(--text-opacity));
+}
+
+/* Non-form defaults */
 
 a {
   --text-opacity: 1;
