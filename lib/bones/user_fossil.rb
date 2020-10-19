@@ -32,7 +32,8 @@ class Bones::UserFossil
       # the web ui without credentials
       db[:config].where(name: "localauth").update(value: 1)
 
-      db[:config].where(name: "project-name").update(value: project_name) if project_name
+      # TODO: insert or update?
+      db[:config].insert(name: "project-name", value: project_name, mtime: Time.now) if project_name
     end
 
     password

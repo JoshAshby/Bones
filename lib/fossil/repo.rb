@@ -55,7 +55,7 @@ class Fossil::Repo
   end
 
   def change_password username:, password: nil
-    password ||= SecureRandom.hex(20)
+    password = SecureRandom.hex(20) if password.blank?
 
     status = run_fossil_command "user", "password", username, password, "--repository", repository_file.to_s
     fail "abnormal status creating a new user in fossil #{ self } - #{ status.exitstatus }" unless status.success?
@@ -65,7 +65,7 @@ class Fossil::Repo
 
   def run_fossil_command *args
     log, status = Open3.capture2e(Fossil.fossil_binary, *args)
-    LOGGER.fossil "Ran fossil command with args [#{ args.join ', ' }]", status: status
+    LOGGER.fossil "Ran fossil command `fossil #{ args.join ' ' }'", status: status
     LOGGER.fossil log
     status
   end
