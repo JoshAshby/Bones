@@ -15,15 +15,16 @@ gem "tty-option"
 # gem "tty-config"
 
 gem "roda"
+gem "rodauth"
 gem "thin"
 gem "tilt"
+gem "erubis", require: "tilt/erubis"
 
 gem "sqlite3"
 gem "sequel"
 
 gem "bcrypt"
 gem "mail"
-gem "rodauth"
 
 # gem "shrine", "~> 3.0"
 gem "forme"

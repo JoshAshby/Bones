@@ -22,6 +22,8 @@ class Routes::Base < Roda
   plugin :sessions, secret: secret
   plugin :shared_vars
 
+  plugin :hooks
+
   plugin :rodauth, csrf: :route_csrf do
     db DB
 
@@ -34,6 +36,9 @@ class Routes::Base < Roda
 
     prefix "/account"
     login_label { "Email" }
+
+    change_login_button { "Change Email" }
+    change_login_route { "change-email" }
 
     create_account_route "create"
 
@@ -94,4 +99,24 @@ class Routes::Base < Roda
   plugin :not_found do
     view :not_found, layout: :layout_centered
   end
+
+  after do
+    Mail::TestMailer.deliveries.each do |mail|
+      LOGGER.mail mail
+    end
+
+    Mail::TestMailer.deliveries.clear
+  end
+
+  # rubocop:disable Style/HashLikeCase
+  def flash_key key
+    case key
+    when "info" then "Info"
+    when "notice" then "Notice"
+    when "warn" then "Warning"
+    when "alert" then "Alert"
+    else "Notice"
+    end
+  end
+  # rubocop:enable Style/HashLikeCase
 end

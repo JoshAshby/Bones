@@ -252,6 +252,10 @@ h2 {
   @apply flex flex-col flex-grow bg-white rounded mt-4 p-2 shadow;
 }
 
+.a-content__flashes {
+  @apply w-1/2 flex items-center mx-auto;
+}
+
 /* Footer */
 .o-footer__container {
   @apply px-4 py-6;
@@ -277,7 +281,7 @@ h2 {
 }
 
 .m-split-hero__split {
-  @apply max-w-lg;
+  @apply max-w-lg flex-grow;
 }
 
 .m-split-hero__split.-md {
@@ -310,5 +314,54 @@ h2 {
   @apply flex flex-row;
 }
 
+/* Flashes */
+
+.o-flash__container {
+  @apply w-full flex flex-col;
+}
+
+.m-flash__flash {
+  @apply flex flex-row bg-white leading-none rounded shadow text-sm mb-1 w-full;
+}
+
+.m-flash__flash.-info {
+  @apply text-gray-600;
+}
+
+.m-flash__flash.-notice {
+  @apply text-steelblue-600;
+}
+
+.m-flash__flash.-warn {
+  @apply text-orange-600;
+}
+
+.m-flash__flash.-alert {
+  @apply text-plum-600;
+}
+
+.a-flash__key {
+  @apply rounded-l p-2 px-3 flex items-center;
+}
+
+.a-flash__key.-info {
+  @apply bg-gray-600 text-white;
+}
+
+.a-flash__key.-notice {
+  @apply bg-steelblue-600 text-white;
+}
+
+.a-flash__key.-warn {
+  @apply bg-orange-600 text-white;
+}
+
+.a-flash__key.-alert {
+  @apply bg-plum-600 text-white;
+}
+
+.a-flash__message {
+  @apply flex-grow px-3 p-1 flex items-center;
+}
 
 @tailwind utilities;

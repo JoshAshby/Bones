@@ -108,7 +108,9 @@
       <h1 class="a-content__header"><%= shared[:breadcrumbs].last %></h1>
 
       <div class="m-content__body">
-        <%= render :_flashes %>
+        <div class="a-content__flashes">
+          <%= render :_flashes %>
+        </div>
 
         <%= yield %>
       </div>
