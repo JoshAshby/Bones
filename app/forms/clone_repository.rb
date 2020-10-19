@@ -43,7 +43,8 @@ class Forms::CloneRepository < Forms::Base
 
     rule(:name) do
       next unless values[:name][%r{\A[A-Za-z1-9_-]+\z}].nil?
-      key.failure("Invalid name, can only contain letter, numbers, underscores and dashes")
+
+      key.failure("Can only contain letter, numbers, underscores and dashes")
     end
   end
 end
