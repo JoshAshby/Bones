@@ -1,23 +1,41 @@
 <% if flash["repository_id"] %>
-  <p>
-    Your new repository has been created, however please remember that since
-    Fossil is an all-in-one solution and Bones only handles creating and managing
-    hosted repositories but does not have control over a Fossil's permissions,
-    you are required to go in and lock it down as you see fit.
-  </p>
-  <p>
-    The created superuser in your new Fossil repository is the same as your
-    username, <code><%= session["username"] %></code> and the password is
-    <code><%= flash["repository_password"] %></code>. We'd recommend you go in
-    and change this during setup.
-  </p>
-  <p>
-    <% @repositories.find { _1[:id] == flash["repository_id"] }.tap do |repository| %>
-      URL: <code>https://bones.isin.space/user/<%= session["username"] %>/repository/<%= repository[:name] %></code><br />
-      User: <code><%= session["username"] %></code><br />
-      Password: <code><%= flash["repository_password"] %></code>
-    <% end %>
-  </p>
+<div class="rounded-md shadow bg-gray-100 m-6">
+  <div class="flex justify-between border-b border-gray-200 p-4">
+    <div class="flex">
+      <span class="text-blue-500">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+      </span>
+      <span class="font-bold text-gray-700 text-lg ml-2">Repository Information</span>
+    </div>
+    <div>
+      <button class="text-gray-500 hover:text-red-600">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="p-4 text-gray-700">
+    <p class="mb-2">
+      Your new repository has been created, however please remember that since
+      Fossil is an all-in-one solution and Bones only handles creating and managing
+      hosted repositories but does not have control over a Fossil's permissions,
+      you are required to go in and lock it down as you see fit.
+    </p>
+    <p class="mb-2">
+      The created superuser in your new Fossil repository is the same as your
+      username, <code><%= session["username"] %></code> and the password is
+      <code><%= flash["repository_password"] %></code>. We'd recommend you go in
+      and change this during setup.
+    </p>
+    <p class="mb-2">
+      <% @repositories.find { _1[:id] == flash["repository_id"] }&.tap do |repository| %>
+        URL: <code>https://bones.isin.space/user/<%= session["username"] %>/repository/<%= repository[:name] %></code><br />
+        User: <code><%= session["username"] %></code><br />
+        Password: <code><%= flash["repository_password"] %></code>
+      <% end %>
+    </p>
+  </div>
+</div>
 <% end %>
 
 <% if @repositories.any? %>

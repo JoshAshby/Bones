@@ -57,7 +57,7 @@ class Routes::User < Routes::Base
               r.redirect "/dashboard"
             end
 
-            flash[:error] = "Repository name did not match, #{ @repository[:name] } was NOT deleted!"
+            flash[:alert] = "Repository name did not match, #{ @repository[:name] } was NOT deleted!"
 
             r.redirect "/dashboard"
           end

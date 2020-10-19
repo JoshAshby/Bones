@@ -8,7 +8,7 @@ module Forme
     wrapper: :bones,
     error_handler: :bones,
     # serializer: :bones,
-    labeler: :bones,
+    labeler: :bones
     # tag_wrapper: :bones,
     # set_wrapper: :div
   )
@@ -19,6 +19,7 @@ module Forme
     def call tag, input
       tag.each do |t|
         next unless t.is_a? Tag
+
         Forme.attr_classes(t.attr, "-error")
       end
 
@@ -28,7 +29,7 @@ module Forme
 
       return [ tag ] if input.opts[:skip_error_message]
 
-      return [ tag, input.tag(:p, attr, input.opts[:error].join(", ")) ]
+      [ tag, input.tag(:p, attr, input.opts[:error].join(", ")) ]
     end
   end
 
@@ -53,11 +54,11 @@ module Forme
       end
 
       tag = if html = input.opts[:html]
-        html = html.call(input) if html.respond_to?(:call)
-        form.raw(html)
-      else
-        convert_to_tag(input.type)
-      end
+              html = html.call(input) if html.respond_to?(:call)
+              form.raw(html)
+            else
+              convert_to_tag(input.type)
+            end
 
       tag = wrap_tag_with_label(tag) if @opts[:label]
       tag = wrap_tag_with_error(tag) if @opts[:error]
@@ -92,9 +93,7 @@ module Forme
       attr = attr ? attr.dup : {}
       Forme.attr_classes(attr, "a-form__label")
 
-      if input.opts[:required] && !label.end_with?("*")
-        label += "*"
-      end
+      label += "*" if input.opts[:required] && !label.end_with?("*")
 
       case input.type
       when :submit then [tag]
