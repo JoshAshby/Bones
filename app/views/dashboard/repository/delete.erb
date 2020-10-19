@@ -1,0 +1,8 @@
+<% form method: :post, action: "/dashboard/repository/#{@repository[:id]}/delete" do |f| %>
+  <p>
+    Please type the name of this repository to delete it. <code><%= @repository[:name] %></code>
+  </p>
+  <%= f.input :text, name: "repository[name]", label: "Repository Name" %>
+
+  <%= f.button "Delete" %>
+<% end %>

@@ -38,10 +38,28 @@ class Routes::User < Routes::Base
         end
 
         r.on "delete" do
-          r.get { view "dashboard/repository/delete" }
+          shared[:breadcrumbs] << "Delete"
+          @repository = DB[:repositories].first id: id
+
+          r.get do
+            view "dashboard/repository/delete"
+          end
 
           r.post do
-            binding.irb
+            if r.params["repository"]["name"] == @repository[:name]
+              repo = Bones::UserFossil.new(session["username"]).repository @repository[:name]
+              repo.delete_repository!
+
+              DB[:repositories].where(id: id).delete
+
+              flash[:info] = "Repository #{ @repository[:name] } was deleted!"
+
+              r.redirect "/dashboard"
+            end
+
+            flash[:error] = "Repository name did not match, #{ @repository[:name] } was NOT deleted!"
+
+            r.redirect "/dashboard"
           end
         end
       end

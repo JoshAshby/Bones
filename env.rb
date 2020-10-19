@@ -17,7 +17,8 @@ LOGGER = TTY::Logger.new do |config|
   config.types = {
     database: { level: :debug },
     request: { level: :info },
-    fossil: { level: :debug }
+    fossil: { level: :debug },
+    mail: { level: :debug }
   }
 
   config.handlers = [
@@ -34,6 +35,10 @@ LOGGER = TTY::Logger.new do |config|
         },
         fossil: {
           label: "FOSSIL",
+          levelpad: 0
+        },
+        mail: {
+          label: "mail",
           levelpad: 0
         }
       }
@@ -81,6 +86,10 @@ Sequel.extension :core_refinements
 # Shrine.plugin :cached_attachment_data
 # Shrine.plugin :validation
 # Shrine.plugin :validation_helpers
+
+Mail.defaults do
+  delivery_method :test
+end
 
 Thread.abort_on_exception = true
 trap("INT") { exit }

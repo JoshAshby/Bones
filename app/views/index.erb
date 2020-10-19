@@ -2,11 +2,9 @@
   <header class="content px-8 py-2">
     <nav class="flex items-center justify-between">
       <%= render :_logo %>
-      <%#<div class="auth flex items-center">%>
-        <%#<button class="bg-brand text-gray-200 py-2 px-3 rounded hover:bg-gray-800 hover:text-gray-100">Sign up</button>%>
-      <%#</div>%>
     </nav>
   </header>
+
   <div class="body mt-20 mx-8">
     <div class="md:flex items-center justify-between">
       <div class="w-full md:w-1/2 mr-auto">
@@ -16,13 +14,14 @@
         </p>
         <span class="text-gray-800">New Around Here?<a href="/account/create" class="text-palevioletred-600 text-lg ml-2 font-bold">Sign Up!</a></span>
       </div>
+
       <div class="w-full md:max-w-md mt-6">
         <div class="card bg-white shadow-md rounded-lg px-4 py-4 mb-6 ">
           <% form action: "/account/login", method: "post" do |f| %>
             <div class="flex items-center justify-center">
-              <h2 class="text-2xl font-bold tracking-wide">Welcome back</h2> 
+              <h2 class="text-2xl font-bold tracking-wide">Welcome Back</h2> 
             </div>
-            <h2 class="text-xl text-center font-semibold text-gray-800 mb-2">Sign In</h2>
+            <h2 class="text-xl text-center font-semibold text-gray-800 mb-2">Log In</h2>
             <%= f.input :text, name: :login, placeholder: "Email Address", class: "w-full" %>
             <%= f.input :password, name: :password, placeholder: "Password", class: "w-full" %>
             <div class="flex items-center justify-between">
@@ -31,10 +30,14 @@
             </div>
           <% end %>
         </div>
+
+        <%= render :_flashes %>
       </div>
     </div>
   </div>
+
   <div class="flex-grow"></div>
+
   <footer class="o-footer__container">
     <div class="m-footer__content">
       <p class="a-footer__text">

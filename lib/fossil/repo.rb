@@ -23,6 +23,10 @@ class Fossil::Repo
     nil
   end
 
+  def delete_repository!
+    FileUtils.remove_file repository_file.to_s
+  end
+
   def clone_repository url:, username:, password:
     if repository_file.exist?
       LOGGER.fossil "Attempted to clone an existing repo #{ repository_file }"
