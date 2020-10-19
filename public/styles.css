@@ -1113,6 +1113,14 @@ h2 {
 /* Split Hero */
 
 .o-split-hero__container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 64rem;
+  overflow: scroll;
+}
+
+.o-split-hero__hero {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1125,7 +1133,7 @@ h2 {
 }
 
 @media (min-width: 768px) {
-  .o-split-hero__container {
+  .o-split-hero__hero {
     flex-direction: row;
   }
 }

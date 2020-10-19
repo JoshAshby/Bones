@@ -271,11 +271,15 @@ h2 {
 
 /* Split Hero */
 .o-split-hero__container {
+  @apply mx-auto w-full max-w-5xl overflow-scroll;
+}
+
+.o-split-hero__hero {
   @apply flex flex-col items-center justify-center px-5 text-gray-800;
 }
 
 @screen md {
-  .o-split-hero__container {
+  .o-split-hero__hero {
     @apply flex-row;
   }
 }

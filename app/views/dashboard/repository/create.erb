@@ -1,3 +1,7 @@
+<% if @form.errors.any? %>
+  <%= h @form.errors %>
+<% end %>
+
 <% form @form, method: :post, action: "/dashboard/repository/create" do |f| %>
   <%= f.input :name, type: :text, label: "Repository Name", required: true %>
   <%= f.input :password, type: :password, label: "Admin Password" %>
