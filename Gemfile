@@ -18,7 +18,7 @@ gem "roda"
 gem "rodauth"
 gem "thin"
 gem "tilt"
-gem "erubis", require: "tilt/erubis"
+gem "erubi"
 
 gem "sqlite3"
 gem "sequel"

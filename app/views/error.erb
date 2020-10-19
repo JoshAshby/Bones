@@ -22,5 +22,28 @@
   <% end -%>
   </code></pre>
   </details>
+  <details>
+    <summary class="a-split-hero__subtitle">View Variables</summary>
+    <ul>
+      <% instance_variables.each do |variable| %>
+        <li><code><%= variable %></code></li>
+    <% end %>
+    </ul>
+  </details>
+  <details>
+    <summary class="a-split-hero__subtitle">Rack Env</summary>
+    <table>
+      <thead>
+      </thead>
+      <tbody>
+        <% env.each do |(key, value)| %>
+          <tr>
+            <td><%= key %></td>
+            <td><%= value %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </details>
   <% end %>
 </div>
