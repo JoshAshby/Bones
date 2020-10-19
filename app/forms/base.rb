@@ -20,5 +20,8 @@ class Forms::Base < Dry::Struct
 
   def forme_config form
     form.namespaces << self.class.forme_namespace
+
+    form_errors = errors&.transform_keys(&:to_s)
+    form.opts[:errors] = { self.class.forme_namespace.to_s => form_errors }
   end
 end

@@ -87,6 +87,9 @@ Sequel.extension :core_refinements
 # Shrine.plugin :validation
 # Shrine.plugin :validation_helpers
 
+require_relative "lib/forme/bones"
+Forme.default_config = :bones
+
 Mail.defaults do
   delivery_method :test
 end

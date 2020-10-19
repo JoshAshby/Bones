@@ -11,7 +11,19 @@ per user basis.
 
 # Deploy
 
-TODO
+TODO:
+- [ ] Setup Mail gem to be configurable per env - https://github.com/mikel/mail#sending-an-email
+- [ ] Ensure all text input is escaped in the templates
+- [ ] Flesh out tests and documentation for Bones & Fossil modules
+- [ ] Mobile design (not required for launch but nice to have)
+- [ ] Non-page based log out. Button on sidebar should just do it
+- [ ] Feature flag for public sign-up
+- [ ] Build out lighttpd setup and test it out
+- [ ] Dockerfile for the ruby component
+
+Possible Future Features:
+- [ ] Periodic task to pull/sync cloned repos
+- [ ] Public/Private on repositories
 
 # Development
 
