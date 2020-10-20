@@ -6,7 +6,7 @@ class Routes::Base < Roda
   plugin RequestLogger
   plugin :public
 
-  plugin :render, views: "app/views", template_opts: { engine_class: Erubi::CaptureEndEngine, outvar: '@_out_buf' }
+  plugin :render, views: "app/views", template_opts: { engine_class: Erubi::CaptureEndEngine, outvar: "@_out_buf", escape_capture: true, escape_html: true }
   plugin :content_for
   plugin :view_options
 
@@ -33,6 +33,8 @@ class Routes::Base < Roda
            :create_account
 
     hmac_secret secret
+
+    email_from { CONFIG["email_from"] }
 
     prefix "/account"
     login_label { "Email" }
@@ -100,13 +102,13 @@ class Routes::Base < Roda
     view :not_found, layout: :layout_centered
   end
 
-  after do
-    Mail::TestMailer.deliveries.each do |mail|
-      LOGGER.mail mail
-    end
+  # after do
+    # Mail::TestMailer.deliveries.each do |mail|
+      # LOGGER.mail mail
+    # end
 
-    Mail::TestMailer.deliveries.clear
-  end
+    # Mail::TestMailer.deliveries.clear
+  # end
 
   def flash_key key
     case key

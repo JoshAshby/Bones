@@ -1,0 +1,14 @@
+bones:
+  repository_root: <%= ENV["REPO_ROOT"] %>
+  fossil_binary: <%= ENV["FOSSIL_BINARY"] %>
+
+domain: https://bones.isin.space
+email_from: no-reply@bones.isin.space
+
+mail:
+  delivery_method: logger
+  #delivery_method: test
+  #delivery_method: smtp
+  #delivery_config:
+     #address: "localhost"
+     #port: 1025

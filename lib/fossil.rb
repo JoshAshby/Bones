@@ -2,6 +2,6 @@
 
 module Fossil
   def self.fossil_binary
-    ENV["FOSSIL_BINARY"]
+    @fossil_binary ||= CONFIG.dig("bones", "fossil_binary")
   end
 end

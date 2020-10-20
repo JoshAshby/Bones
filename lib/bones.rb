@@ -2,6 +2,6 @@
 
 module Bones
   def self.root
-    @root ||= Pathname.new(ENV["REPO_ROOT"]).expand_path
+    @root ||= Pathname.new(CONFIG.dig("bones", "repository_root")).expand_path
   end
 end
