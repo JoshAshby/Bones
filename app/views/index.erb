@@ -14,7 +14,9 @@
         <p class="a-landing-page__copy-body">
           Bones is a light weight, no-fuss Fossil-SCM host.
         </p>
-        <span class="a-landing-page__copy-cta">New Around Here?<a href="/account/create" class="a-landing-page__cta-link">Sign Up!</a></span>
+        <% if Features.enabled? :sign_up %>
+          <span class="a-landing-page__copy-cta">New Around Here?<a href="/account/create" class="a-landing-page__cta-link">Sign Up!</a></span>
+        <% end %>
       </div>
 
       <div class="o-landing-page__signin-holder">

@@ -22,7 +22,9 @@
 
         <% unless rodauth.logged_in? %>
         <div class="m-navbar__links">
-          <a href="/account/create" class="a-navbar__link">Sign up</a>
+          <% if Features.enabled? :sign_up %>
+            <a href="/account/create" class="a-navbar__link">Sign up</a>
+          <% end %>
           <a href="/account/login" class="a-navbar__link -bordered-blue">Log in</a>
         </div>
         <% end %>
