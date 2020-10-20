@@ -50,6 +50,9 @@ LOGGER = TTY::Logger.new do |config|
   config.output = [$stderr, logfile.open("a+")]
 end
 
+CONFIG = YAML.load(Tilt::ERBTemplate.new("config/#{ENV["RACK_ENV"]}.yml", engine_class: Erubi::Engine).render)
+LOGGER.debug("Config", CONFIG)
+
 # Delete DATABASE_URL from the environment, so it isn't accidently
 # passed to subprocesses. DATABASE_URL may contain passwords.
 DB = Sequel.connect ENV.delete("DATABASE_URL"), logger: LOGGER
@@ -92,8 +95,25 @@ require "erubi/capture_end"
 require_relative "lib/forme/bones"
 Forme.default_config = :bones
 
+class LoggerDelivery
+  attr_reader :settings
+
+    def initialize(settings)
+      @settings = settings
+    end
+
+  def deliver!(mail)
+    LOGGER.mail { mail }
+  end
+end
+
 Mail.defaults do
-  delivery_method :test
+  if CONFIG.dig("mail", "delivery_method") == "logger"
+    delivery_method ::LoggerDelivery
+  else
+    config = CONFIG["mail"]
+    delivery_method(config["delivery_method"].to_sym, **config.fetch("delivery_options", {}).transform_keys(&:to_sym))
+  end
 end
 
 Thread.abort_on_exception = true

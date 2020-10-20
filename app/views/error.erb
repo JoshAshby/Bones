@@ -17,10 +17,8 @@
   <% if ENV["RACK_ENV"] != "production" %>
   <details>
     <summary class="a-split-hero__subtitle">Backtrace</summary>
-    <pre class="text-xs"><code><% @exception.backtrace.each do |line| -%>
-  <%= h line -%>
-  <% end -%>
-  </code></pre>
+    <pre class="text-xs"><code><% @exception.backtrace.each do |line| %><%= h line %>
+<% end %></code></pre>
   </details>
   <details>
     <summary class="a-split-hero__subtitle">View Variables</summary>
@@ -39,7 +37,7 @@
         <% env.each do |(key, value)| %>
           <tr>
             <td><%= key %></td>
-            <td><%= value %></td>
+            <td><%= h value %></td>
           </tr>
         <% end %>
       </tbody>

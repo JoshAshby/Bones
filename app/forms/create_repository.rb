@@ -12,7 +12,7 @@ class Forms::CreateRepository < Forms::Base
   end
 
   def save account_id:, username:
-    schema = CreateContract.new.call attributes
+    schema = Contracts::Repository.new.call attributes
     @errors = schema.errors.to_h
     return false unless errors.empty?
 
@@ -31,19 +31,5 @@ class Forms::CreateRepository < Forms::Base
     @repository.yield_self { _1[:id] = DB[:repositories].insert _1 }
 
     true
-  end
-
-  class CreateContract < Dry::Validation::Contract
-    schema do
-      required(:name).filled(:string)
-      optional(:password)
-      optional(:project_name)
-    end
-
-    rule(:name) do
-      next unless values[:name][%r{\A[A-Za-z1-9_-]+\z}].nil?
-
-      key.failure("Can only contain letter, numbers, underscores and dashes")
-    end
   end
 end

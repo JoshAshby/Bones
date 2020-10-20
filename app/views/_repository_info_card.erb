@@ -29,7 +29,7 @@
     </p>
     <p>
       <% @repositories.find { _1[:id] == flash["repository_id"] }&.tap do |repository| %>
-        <strong>URL:</strong> <a href="https://bones.isin.space/user/<%= session["username"] %>/repository/<%= repository[:name] %>"><code>https://bones.isin.space/user/<%= session["username"] %>/repository/<%= repository[:name] %></code></a><br />
+        <strong>URL:</strong> <a href="<%= CONFIG["domain"] %>/user/<%= session["username"] %>/repository/<%= repository[:name] %>"><code><%= CONFIG["domain"] %>/user/<%= session["username"] %>/repository/<%= repository[:name] %></code></a><br />
         <strong>User:</strong> <code><%= session["username"] %></code><br />
         <strong>Password:</strong> <code><%= flash["repository_password"] %></code>
       <% end %>
