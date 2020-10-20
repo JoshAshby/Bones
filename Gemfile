@@ -10,7 +10,7 @@ gem "zeitwerk"
 
 gem "rake"
 gem "tty-logger"
-gem "tty-option"
+# gem "tty-option"
 # gem "tty-prompt"
 # gem "tty-config"
 
@@ -29,9 +29,10 @@ gem "mail"
 # gem "shrine", "~> 3.0"
 gem "forme"
 
-gem 'dry-struct'
-gem 'dry-types'
-gem 'dry-validation'
+gem "dry-struct"
+gem "dry-types"
+gem "dry-validation"
+gem "dry-cli"
 
 # gem "rufus-scheduler"
 # gem "localjob"
