@@ -18,12 +18,14 @@ class Routes::Root < Routes::Base
 
       r.is do
         next rodauth.logout if shared[:account][:status] != 2
+
         view "account/index", layout: :layout_logged_in
       end
     end
 
     r.on "dashboard" do
       next rodauth.logout if shared[:account][:status] != 2
+
       shared[:breadcrumbs] << "Dashboard"
 
       rodauth.require_authentication
