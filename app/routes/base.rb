@@ -85,16 +85,19 @@ class Routes::Base < Roda
     close_account_route "close"
     before_close_account_route do
       next rodauth.logout if shared[:account][:status] != 2
+
       scope.set_layout_options template: :layout_logged_in
     end
 
     before_change_password_route do
       next rodauth.logout if shared[:account][:status] != 2
+
       scope.set_layout_options template: :layout_logged_in
     end
 
     before_change_login_route do
       next rodauth.logout if shared[:account][:status] != 2
+
       scope.set_layout_options template: :layout_logged_in
     end
   end
