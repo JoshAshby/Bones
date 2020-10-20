@@ -59,6 +59,14 @@ class Bones::UserFossil
     Fossil::Repo.new @repo_root.join(repo)
   end
 
+  def repositories
+    repository_names.map(&method(:repository))
+  end
+
+  def remove_cgi_script!
+    @user_root.join("repo").delete
+  end
+
   protected
 
   def ensure_repo_dirs

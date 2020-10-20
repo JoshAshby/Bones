@@ -14,6 +14,7 @@ needing to be completed before the first version goes live:
 
 - [x] Setup Mail gem to be configurable per env - https://github.com/mikel/mail#sending-an-email
 - [ ] Ensure all text input is escaped in the templates
+- [ ] Ensure usernames are validated like repository names
 - [ ] Flesh out tests and documentation for Bones & Fossil modules
 - [x] Non-page based log out. Button on sidebar should just do it
 - [x] Feature flag for public sign-up
@@ -55,7 +56,7 @@ You'll also want to ensure that the settings in `config/` are to your liking.
 Finally use the user tool to make youself a new user:
 
 ```shell
-./bin/user create --help
+./bin/bones user create --help
 ```
 
 ## Tools
