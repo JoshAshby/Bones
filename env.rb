@@ -50,8 +50,7 @@ LOGGER = TTY::Logger.new do |config|
   config.output = [$stderr, logfile.open("a+")]
 end
 
-CONFIG = YAML.safe_load(Tilt::ERBTemplate.new("config/#{ ENV['RACK_ENV'] }.yml", engine_class: Erubi::Engine).render)
-LOGGER.debug("Config", CONFIG)
+CONFIG = YAML.safe_load(Tilt::ErubiTemplate.new("config/#{ ENV['RACK_ENV'] }.yml").render)
 
 # Delete DATABASE_URL from the environment, so it isn't accidently
 # passed to subprocesses. DATABASE_URL may contain passwords.
@@ -117,7 +116,7 @@ LOADER.setup
 
 Mail.defaults do
   if CONFIG.dig("mail", "delivery_method") == "logger"
-    delivery_method ::LoggerDelivery
+    delivery_method ::DeliveryLogger
   else
     config = CONFIG["mail"]
     delivery_method(config["delivery_method"].to_sym, **config.fetch("delivery_options", {}).transform_keys(&:to_sym))
