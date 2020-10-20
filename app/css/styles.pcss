@@ -461,6 +461,10 @@ h2 {
   @apply w-full border-t-4 border-steelblue-600 flex flex-col;
 }
 
+.o-layout-page-header__container.-landing {
+  @apply h-screen bg-cover;
+}
+
 .o-navbar__container {
   @apply flex flex-col px-8 py-2 flex-grow;
 }
@@ -491,6 +495,85 @@ h2 {
 
 .a-navbar__link.-bordered-blue:hover {
   @apply border-steelblue-300;
+}
+
+/* Landing Login Form */
+.o-landing-page {
+  @apply mt-20 mx-8;
+}
+
+.o-landing-page__container {
+  @apply items-center justify-between;
+}
+
+@screen md {
+  .o-landing-page__container {
+    @apply flex;
+  }
+}
+
+.m-landing-page__copy-holder {
+  @apply w-full mr-auto;
+}
+
+@screen md {
+  .m-landing-page__copy-holder {
+    @apply w-1/2;
+  }
+}
+
+.a-landing-page__copy-title {
+  @apply text-2xl font-bold text-gray-800 tracking-wide;
+}
+
+.a-landing-page__copy-body {
+  @apply text-gray-800;
+}
+
+.a-landing-page__copy-cta {
+  @apply text-gray-800;
+}
+
+.a-landing-page__cta-link {
+  @apply text-palevioletred-600 text-lg ml-2 font-bold;
+}
+
+.o-landing-page__signin-holder {
+  @apply w-full mt-6;
+}
+
+@screen md {
+  .o-landing-page__signin-holder {
+    @apply max-w-md;
+  }
+}
+
+.o-signin-card {
+  @apply bg-white shadow-md rounded-lg px-4 py-4 mb-6;
+}
+
+.m-centered__container {
+  @apply flex items-center justify-center;
+}
+
+.a-signin-card__welcome {
+  @apply text-2xl font-bold tracking-wide;
+}
+
+.a-signin-card__sub {
+  @apply text-xl text-center font-semibold text-gray-800 mb-2;
+}
+
+.m-signin-card__actions {
+  @apply flex items-center justify-between;
+}
+
+.a-signin-card__link {
+  @apply text-gray-600;
+}
+
+.a-signin-card__link:hover {
+  @apply text-gray-800;
 }
 
 /* Utils */

@@ -1,31 +1,33 @@
-<div class="w-full bg-cover border-t-4 border-steelblue-600 h-screen flex flex-col" style="background-image: url('/landing_page_bg.jpg');">
-  <header class="content px-8 py-2">
-    <nav class="flex items-center justify-between">
-      <%= render :_logo %>
-    </nav>
-  </header>
+<div class="o-layout-page-header__container -landing" style="background-image: url('/landing_page_bg.jpg');">
+  <div>
+    <header class="o-navbar__container">
+      <nav class="m-navbar__holder">
+        <%= render :_logo %>
+      </nav>
+    </header>
+  </div>
 
-  <div class="body mt-20 mx-8">
-    <div class="md:flex items-center justify-between">
-      <div class="w-full md:w-1/2 mr-auto">
-        <h2 class=" text-2xl font-bold text-gray-800 tracking-wide">Hello</h2>
-        <p class="text-gray-800">
+  <div class="o-landing-page">
+    <div class="o-landing-page__container">
+      <div class="m-landing-page__copy-holder">
+        <h2 class="a-landing-page__copy-title">Hello</h2>
+        <p class="a-landing-page__copy-body">
           Bones is a light weight, no-fuss Fossil-SCM host.
         </p>
-        <span class="text-gray-800">New Around Here?<a href="/account/create" class="text-palevioletred-600 text-lg ml-2 font-bold">Sign Up!</a></span>
+        <span class="a-landing-page__copy-cta">New Around Here?<a href="/account/create" class="a-landing-page__cta-link">Sign Up!</a></span>
       </div>
 
-      <div class="w-full md:max-w-md mt-6">
-        <div class="card bg-white shadow-md rounded-lg px-4 py-4 mb-6 ">
+      <div class="o-landing-page__signin-holder">
+        <div class="o-signin-card">
           <% form action: "/account/login", method: "post" do |f| %>
-            <div class="flex items-center justify-center">
-              <h2 class="text-2xl font-bold tracking-wide">Welcome Back</h2> 
+            <div class="m-centered__container">
+              <h2 class="a-signin-card__welcome">Welcome Back</h2> 
             </div>
-            <h3 class="text-xl text-center font-semibold text-gray-800 mb-2">Log In</h2>
-            <%= f.input :text, name: :login, placeholder: "Email Address", class: "w-full" %>
-            <%= f.input :password, name: :password, placeholder: "Password", class: "w-full" %>
-            <div class="flex items-center justify-between">
-              <a href="/account/reset-password-request" class="text-gray-600 hover:text-gray-800">Forget Password?</a>
+            <h3 class="a-signin-card__sub">Log In</h3>
+            <%= f.input :text, name: :login, placeholder: "Email Address", class: "full-width" %>
+            <%= f.input :password, name: :password, placeholder: "Password", class: "full-width" %>
+            <div class="m-signin-card__actions">
+              <a href="/account/reset-password-request" class="a-signin-card__link">Forget Password?</a>
               <%= f.button value: "Log In" %>
             </div>
           <% end %>
@@ -36,7 +38,7 @@
     </div>
   </div>
 
-  <div class="flex-grow"></div>
+  <div class="growing-space"></div>
 
   <footer class="o-footer__container">
     <div class="m-footer__content">
