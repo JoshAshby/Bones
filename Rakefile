@@ -5,6 +5,7 @@ require "rake/testtask"
 Rake::TestTask.new(:test) do |t|
   t.libs << "spec"
   t.libs << "./"
+  t.ruby_opts = ["-r", "spec/spec_helper"]
   t.verbose = true
   t.pattern = "spec/**/*_spec.rb"
 end

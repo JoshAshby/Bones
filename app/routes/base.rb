@@ -6,7 +6,17 @@ class Routes::Base < Roda
   plugin RequestLogger
   plugin :public
 
-  plugin :render, views: "app/views", template_opts: { engine_class: Erubi::CaptureEndEngine, outvar: "@_out_buf", escape_capture: true, escape_html: true }
+  plugin(
+    :render,
+    views: "app/views",
+    template_opts: {
+      engine_class: Erubi::CaptureEndEngine,
+      outvar: "@_out_buf",
+      escape_capture: true,
+      escape_html: true
+    }
+  )
+
   plugin :content_for
   plugin :view_options
 
@@ -29,42 +39,41 @@ class Routes::Base < Roda
 
     enable :login, :logout, :remember, :close_account,
            :reset_password, :change_password, :change_password_notify,
-           :change_login,
-           :create_account
+           :change_login
 
     hmac_secret secret
 
     email_from { CONFIG["email_from"] }
 
     prefix "/account"
-    login_label { "Email" }
 
+    login_label { "Email" }
     change_login_button { "Change Email" }
     change_login_route { "change-email" }
 
-    create_account_route "create"
+    if Features.enabled? :sign_up
+      enable :create_account
+      create_account_route "create"
 
-    require_login_confirmation? false
-    create_account_additional_form_tags <<~HTML
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input name='username' id='username' type="text">
-      </div>
-    HTML
+      require_login_confirmation? false
+      create_account_additional_form_tags <<~HTML
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input name='username' id='username' type="text">
+        </div>
+      HTML
 
-    before_create_account do
-      username = param_or_nil("username")
-      throw_error_status(422, "username", "must be present") unless username
+      before_create_account do
+        username = param_or_nil("username")
+        throw_error_status(422, "username", "must be present") unless username
 
-      account[:username] = username
+        account[:username] = username
+      end
+
+      after_create_account do
+        Bones::UserFossil.new(username: account[:username]).ensure_fs!
+      end
     end
-
-    after_create_account do
-      Bones::UserFossil.new(username: account[:username]).ensure_fs!
-    end
-
-    # before_login_route { scope.set_layout_options template: :layout_centered }
-    # login_view { view :index, layout: :layout }
 
     after_login do
       remember_login
@@ -101,14 +110,6 @@ class Routes::Base < Roda
   plugin :not_found do
     view :not_found, layout: :layout_centered
   end
-
-  # after do
-    # Mail::TestMailer.deliveries.each do |mail|
-      # LOGGER.mail mail
-    # end
-
-    # Mail::TestMailer.deliveries.clear
-  # end
 
   def flash_key key
     case key
