@@ -37,6 +37,11 @@ class Cli::User::Edit < Dry::CLI::Command
   end
 
   def set_status
+    if params[:status] == 3
+      puts "Please use the `user delete' command instead of setting a users status to Closed"
+      return
+    end
+
     DB[:accounts].where(id: account_id).update(status_id: params[:status])
 
     return unless params[:status] == 2
