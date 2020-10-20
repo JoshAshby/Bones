@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cli::User::Create < Dry::CLI::Command
   desc "Creates a new user"
 
@@ -21,7 +23,6 @@ class Cli::User::Create < Dry::CLI::Command
     @pass
   end
 
-  # rubocop:disable Metrics/AbcSize
   def run
     account_id = DB[:accounts].insert(
       email: params[:email],
@@ -43,5 +44,4 @@ class Cli::User::Create < Dry::CLI::Command
     puts "Uh oh, this is embarrassing, something went wrong!"
     puts e.wrapped_exception.message
   end
-  # rubocop:enable Metrics/AbcSize
 end
