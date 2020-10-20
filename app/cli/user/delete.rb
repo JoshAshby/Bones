@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class Cli::User::Delete < Dry::CLI::Command
-  desc "Deletes a user, defaulting to a soft delete by closing their account and removing their repositories cgi script."
+  desc <<~DESC
+    Deletes a user, defaulting to a soft delete by closing their account and removing their repositories cgi script."
+  DESC
 
   argument :email, desc: "The users email"
   argument :username, desc: "The users username"
@@ -30,6 +34,7 @@ class Cli::User::Delete < Dry::CLI::Command
 
   def delete
     return soft_delete unless params[:hard_delete]
+
     hard_delete
   end
 
@@ -57,8 +62,6 @@ class Cli::User::Delete < Dry::CLI::Command
     DB[:accounts].where(id: account_id).delete
 
     user_fossil = Bones::UserFossil.new params[:username]
-    user_fossil.repositories.each do |repository|
-      repository.delete_repository!
-    end
+    user_fossil.repositories.each(&:delete_repository!)
   end
 end
