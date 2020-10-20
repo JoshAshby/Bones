@@ -6,12 +6,7 @@ domain: https://bones.isin.space
 email_from: no-reply@bones.isin.space
 
 mail:
-  delivery_method: logger
-  #delivery_method: test
-  #delivery_method: smtp
-  #delivery_config:
-     #address: "localhost"
-     #port: 1025
+  delivery_method: test
 
 feature_flags:
   sign_up: false
