@@ -1417,6 +1417,11 @@ h2 {
   flex-direction: column;
 }
 
+.o-layout-page-header__container.-landing {
+  height: 100vh;
+  background-size: cover;
+}
+
 .o-navbar__container {
   display: flex;
   flex-direction: column;
@@ -1478,6 +1483,130 @@ h2 {
   --border-opacity: 1;
   border-color: #b9d8e7;
   border-color: rgba(185, 216, 231, var(--border-opacity));
+}
+
+/* Landing Login Form */
+
+.o-landing-page {
+  margin-top: 5rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.o-landing-page__container {
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .o-landing-page__container {
+    display: flex;
+  }
+}
+
+.m-landing-page__copy-holder {
+  width: 100%;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .m-landing-page__copy-holder {
+    width: 50%;
+  }
+}
+
+.a-landing-page__copy-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  --text-opacity: 1;
+  color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
+  letter-spacing: 0.025em;
+}
+
+.a-landing-page__copy-body {
+  --text-opacity: 1;
+  color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
+}
+
+.a-landing-page__copy-cta {
+  --text-opacity: 1;
+  color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
+}
+
+.a-landing-page__cta-link {
+  --text-opacity: 1;
+  color: #9b4e75;
+  color: rgba(155, 78, 117, var(--text-opacity));
+  font-size: 1.125rem;
+  margin-left: 0.5rem;
+  font-weight: 700;
+}
+
+.o-landing-page__signin-holder {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .o-landing-page__signin-holder {
+    max-width: 28rem;
+  }
+}
+
+.o-signin-card {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.m-centered__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.a-signin-card__welcome {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+}
+
+.a-signin-card__sub {
+  font-size: 1.25rem;
+  text-align: center;
+  font-weight: 600;
+  --text-opacity: 1;
+  color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
+  margin-bottom: 0.5rem;
+}
+
+.m-signin-card__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.a-signin-card__link {
+  --text-opacity: 1;
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
+}
+
+.a-signin-card__link:hover {
+  --text-opacity: 1;
+  color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
 }
 
 /* Utils */

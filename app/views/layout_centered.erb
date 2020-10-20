@@ -15,15 +15,15 @@
 </head>
 
 <body class="o-body__container -columns">
-  <div class="o-layout-page-header__container w-full border-t-4 border-steelblue-600 flex flex-col">
-    <header class="o-navbar__container -blue content px-8 py-2 flex-grow bg-brand">
-      <nav class="m-navbar__holder flex items-center justify-between">
+  <div class="o-layout-page-header__container">
+    <header class="o-navbar__container -blue">
+      <nav class="m-navbar__holder">
         <%= render :_logo %>
 
         <% unless rodauth.logged_in? %>
-        <div class="m-navbar__links flex items-center">
-          <a href="/account/create" class="a-navbar__link mx-1 py-2 px-3 rounded border-2 border-transparent text-steelblue-50 hover:border-steelblue-300">Sign up</a>
-          <a href="/account/login" class="a-navbar__link -bordered-blue mx-1 py-2 px-3 rounded border-2 border-steelblue-600 text-steelblue-50 hover:border-steelblue-300">Log in</a>
+        <div class="m-navbar__links">
+          <a href="/account/create" class="a-navbar__link">Sign up</a>
+          <a href="/account/login" class="a-navbar__link -bordered-blue">Log in</a>
         </div>
         <% end %>
       </nav>
