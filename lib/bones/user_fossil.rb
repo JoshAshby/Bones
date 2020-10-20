@@ -63,7 +63,7 @@ class Bones::UserFossil
     repository_names.map(&method(:repository))
   end
 
-  def remove_cgi_script
+  def remove_cgi_script!
     @user_root.join("repo").delete
   end
 
