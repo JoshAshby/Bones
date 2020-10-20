@@ -1,47 +1,18 @@
-# frozen_string_literal: true
+class Cli::User::Create < Dry::CLI::Command
+  desc "Creates a new user"
 
-class Bones::Cli::CreateUserCommand
-  include TTY::Option
+  argument :email, desc: "The new users email"
+  argument :username, desc: "The new users username"
+  option :password, desc: "The new users password; Leave blank to autogenerate one"
 
-  usage do
-    command "create"
-    desc "Create a new user"
+  attr_reader :params
+
+  def call(**params)
+    @params = params
+    run
   end
 
-  flag :help do
-    short "-h"
-    long "--help"
-    desc "Print usage"
-  end
-
-  argument :email do
-    required
-    desc "The email of the user"
-  end
-
-  argument :username do
-    required
-    desc "The username of the user"
-  end
-
-  option :password do
-    desc "The users password. Leave blank to autogenerate one."
-  end
-
-  def help_me
-    return unless params[:help]
-
-    print help
-    exit
-  end
-
-  def validate_me
-    return if params.valid?
-
-    puts params.errors.summary
-    print help
-    exit
-  end
+  private
 
   def password
     @pass = params[:password]
@@ -52,11 +23,6 @@ class Bones::Cli::CreateUserCommand
 
   # rubocop:disable Metrics/AbcSize
   def run
-    help_me
-    validate_me
-
-    require_relative "../env"
-
     account_id = DB[:accounts].insert(
       email: params[:email],
       username: params[:username],
@@ -68,7 +34,7 @@ class Bones::Cli::CreateUserCommand
       password_hash: BCrypt::Password.create(password).to_s
     )
 
-    Bones::UserFossil.new(username: params[:username]).ensure_fs!
+    Bones::UserFossil.new(params[:username]).ensure_fs!
 
     puts "Created user #{ params[:username] }"
     puts "  email: #{ params[:email] }"
