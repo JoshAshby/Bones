@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 # :nocov:
 module Formi # :nodoc:
   Forme.register_config(
