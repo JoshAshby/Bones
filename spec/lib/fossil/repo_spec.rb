@@ -6,6 +6,14 @@ describe Fossil::Repo do
 
   let(:username) { "test-user" }
 
+  def stub_failed_command exitstatus=1, &block
+    process_status_mock = Minitest::Mock.new
+    process_status_mock.expect :exitstatus, exitstatus
+    process_status_mock.expect :success?, false
+
+    subject.stub :run_fossil_command, process_status_mock, &block
+  end
+
   describe "creating repos" do
     after do
       FileUtils.remove_file repo_path, true
@@ -27,7 +35,7 @@ describe Fossil::Repo do
       process_status_mock.expect :success?, false
 
       subject.stub :run_fossil_command, process_status_mock do
-        expect { subject.create_repository username: "asdf" }.must_raise Fossil::FossilCommandError
+        expect { subject.create_repository username: "" }.must_raise Fossil::FossilCommandError
       end
     end
   end
@@ -63,6 +71,10 @@ describe Fossil::Repo do
 
     it "changes the password to a generated one when empty" do
       expect(subject.change_password(username: username, password: "")).wont_equal ""
+    end
+
+    it "raises a command error when changing the password fails" do
+      expect { subject.change_password(username: "") }.must_raise Fossil::FossilCommandError
     end
   end
 end
