@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# :nodoc: all
+# :nocov:
 class LoggerDelivery
   attr_reader :settings
 

@@ -2,6 +2,8 @@
 
 # copy pasta, with modifications, from the CommonLogger plugin that ships with
 # Roda
+# :nodoc: all
+# :nocov:
 module RequestLogger
   module InstanceMethods
     private

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Formi::Bones::Labeler
+class Formi::Bones::Labeler # :nodoc: all
   Forme.register_transformer :labeler, :bones, new
 
   def call tag, input
