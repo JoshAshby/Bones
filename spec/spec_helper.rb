@@ -10,6 +10,7 @@ if ENV["COVERAGE"]
     enable_coverage :branch
     add_filter "/spec/"
     add_filter "/env.rb"
+    add_filter "/lib/formi"
 
     %w[ Routes Contracts Forms Cli ].each do |key|
       add_group key, "app/#{ key.downcase }"
