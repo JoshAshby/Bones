@@ -47,7 +47,7 @@ class Routes::User < Routes::Base
 
           r.post do
             if r.params["repository"]["name"] == @repository[:name]
-              repo = Bones::UserFossil.new(session["username"]).repository @repository[:name]
+              repo = Bones::UserFossil.new(shared[:account]["username"]).repository @repository[:name]
               repo.delete_repository!
 
               DB[:repositories].where(id: id).delete

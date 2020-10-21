@@ -23,14 +23,14 @@
     </p>
     <p>
       The created superuser in your new Fossil repository is the same as your
-      username, <code><%= session["username"] %></code> and the password is
+      username, <code><%= shared[:account]["username"] %></code> and the password is
       <code><%= flash["repository_password"] %></code>. We'd recommend you go in
       and change this during setup.
     </p>
     <p>
       <% @repositories.find { _1[:id] == flash["repository_id"] }&.tap do |repository| %>
-        <strong>URL:</strong> <a href="<%= CONFIG["domain"] %>/user/<%= session["username"] %>/repository/<%= repository[:name] %>"><code><%= CONFIG["domain"] %>/user/<%= session["username"] %>/repository/<%= repository[:name] %></code></a><br />
-        <strong>User:</strong> <code><%= session["username"] %></code><br />
+        <strong>URL:</strong> <a href="<%= CONFIG["domain"] %>/user/<%= shared[:account]["username"] %>/repository/<%= repository[:name] %>"><code><%= CONFIG["domain"] %>/user/<%= shared[:account]["username"] %>/repository/<%= repository[:name] %></code></a><br />
+        <strong>User:</strong> <code><%= shared[:account]["username"] %></code><br />
         <strong>Password:</strong> <code><%= flash["repository_password"] %></code>
       <% end %>
     </p>

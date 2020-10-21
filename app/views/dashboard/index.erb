@@ -4,7 +4,7 @@
   <ul>
   <% @repositories.each do |repository| %>
     <li>
-      <a href="/user/<%= session["username"] %>/repository/<%= repository[:name] %>">
+      <a href="/user/<%= shared[:account]["username"] %>/repository/<%= repository[:name] %>">
         <%= repository[:name] %>
       </a>
       -

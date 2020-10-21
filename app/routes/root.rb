@@ -7,7 +7,8 @@ class Routes::Root < Routes::Base
     check_csrf!
     rodauth.load_memory
 
-    shared[:account] = DB[:accounts].where(id: rodauth.session_value).first || {}
+    shared[:account] = rodauth.account_from_session if rodauth.session_value
+    shared[:account] ||= {}
     shared[:breadcrumbs] = []
 
     r.on "account" do
@@ -17,15 +18,11 @@ class Routes::Root < Routes::Base
       r.rodauth
 
       r.is do
-        next rodauth.logout if shared[:account][:status] != 2
-
         view "account/index", layout: :layout_logged_in
       end
     end
 
     r.on "dashboard" do
-      next rodauth.logout if shared[:account][:status] != 2
-
       shared[:breadcrumbs] << "Dashboard"
 
       rodauth.require_authentication

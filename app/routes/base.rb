@@ -65,6 +65,12 @@ class Routes::Base < Roda
         username = param_or_nil("username")
         throw_error_status(422, "username", "must be present") unless username
 
+        # TODO: Move this into a Dry::Validation::Contract that also handles
+        # other things like validating emails aren't 'official' ?
+        if username[%r{\A[A-Za-z1-9_-]+\z}].nil?
+          throw_error_status(422, "username", "must only contain letters, numbers, underscores and dashes")
+        end
+
         account[:username] = username
       end
 
@@ -75,29 +81,20 @@ class Routes::Base < Roda
 
     after_login do
       remember_login
-
-      # username is used a lot for the fossil ops, so lets just cache it
-      session[:username] = DB[:accounts].where(id: account[:id]).get(:username)
     end
 
     logout_redirect { "/" }
 
     close_account_route "close"
     before_close_account_route do
-      next rodauth.logout if shared[:account][:status] != 2
-
       scope.set_layout_options template: :layout_logged_in
     end
 
     before_change_password_route do
-      next rodauth.logout if shared[:account][:status] != 2
-
       scope.set_layout_options template: :layout_logged_in
     end
 
     before_change_login_route do
-      next rodauth.logout if shared[:account][:status] != 2
-
       scope.set_layout_options template: :layout_logged_in
     end
   end

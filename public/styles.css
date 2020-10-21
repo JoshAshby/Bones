@@ -1511,7 +1511,7 @@ h2 {
 
 @media (min-width: 768px) {
   .m-landing-page__copy-holder {
-    width: 50%;
+    max-width: 28rem;
   }
 }
 

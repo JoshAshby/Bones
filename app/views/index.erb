@@ -16,6 +16,8 @@
         </p>
         <% if Features.enabled? :sign_up %>
           <span class="a-landing-page__copy-cta">New Around Here?<a href="/account/create" class="a-landing-page__cta-link">Sign Up!</a></span>
+        <% else %>
+          <span class="a-landing-page__copy-cta">Bones is currently in a limited private alpha while we get things setup, but check back soon for more news on a public launch!</a></span>
         <% end %>
       </div>
 
