@@ -2,6 +2,14 @@
 
 ENV["RACK_ENV"] = "test"
 
+unless ENV["NO_GEM_WARNINGS"] == "false"
+  require "warning"
+
+  # Ignore all gem related warnings for now
+  Gem.path.each { |path| Warning.ignore(%r{}, path) }
+  Warning.dedup if Warning.respond_to?(:dedup)
+end
+
 unless ENV["COVERAGE"] == "false"
   require "simplecov"
   SimpleCov.start do
