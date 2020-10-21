@@ -33,20 +33,22 @@ class Cli::User::Edit < Dry::CLI::Command
   end
 
   def edit
-    set_status if params[:status]
+    set_status params[:status].to_i if params[:status]
   end
 
-  def set_status
-    if params[:status] == 3
+  # rubocop:disable Naming/AccessorMethodName
+  def set_status status_id
+    if status_id == 2
       puts "Please use the `user delete' command instead of setting a users status to Closed"
       return
     end
 
-    DB[:accounts].where(id: account_id).update(status_id: params[:status])
+    DB[:accounts].where(id: account_id).update(status_id: status_id)
 
-    return unless params[:status] == 2
+    return unless status_id == 2
 
     user_fossil = Bones::UserFossil.new params[:username]
     user_fossil.ensure_fs!
   end
+  # rubocop:enable Naming/AccessorMethodName
 end
