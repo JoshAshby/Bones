@@ -105,8 +105,14 @@ Rubocop:
 bundle exec rubocop -A
 ```
 
-Tests:
+Tests, with coverage:
 
 ```shell
-bundle exec rake
+env COVERAGE=true bundle exec rake
+```
+
+Optionally, but good to test if changing something in `lib/` that should be
+documented:
+```shell
+bundle exec rake rdoc
 ```

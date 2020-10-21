@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rake/testtask"
+require "rdoc/task"
 
 Rake::TestTask.new(:test) do |t|
   t.libs << "spec"
@@ -11,6 +12,11 @@ Rake::TestTask.new(:test) do |t|
 end
 
 task default: :test
+
+RDoc::Task.new do |rdoc|
+  rdoc.rdoc_dir = "doc"
+  rdoc.rdoc_files.include("lib/**/*.rb")
+end
 
 MIGRATION_DIR = "migrations"
 

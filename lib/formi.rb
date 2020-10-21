@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-module Formi
+
+# :nocov:
+module Formi # :nodoc:
   Forme.register_config(
     :bones,
     formatter: :bones,
