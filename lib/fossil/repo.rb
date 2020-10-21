@@ -14,11 +14,11 @@ class Fossil::Repo
   def create_repository username:
     if repository_file.exist?
       LOGGER.fossil "Attempted to create an existing repo #{ repository_file }"
-      fail "Attempted to create an existing repo #{ self }"
+      fail Fossil::ExistingRepositoryError, "Attempted to create an existing repo #{ self }"
     end
 
     status = run_fossil_command "new", "--admin-user", username, repository_file.to_s
-    fail "abnormal status creating new fossil #{ self } - #{ status.exitstatus }" unless status.success?
+    fail Fossil::FossilCommandError, "abnormal status creating new fossil #{ self } - #{ status.exitstatus }" unless status.success?
 
     nil
   end
@@ -26,11 +26,11 @@ class Fossil::Repo
   def clone_repository url:, username:
     if repository_file.exist?
       LOGGER.fossil "Attempted to clone an existing repo #{ repository_file }"
-      fail "Attempted to clone an existing repo #{ self }"
+      fail Fossil::ExistingRepositoryError, "Attempted to clone an existing repo #{ self }"
     end
 
     status = run_fossil_command "clone", "--admin-user", username, url, repository_file.to_s
-    fail "abnormal status cloning fossil #{ url } #{ self } - #{ status.exitstatus }" unless status.success?
+    fail Fossil::FossilCommandError, "abnormal status cloning fossil #{ url } #{ self } - #{ status.exitstatus }" unless status.success?
 
     nil
   end
@@ -43,12 +43,12 @@ class Fossil::Repo
     password ||= SecureRandom.hex(20)
 
     status = run_fossil_command "user", "new", username, contact_info, password, "--repository", repository_file.to_s
-    fail "abnormal status creating a new user in fossil #{ self } - #{ status.exitstatus }" unless status.success?
+    fail Fossil::FossilCommandError, "abnormal status creating a new user in fossil #{ self } - #{ status.exitstatus }" unless status.success?
 
     # Ensure the user is a setup/superuser by setting their capabilites
     # https://fossil-scm.org/home/doc/trunk/www/caps/admin-v-setup.md
     status = run_fossil_command "user", "capabilities", username, "s", "--repository", repository_file.to_s
-    fail "abnorla status setting user's superuser capabilities in fossil #{ self } - #{ status.exitstatus }" unless status.success?
+    fail Fossil::FossilCommandError, "abnormal status setting user's superuser capabilities in fossil #{ self } - #{ status.exitstatus }" unless status.success?
 
     password
   end
@@ -57,7 +57,7 @@ class Fossil::Repo
     password = SecureRandom.hex(20) if password.nil? || password.empty?
 
     status = run_fossil_command "user", "password", username, password, "--repository", repository_file.to_s
-    fail "abnormal status creating a new user in fossil #{ self } - #{ status.exitstatus }" unless status.success?
+    fail Fossil::FossilCommandError, "abnormal status creating a new user in fossil #{ self } - #{ status.exitstatus }" unless status.success?
 
     password
   end
