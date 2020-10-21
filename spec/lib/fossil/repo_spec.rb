@@ -8,7 +8,7 @@ describe Fossil::Repo do
 
   describe "creating repos" do
     after do
-      FileUtils.remove_file repo_path
+      FileUtils.remove_file repo_path, true
     end
 
     it "makes a new repo" do
@@ -18,7 +18,17 @@ describe Fossil::Repo do
 
     it "throws making a dup repo" do
       expect(subject.create_repository(username: username)).must_be_nil
-      expect { subject.create_repository username: username }.must_raise(RuntimeError)
+      expect { subject.create_repository username: username }.must_raise Fossil::ExistingRepositoryError
+    end
+
+    it "throws a command error when unsuccessful" do
+      process_status_mock = Minitest::Mock.new
+      process_status_mock.expect :exitstatus, 1
+      process_status_mock.expect :success?, false
+
+      subject.stub :run_fossil_command, process_status_mock do
+        expect { subject.create_repository username: "asdf" }.must_raise Fossil::FossilCommandError
+      end
     end
   end
 
