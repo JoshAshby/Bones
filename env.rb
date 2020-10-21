@@ -91,8 +91,7 @@ Sequel.extension :core_refinements
 
 require "erubi/capture_end"
 
-require_relative "lib/forme/bones"
-Forme.default_config = :bones
+# require_relative "lib/formi/bones"
 
 Thread.abort_on_exception = true
 trap("INT") { exit }
@@ -113,6 +112,8 @@ if ENV["RACK_ENV"] == "development"
 end
 
 LOADER.setup
+
+Forme.default_config = :bones
 
 Mail.defaults do
   if CONFIG.dig("mail", "delivery_method") == "logger"

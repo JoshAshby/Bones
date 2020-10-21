@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# :nodoc: all
+# :nocov:
 # Mail delivery method that logs out the the apps tty-logger instance
 # since the default logger delivery method doesn't play nicely tty-logger
 class DeliveryLogger
