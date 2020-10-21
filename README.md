@@ -108,7 +108,7 @@ bundle exec rubocop -A
 Tests, with coverage:
 
 ```shell
-env COVERAGE=true bundle exec rake
+bundle exec rake
 ```
 
 Optionally, but good to test if changing something in `lib/` that should be
