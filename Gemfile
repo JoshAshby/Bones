@@ -48,6 +48,8 @@ end
 group :test do
   gem "minitest"
 
+  gem "simplecov", require: false
+
   gem "rack-test"
   gem "capybara"
 end
