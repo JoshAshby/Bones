@@ -9,7 +9,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ../repos:/repos/user
+      - ./bones_data/repos:/repos/user
       - ./shared:/shared
       - ./lighttpd_config:/etc/lighttpd
 
@@ -19,7 +19,7 @@ services:
       dockerfile: ./docker/Dockerfile.ruby
     restart: always
     volumes:
-      - ../repos:/repos
+      - ./bones_data/repos:/repos
       - ./shared:/shared
       - ./bones_data:/bones_data
     environment:
