@@ -28,7 +28,7 @@ class Routes::User < Routes::Base
 
             flash[:info] = "Repository #{ @form.repository[:name] } updated!"
 
-            unless @form.password.blank?
+            unless @form.password.empty?
               flash[:repository_password] = @form.password
               flash[:repository_id] = @form.id
             end
@@ -81,7 +81,7 @@ class Routes::User < Routes::Base
 
           flash[:info] = "Repository #{ @form.repository[:name] } created!"
 
-          unless @form.password.blank?
+          unless @form.password.empty?
             flash[:repository_password] = @form.password
             flash[:repository_id] = @form.repository[:id]
           end
@@ -107,7 +107,7 @@ class Routes::User < Routes::Base
 
           flash[:info] = "Repository #{ @form.repository[:name] } cloned from #{ @form.clone_url }!"
 
-          unless @form.password.blank?
+          unless @form.password.empty?
             flash[:repository_password] = @form.password
             flash[:repository_id] = @form.repository[:id]
           end

@@ -3,7 +3,7 @@
 class Formi::Bones::ErrorHandler < Forme::ErrorHandler # :nodoc: all
   def call tag, input
     tag.each do |t|
-      next unless t.is_a? Tag
+      next unless t.is_a? Forme::Tag
 
       Forme.attr_classes(t.attr, "-error")
     end

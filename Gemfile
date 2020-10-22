@@ -40,7 +40,7 @@ gem "dry-cli"
 group :development do
   gem "listen"
 
-  gem "rubocop"
+  gem "rubocop", require: false
 
   gem "sequel-annotate"
 end

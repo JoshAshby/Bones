@@ -11,7 +11,7 @@ class Forms::EditRepository < Forms::Base
   end
 
   def save
-    return true if password.blank?
+    return true if password.empty?
 
     data = DB[:repositories].join(:accounts)
       .where { |o| o.repositories[:id] =~ id }
