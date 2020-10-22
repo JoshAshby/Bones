@@ -1,0 +1,29 @@
+version: "3.3"
+
+services:
+  lighttpd:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.lighttpd
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ../repos:/repos/user
+      - ./shared:/shared
+      - ./lighttpd_config:/etc/lighttpd
+
+  ruby:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile.ruby
+    restart: always
+    volumes:
+      - ../repos:/repos
+      - ./shared:/shared
+      - ./bones_data:/bones_data
+    environment:
+      DATABASE_URL: "sqlite:///bones_data/bones.db"
+      REPO_ROOT: "/repos"
+      FOSSIL_BINARY: "/shared/fossil"
+      SESSION_SECRET:

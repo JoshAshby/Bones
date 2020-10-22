@@ -1,0 +1,15 @@
+FROM ubuntu
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y lighttpd
+
+EXPOSE 80
+
+VOLUME /repos
+VOLUME /shared
+
+WORKDIR /opt/lighttpd/
+
+COPY lighttpd-entrypoint.sh /opt/lighttpd/
+
+ENTRYPOINT ["/bin/bash", "lighttpd-entrypoint.sh"]

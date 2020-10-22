@@ -64,7 +64,7 @@ class Bones::UserFossil
   end
 
   def remove_cgi_script!
-    @user_root.join("repo").delete
+    @user_root.join("repository").delete
   end
 
   protected
@@ -74,7 +74,7 @@ class Bones::UserFossil
   end
 
   def ensure_cgi_script
-    script = @user_root.join("repo")
+    script = @user_root.join("repository")
 
     return if script.exist?
 
