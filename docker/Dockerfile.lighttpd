@@ -10,6 +10,6 @@ VOLUME /shared
 
 WORKDIR /opt/lighttpd/
 
-COPY lighttpd-entrypoint.sh /opt/lighttpd/
+COPY ./docker/lighttpd-entrypoint.sh /opt/lighttpd/
 
 ENTRYPOINT ["/bin/bash", "lighttpd-entrypoint.sh"]
