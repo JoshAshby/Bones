@@ -17,8 +17,8 @@ class Cli::User::Create < Dry::CLI::Command
   private
 
   def password
-    @pass = params[:password]
-    @pass = SecureRandom.hex(20) unless params[:password]
+    @pass ||= params[:password]
+    @pass ||= SecureRandom.hex(20)
 
     @pass
   end
