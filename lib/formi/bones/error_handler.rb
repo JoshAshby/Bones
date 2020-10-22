@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Formi::Bones::ErrorHandler < Forme::ErrorHandler # :nodoc: all
-  Forme.register_transformer :error_handler, :bones, new
-
   def call tag, input
     tag.each do |t|
       next unless t.is_a? Tag

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Formi::Bones::Formatter < Forme::Formatter # :nodoc: all
-  Forme.register_transformer :formatter, :bones, self
-
   # rubocop:disable Metrics/AbcSize,Metrics/PerceivedComplexity,Lint/AssignmentInCondition
   def call(input)
     @input = input

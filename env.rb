@@ -9,10 +9,13 @@ ENV["RACK_ENV"] ||= "development"
 require "bundler"
 Bundler.require :default, ENV["RACK_ENV"].to_sym
 
+logfile = Pathname.new("logs/#{ ENV['RACK_ENV'] }.log")
+logfile.parent.mkpath
+
 LOGGER = TTY::Logger.new do |config|
   config.metadata = %i[date time]
 
-  config.level = ENV["RACK_ENV"] == "development" ? :debug : :warn
+  config.level = ENV["RACK_ENV"] == "production" ? :warn : :debug
 
   config.types = {
     database: { level: :debug },
@@ -42,12 +45,11 @@ LOGGER = TTY::Logger.new do |config|
           levelpad: 0
         }
       }
+    }],
+    [:stream, {
+      output: logfile.open("a+")
     }]
   ]
-
-  logfile = Pathname.new("logs/#{ ENV['RACK_ENV'] }.log")
-  logfile.parent.mkpath
-  config.output = [$stderr, logfile.open("a+")]
 end
 
 CONFIG = YAML.safe_load(Tilt::ErubiTemplate.new("config/#{ ENV['RACK_ENV'] }.yml").render)
@@ -91,8 +93,6 @@ Sequel.extension :core_refinements
 
 require "erubi/capture_end"
 
-# require_relative "lib/formi/bones"
-
 Thread.abort_on_exception = true
 trap("INT") { exit }
 trap("TERM") { exit }
@@ -113,7 +113,8 @@ end
 
 LOADER.setup
 
-Forme.default_config = :bones
+Formi.register_to_forme
+Forme.default_config = :formi
 
 Mail.defaults do
   if CONFIG.dig("mail", "delivery_method") == "logger"

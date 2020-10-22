@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Formi::Bones::Wrapper < Forme::Wrapper # :nodoc: all
-  Forme.register_transformer :wrapper, :bones, new
-
   def call tag, input
     case input.type
     when :submit, :button, :reset then [tag]
