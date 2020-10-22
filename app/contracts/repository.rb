@@ -4,7 +4,7 @@ class Contracts::Repository < Dry::Validation::Contract
   schema do
     required(:name).filled(:string)
     optional(:password).value(:string)
-    optional(:project_name).value(:string)
+    optional(:project_code).value(:string)
     optional(:clone_url).value(:string)
   end
 

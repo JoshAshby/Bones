@@ -2,7 +2,7 @@
   <%= f.input :name, type: :text, label: "Repository Name", required: true %>
   <%= f.input :password, type: :password, label: "Admin Password", help: "Leave this blank to auto-generate an admin password" %>
 
-  <%= f.input :project_name, type: :text, label: "Project Name", help: "Optional, will set the project-name config on the Fossil repository" %>
+  <%= f.input :project_code, type: :text, label: "Project Code", help: "If you are pushing an existing repository, you'll need to fill this out with the project code from the command <code>fossil info</code>" %>
 
   <%= f.button "Create Repository" %>
 <% end %>

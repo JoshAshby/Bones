@@ -5,7 +5,7 @@ class Forms::CreateRepository < Forms::Base
 
   attribute :name, Forms::Types::String
   attribute? :password, Forms::Types::String.optional
-  attribute? :project_name, Forms::Types::String.optional
+  attribute? :project_code, Forms::Types::String.optional
 
   def repository
     @repository ||= DB[:repositories].where(id: id).first
@@ -19,7 +19,7 @@ class Forms::CreateRepository < Forms::Base
     attributes[:password] = Bones::UserFossil.new(username).create_repository(
       name,
       admin_password: password,
-      project_name: project_name
+      project_code: project_code
     )
 
     @repository = {

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Bones::UserFossil
+  CGI_SCRIPT_NAME = "repository"
+
   attr_reader :username, :user_root, :repo_root
 
   def initialize username
@@ -21,29 +23,41 @@ class Bones::UserFossil
       .map(&:to_s)
   end
 
-  def create_repository name, admin_password:, project_name:
+  # Creates a new repository by the given name, sets the admin password or
+  # generates one and updates a few settings including the project-code if
+  # included.
+  #
+  # Note: changing the password has to happen after the project-code is
+  # changed, as it seems fossil uses the project-code to salt it's password
+  # hashes to some extent
+  def create_repository name, admin_password:, project_code:
     repo = repository name
 
     repo.create_repository username: username
-    password = repo.change_password username: username, password: admin_password
 
     repo.repository_db do |db|
       # little bit of security, prevents someone on the server from accessing
       # the web ui without credentials
       db[:config].where(name: "localauth").update(value: 1)
 
-      # TODO: insert or update?
-      db[:config].insert(name: "project-name", value: project_name, mtime: Time.now) if project_name
+      # Set the project name, on new repos this doesn't seem to exist so lets
+      # insert it and I'll worry about problems later. This could be expanded
+      # to include other data too in the future such as the description and
+      # logo too perhaps?
+      db[:config].insert(name: "project-name", value: name, mtime: Time.now)
+
+      # Change the project code if provided. This allows you to push an
+      # existing repository up.
+      db[:config].where(name: "project-code").update(value: project_code) if project_code
     end
 
-    password
+    repo.change_password username: username, password: admin_password
   end
 
   def clone_repository name, url:, admin_password:
     repo = repository name
 
     repo.clone_repository username: username, url: url
-    password = repo.change_password username: username, password: admin_password
 
     repo.repository_db do |db|
       # little bit of security, prevents someone on the server from accessing
@@ -51,7 +65,7 @@ class Bones::UserFossil
       db[:config].where(name: "localauth").update(value: 1)
     end
 
-    password
+    repo.change_password username: username, password: admin_password
   end
 
   def repository repo
@@ -64,7 +78,7 @@ class Bones::UserFossil
   end
 
   def remove_cgi_script!
-    @user_root.join("repository").delete
+    @user_root.join(CGI_SCRIPT_NAME).delete
   end
 
   protected
@@ -74,7 +88,7 @@ class Bones::UserFossil
   end
 
   def ensure_cgi_script
-    script = @user_root.join("repository")
+    script = @user_root.join(CGI_SCRIPT_NAME)
 
     return if script.exist?
 

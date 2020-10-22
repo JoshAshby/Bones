@@ -80,7 +80,7 @@ class Fossil::Repo
     password = SecureRandom.hex(20) if password.nil? || password.empty?
 
     status = run_fossil_command "user", "password", username, password, "--repository", repository_file.to_s
-    fail Fossil::FossilCommandError, "abnormal status creating a new user in fossil #{ self } - #{ status.exitstatus }" unless status.success?
+    fail Fossil::FossilCommandError, "abnormal status changing user password in fossil #{ self } - #{ status.exitstatus }" unless status.success?
 
     password
   end
@@ -97,17 +97,8 @@ class Fossil::Repo
   # Connects to the Fossil repository as a Sqlite DB.
   #
   # Yields the connection, closing it at the end if a block is given,
-  # otherwise returns the connection. If no block is given, the caller is
-  # expected to issue a #disconnect on the connection when finished.
-  def repository_db
-    db = Sequel.connect "sqlite://#{ repository_file }", logger: LOGGER
-
-    if block_given?
-      yield db
-
-      db.disconnect
-    else
-      db
-    end
+  # otherwise returns the connection.
+  def repository_db &block
+    Sequel.connect "sqlite://#{ repository_file }", logger: LOGGER, &block
   end
 end
