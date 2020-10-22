@@ -12,25 +12,24 @@ per user basis.
 Bones is still being polished for depolys with the following tasks still
 needing to be completed before the first version goes live:
 
-- [x] Setup Mail gem to be configurable per env - https://github.com/mikel/mail#sending-an-email
+#### Todos
+- [ ] Sandbox Fossil
 - [ ] Ensure all text input is escaped in the templates
-- [ ] Ensure usernames are validated like repository names
 - [ ] Flesh out tests and documentation for Bones & Fossil modules
+- [x] Ensure usernames are validated like repository names
+- [x] Setup Mail gem to be configurable per env - https://github.com/mikel/mail#sending-an-email
 - [x] Non-page based log out. Button on sidebar should just do it
 - [x] Feature flag for public sign-up
-- [ ] Build out lighttpd setup and test it out
-- [ ] Dockerfile for the ruby component
+- [x] Build out lighttpd setup and test it out
+- [x] Dockerfile for the ruby component
 
 Bones is missing these features but I *might* add them in the future:
 - [ ] Mobile/responsive design
 - [ ] Periodic task to pull/sync cloned repos
 - [ ] Public/Private setting repositories (all repositories as "private" at the
   moment)
-- [ ] Possible CI api hooks? Maybe a webhook setup for pushes?
-
-# Deploy
-
-TODO
+- [ ] Possible webhook setup for pushes using the 2.12.1 hooks feature
+- [ ] Email relay to allow repos to send emails from Bones
 
 # Development
 
@@ -38,13 +37,17 @@ As this project only provides the management of Fossil repository files, you'll
 still need to have Fossil serving the individual repositories. You could look
 into something like running `fossil server ` but the recommended fashion is by
 using [lighttpd](http://www.lighttpd.net/) and using Fossil as [a cgi
-script](https://fossil-scm.org/home/doc/trunk/www/server/any/cgi.md). An
-example lighttpd config is provided as well as a functional docker-compose
-setup (coming soon).
+script](https://fossil-scm.org/home/doc/trunk/www/server/any/cgi.md). In fact
+it's so recommended that Bones auto generates a CGI script for each users
+repositories.
+
+An example lighttpd config is provided, along with a functional docker-compose
+setup in `docker/`; A simple `cd docker/; docker-compose up` should do the
+trick.
 
 ## Setup
 
-Ensure you have Fossil installed, as well as Sqlite, then:
+Ensure you have Fossil in your path, as well as Sqlite, then:
 
 ```shell
 asdf local 2.7.0
