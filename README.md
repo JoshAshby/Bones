@@ -1,8 +1,16 @@
 # Bones
 ##### Dammit Jim, I'm a developer, not a magician.
 
-A [Fossil](https://fossil-scm.org/) repository managment site in the lines of
-[Flint, backing Chisel](https://chiselapp.com/user/rkeene/repository/flint).
+Bones is a [Fossil](https://fossil-scm.org/) repository managment site in the
+lines of [Flint, backing
+Chisel](https://chiselapp.com/user/rkeene/repository/flint).
+
+---
+
+**Note**: Bones hosts it's own [Fossil](https://bones.isin.space/user/JoshAshby/repository/Bones/) repository which is mirrored on [Github](https://github.com/JoshAshby/bones).  
+
+The canonical Fossil source: [Fossil Bones](https://bones.isin.space/user/JoshAshby/repository/Bones/)  
+My hosted version of Bones: [Bones.isin.space](https://bones.isin.space)  
 
 ---
 
@@ -13,6 +21,7 @@ Bones is still being polished for depolys with the following tasks still
 needing to be completed before the first version goes live:
 
 #### Todos
+
 - [ ] Sandbox Fossil
 - [ ] Ensure all text input is escaped in the templates
 - [ ] Flesh out tests and documentation for Bones & Fossil modules
@@ -23,7 +32,8 @@ needing to be completed before the first version goes live:
 - [x] Build out lighttpd setup and test it out
 - [x] Dockerfile for the ruby component
 
-Bones is missing these features but I *might* add them in the future:
+Bones is missing these features but I *might* add them in the future:  
+
 - [ ] Mobile/responsive design
 - [ ] Periodic task to pull/sync cloned repos
 - [ ] Public/Private setting repositories (all repositories as "private" at the
