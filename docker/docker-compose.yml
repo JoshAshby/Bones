@@ -9,7 +9,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./bones_data/repos:/repos/user:ro
+      - ./bones_data/repos:/repos/user
       - ./shared:/shared:ro
       - ./lighttpd_config:/etc/lighttpd:ro
 
