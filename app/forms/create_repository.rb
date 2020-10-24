@@ -16,11 +16,13 @@ class Forms::CreateRepository < Forms::Base
     @errors = schema.errors.to_h
     return false unless errors.empty?
 
-    attributes[:password] = Bones::UserFossil.new(username).create_repository(
+    password, _repo = Bones::UserFossil.new(username).create_repository(
       name,
       admin_password: password,
       project_code: project_code
     )
+
+    attributes[:password] = password
 
     @repository = {
       account_id: account_id,

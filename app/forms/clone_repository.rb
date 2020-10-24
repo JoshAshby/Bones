@@ -16,11 +16,13 @@ class Forms::CloneRepository < Forms::Base
     @errors = schema.errors.to_h
     return false unless errors.empty?
 
-    attributes[:password] = Bones::UserFossil.new(username).clone_repository(
+    password, _repo = Bones::UserFossil.new(username).clone_repository(
       name,
       admin_password: password,
       url: clone_url
     )
+
+    attributes[:password] = password
 
     @repository = {
       account_id: account_id,
