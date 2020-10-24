@@ -8,7 +8,7 @@ class Bones::UserFossil
   def initialize username
     @username = username
 
-    @user_root = Bones.root.join username
+    @user_root = Bones.config.root.join username
     @repo_root = @user_root.join "data"
   end
 

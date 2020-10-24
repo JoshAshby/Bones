@@ -124,3 +124,12 @@ Mail.defaults do
     delivery_method(config["delivery_method"].to_sym, **config.fetch("delivery_options", {}).transform_keys(&:to_sym))
   end
 end
+
+Bones.configure do |config|
+  config.root = CONFIG.dig("bones", "repository_root")
+end
+
+Fossil.configure do |config|
+  config.fossil_binary = CONFIG.dig("bones", "fossil_binary")
+  config.logger = -> (*args){ LOGGER.fossil(*args) }
+end

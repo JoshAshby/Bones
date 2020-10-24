@@ -32,39 +32,52 @@ module Fossil
     end
   end
 
-  module_function
-
-  # TODO: Make this configurable to the Fossil library
-  def fossil_binary
-    @fossil_binary ||= CONFIG.dig("bones", "fossil_binary")
+  class Config
+    attr_accessor :fossil_binary, :logger
   end
 
-  # TODO: Make this configurable to the Fossil library
-  def log(*msg)
-    LOGGER.fossil(*msg)
-  end
+  class << self
+    attr_accessor :config
 
-  # Runs the Fossil binary with the given set of commands, writing STDOUT and
-  # STDERR to the log and returning the log and ProcessStatus wrapped in a
-  # rdoc-ref:Fossil::CmdResult stuct.
-  #
-  # Fails with a rdoc-ref:Fossil::FossilCommandError if Fossil exits with a
-  # non-zero status.
-  def run_fossil_command *args
-    result = run_command fossil_binary, *args
+    def configure
+      self.config ||= Config.new
+      yield config
+    end
 
-    Fossil.log "Ran fossil command `fossil #{ args.join ' ' }'", status: result.exitstatus
-    Fossil.log result.log
+    # Pass through for config.fossil_binary
+    def fossil_binary
+      config.fossil_binary
+    end
 
-    return result if result.success?
+    # Pass through for config.logger.call
+    def log *msg
+      config.logger.call(*msg)
+    end
 
-    exception = Fossil::FossilCommandError.new "Abnormal exit status `#{ result.exitstatus }' from Fossil", result
-    fail exception
-  end
+    # Runs the Fossil binary with the given set of commands, writing STDOUT and
+    # STDERR to the log and returning the log and ProcessStatus wrapped in a
+    # rdoc-ref:Fossil::CmdResult stuct.
+    #
+    # Fails with a rdoc-ref:Fossil::FossilCommandError if Fossil exits with a
+    # non-zero status.
+    def run_fossil_command *args
+      result = run_command fossil_binary, *args
 
-  def run_command command, *args
-    log, status = Open3.capture2e command, *args
+      return result if result.success?
 
-    CmdResult.new status, log
+      exception = FossilCommandError.new "Abnormal exit status `#{ result.exitstatus }' from Fossil", result
+      fail exception
+    end
+
+    protected
+
+    def run_command command, *args
+      logout, status = Open3.capture2e command, *args
+
+      log "Ran command `fossil #{ args.join ' ' }'", status: status.exitstatus
+      log logout
+
+      CmdResult.new status, logout
+    end
   end
 end
