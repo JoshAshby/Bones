@@ -9,15 +9,13 @@ describe Bones::UserFossil do
     let(:repo_name) { "test" }
 
     before do
-      skip "Bones::UserFossil needs some refactor to allow better stubbing of the directories before tests are easy to pull off"
+      subject.ensure_fs!
     end
 
     after do
-      subject.repository(repo_name).tap do |repo|
-        next unless repo.path.exist?
+      next unless Bones.config.root_path.exist?
 
-        repo.delete!
-      end
+      FileUtils.remove_dir Bones.config.root_path
     end
 
     it "doesn't set the project code when nil" do

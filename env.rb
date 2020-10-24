@@ -131,5 +131,5 @@ end
 
 Fossil.configure do |config|
   config.fossil_binary = CONFIG.dig("bones", "fossil_binary")
-  config.logger = -> (*args){ LOGGER.fossil(*args) }
+  config.logger = ->(*args) { LOGGER.fossil(*args) }
 end

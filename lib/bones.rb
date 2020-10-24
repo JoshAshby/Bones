@@ -5,7 +5,12 @@ module Bones
     attr_reader :root
 
     def root= val
-      @root = Pathname.new(val).expand_path
+      @root_path = nil
+      @root = val
+    end
+
+    def root_path
+      @root_path ||= Pathname.new(root).expand_path
     end
   end
 
