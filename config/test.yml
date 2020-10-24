@@ -1,15 +1,12 @@
 bones:
-  repository_root: <%= ENV["REPO_ROOT"] %>
+  repository_root: ./tmp
   fossil_binary: <%= ENV["FOSSIL_BINARY"] %>
 
 domain: https://bones.isin.space
 email_from: no-reply@bones.isin.space
 
 mail:
-  delivery_method: smtp
-  delivery_config:
-     address: localhost
-     port: 1025
+  delivery_method: test
 
 feature_flags:
   sign_up: false

@@ -2,8 +2,8 @@ bones:
   repository_root: <%= ENV["REPO_ROOT"] %>
   fossil_binary: <%= ENV["FOSSIL_BINARY"] %>
 
-domain: https://bones.isin.space
-email_from: no-reply@bones.isin.space
+domain: http://localhost:3000
+email_from: no-reply@dev+bones.isin.space
 
 mail:
   delivery_method: logger
