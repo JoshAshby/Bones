@@ -19,7 +19,7 @@ module Formi # :nodoc:
       wrapper: :formi,
       error_handler: :formi,
       # serializer: :formi,
-      labeler: :formi,
+      labeler: :formi
       # tag_wrapper: :formi,
       # set_wrapper: :div
     )
