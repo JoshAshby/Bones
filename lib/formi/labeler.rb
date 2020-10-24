@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Formi::Bones::Labeler # :nodoc: all
+class Formi::Labeler # :nodoc: all
   def call tag, input
     label = input.opts[:label]
 

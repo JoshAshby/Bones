@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Formi::Bones::ErrorHandler < Forme::ErrorHandler # :nodoc: all
+class Formi::ErrorHandler < Forme::ErrorHandler # :nodoc: all
   def call tag, input
     tag.each do |t|
       next unless t.is_a? Forme::Tag
