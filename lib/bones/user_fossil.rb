@@ -23,17 +23,21 @@ class Bones::UserFossil
       .map(&:to_s)
   end
 
+  def repositories
+    repository_names.map(&method(:repository))
+  end
+
+  def repository name
+    Fossil::Repo.new @repo_root.join(fossilify(name))
+  end
+
   # Creates a new repository by the given name, sets the admin password or
   # generates one and updates a few settings including the project-code if
   # included.
-  #
-  # Note: changing the password has to happen after the project-code is
-  # changed, as it seems fossil uses the project-code to salt it's password
-  # hashes to some extent
-  def create_repository name, admin_password:, project_code:
-    repo = repository name
+  def create_repository name, admin_password: nil, project_code: nil
+    admin_password = SecureRandom.hex(20) if admin_password.nil? || admin_password.empty?
 
-    repo.create_repository username: username
+    repo = Fossil::Repo.create fossilify(name), username: username
 
     repo.repository_db do |db|
       # little bit of security, prevents someone on the server from accessing
@@ -46,18 +50,25 @@ class Bones::UserFossil
       # logo too perhaps?
       db[:config].insert(name: "project-name", value: name, mtime: Time.now)
 
+      next if project_code.nil? || project_code.empty?
+
       # Change the project code if provided. This allows you to push an
       # existing repository up.
-      db[:config].where(name: "project-code").update(value: project_code) if project_code
+      db[:config].where(name: "project-code").update(value: project_code)
     end
 
+    # Note: changing the password has to happen after the project-code is
+    # changed, as it seems fossil uses the project-code to salt it's password
+    # hashes to some extent
     repo.change_password username: username, password: admin_password
+
+    [admin_password, repo]
   end
 
-  def clone_repository name, url:, admin_password:
-    repo = repository name
+  def clone_repository _name, url:, admin_password: nil
+    admin_password = SecureRandom.hex(20) if admin_password.nil? || admin_password.empty?
 
-    repo.clone_repository username: username, url: url
+    repo = Fossil::Repos.clone username: username, url: url
 
     repo.repository_db do |db|
       # little bit of security, prevents someone on the server from accessing
@@ -65,16 +76,12 @@ class Bones::UserFossil
       db[:config].where(name: "localauth").update(value: 1)
     end
 
+    # Note: changing the password has to happen after the project-code is
+    # changed, as it seems fossil uses the project-code to salt it's password
+    # hashes to some extent
     repo.change_password username: username, password: admin_password
-  end
 
-  def repository repo
-    repo = "#{ repo }.fossil" unless repo.end_with? ".fossil"
-    Fossil::Repo.new @repo_root.join(repo)
-  end
-
-  def repositories
-    repository_names.map(&method(:repository))
+    [admin_password, repo]
   end
 
   def remove_cgi_script!
@@ -82,6 +89,11 @@ class Bones::UserFossil
   end
 
   protected
+
+  def fossilify name
+    name = "#{ name }.fossil" unless name.end_with? ".fossil"
+    @repo_root.join name
+  end
 
   def ensure_repo_dirs
     @repo_root.mkpath unless @repo_root.exist?

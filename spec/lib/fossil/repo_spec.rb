@@ -1,37 +1,40 @@
 # frozen_string_literal: true
 
 describe Fossil::Repo do
-  let(:repo_path) { Pathname.new(__FILE__).parent.join("test.fossil") }
-  subject { Fossil::Repo.new repo_path }
-
-  let(:username) { "test-user" }
-
   def stub_failed_command exitstatus=1, &block
-    process_status_mock = Minitest::Mock.new
-    process_status_mock.expect :exitstatus, exitstatus
-    process_status_mock.expect :success?, false
+    result_mock = Minitest::Mock.new Fossil::CmdResult.new nil, ""
+    result_mock.expect :exitstatus, exitstatus
+    result_mock.expect :exitstatus, exitstatus
+    result_mock.expect :success?, false
 
-    subject.stub :run_fossil_command, process_status_mock, &block
+    Fossil.stub :run_command, result_mock, &block
   end
 
-  describe "creating repos" do
-    after do
-      FileUtils.remove_file repo_path, true
-    end
+  let(:username) { "test-user" }
+  let(:path) { Pathname.new(__FILE__).parent.join("test.fossil") }
+
+  after do
+    FileUtils.remove_file path if path.exist?
+  end
+
+  describe ".create" do
+    subject { Fossil::Repo }
 
     it "makes a new repo" do
-      expect(subject.create_repository(username: username)).must_be_nil
-      expect subject.repository_file.exist?
+      res = subject.create path, username: username
+
+      expect(res).must_be_instance_of Fossil::Repo
+      expect(res.path).path_must_exist
     end
 
-    it "throws making a dup repo" do
-      expect(subject.create_repository(username: username)).must_be_nil
-      expect { subject.create_repository username: username }.must_raise Fossil::ExistingRepositoryError
+    it "raises existing repo error on dup repo" do
+      expect(subject.create(path, username: username)).must_be_instance_of Fossil::Repo
+      expect { subject.create path, username: username }.must_raise Fossil::ExistingRepositoryError
     end
 
-    it "throws a command error when unsuccessful" do
+    it "raises command error when unsuccessful" do
       stub_failed_command do
-        expect { subject.create_repository username: "" }.must_raise Fossil::FossilCommandError
+        expect { subject.create path, username: "" }.must_raise Fossil::FossilCommandError
       end
     end
   end
@@ -40,83 +43,79 @@ describe Fossil::Repo do
   # https://fossil-scm.org/forum/forumpost/469343699c?t=h It seems the fix
   # should be in 2.12 but I'm not 100% sure so I'll wait till 2.13 which is
   # pending release before trying these again
-  describe "cloning repos" do
-    let(:clonable_path) { repo_path.dirname.join("clone-base.fossil") }
-    let(:clonable_repo) { Fossil::Repo.new clonable_path }
+  describe ".clone" do
+    let(:cloned_path) { repo_path.dirname.join("clone.fossil") }
+
+    subject { Fossil::Repo }
 
     before do
       skip "Cloning is currently broken on my Fossil 2.12.1 from homebrew"
-      clonable_repo.create_repository username: username
+      subject.create path username: username
     end
 
     after do
-      FileUtils.remove_file repo_path, true
-      FileUtils.remove_file clonable_path, true
+      FileUtils.remove_file cloned_path if cloned_path.exist?
     end
 
     it "clones a repo" do
-      expect(subject.clone_repository(url: "file://#{ clonable_path }", username: username)).must_be_nil
+      expect(subject.clone(cloned_path, url: "file://#{ path }", username: username)).must_be_nil
     end
 
     it "raises a dup repo error" do
-      subject.create_repository username: username
       expect do
-        subject.clone_repository(url: "file://#{ clonable_path }", username: username)
+        subject.clone(path, url: "file://#{ path }", username: username)
       end.must_raise Fossil::ExistingRepositoryError
     end
 
     it "raises a command error when failed" do
-      expect { subject.clone_repository(url: "file:///", username: username) }.must_raise Fossil::FossilCommandError
+      expect { subject.clone(url: "file:///", username: username) }.must_raise Fossil::FossilCommandError
     end
   end
 
-  describe "deleting repositories" do
+  describe "#delete!" do
+    subject { Fossil::Repo.create(path, username: username) }
+
     it "deletes a repo" do
-      expect(subject.create_repository(username: username)).must_be_nil
-      expect(subject.delete_repository!).must_equal 1 # 1 file removed
+      expect(subject.delete!)
     end
   end
 
   describe "editing a repository" do
-    before do
-      subject.create_repository username: username
-    end
+    subject { Fossil::Repo.create path, username: username }
 
-    after do
-      FileUtils.remove_file repo_path
-    end
-
-    it "creates a user" do
+    it "creates a setup user" do
       password = "testing"
-      expect(subject.create_user(username: "test-1", contact_info: "bones user", password: password))
-        .must_equal password
+      expect(subject.create_setup_user(username: "test-1", contact_info: "bones user", password: password))
+        .wont_be_nil
     end
 
-    it "creates a user with a random password when not given" do
-      expect(subject.create_user(username: "test-1", contact_info: "bones user")).wont_be_nil
-    end
-
-    it "raises a command error when creating a user fails" do
+    it "fails creating a setup user with an empty password" do
       expect do
-        subject.create_user(username: username, contact_info: "bones user")
-      end.must_raise Fossil::FossilCommandError
+        subject.create_setup_user(username: "test-1", contact_info: "bones user", password: "")
+      end.must_raise ArgumentError
+    end
+
+    it "raises a command error when creating a setup user fails" do
+      stub_failed_command do
+        expect do
+          subject.create_setup_user(username: username, contact_info: "bones user", password: "test")
+        end.must_raise Fossil::FossilCommandError
+      end
     end
 
     it "changes the password when given" do
       password = "testing"
-      expect(subject.change_password(username: username, password: password)).must_equal password
+      expect(subject.change_password(username: username, password: password)).wont_be_nil
     end
 
-    it "changes the password to a generated one when nil" do
-      expect(subject.change_password(username: username)).wont_be_empty
-    end
-
-    it "changes the password to a generated one when empty" do
-      expect(subject.change_password(username: username, password: "")).wont_equal ""
+    it "fails with an empty password" do
+      expect { subject.change_password(username: username, password: "") }.must_raise ArgumentError
     end
 
     it "raises a command error when changing the password fails" do
-      expect { subject.change_password(username: "") }.must_raise Fossil::FossilCommandError
+      stub_failed_command do
+        expect { subject.change_password(username: "", password: "test") }.must_raise Fossil::FossilCommandError
+      end
     end
   end
 end
