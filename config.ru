@@ -7,5 +7,7 @@ if ENV["RACK_ENV"] == "production"
   DB.freeze
   run Routes::Root.freeze.app
 else
+  # We wrap this in a proc instead of using .app in order to get Zeitwerk
+  # reloading on Routes::Root
   run ->(env) { Routes::Root.call env }
 end

@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require "rake/testtask"
 require "rdoc/task"
 
-Rake::TestTask.new(:test) do |t|
-  t.libs << "spec"
-  t.libs << "./"
-  t.ruby_opts = ["-r", "spec/spec_helper"]
-  t.verbose = true
-  t.pattern = "spec/**/*_spec.rb"
-end
+# Literally rubocops own recommended setup, copy-pasta'd ಠ_ಠ
+# rubocop:disable Lint/SuppressedException
+begin
+  require "rspec/core/rake_task"
+  RSpec::Core::RakeTask.new(:spec)
 
-task default: :test
+  task default: :spec
+rescue LoadError
+end
+# rubocop:enable Lint/SuppressedException
 
 RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = "doc"

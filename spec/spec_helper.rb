@@ -13,7 +13,7 @@ end
 unless ENV["COVERAGE"] == "false"
   require "simplecov"
   SimpleCov.start do
-    command_name "Minitest::Spec"
+    command_name "rspec"
 
     enable_coverage :branch
     add_filter "/spec/"
@@ -26,10 +26,19 @@ unless ENV["COVERAGE"] == "false"
   end
 end
 
-require "minitest"
-require "minitest/test"
-require "minitest/spec"
-require "minitest/autorun"
+# Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each { |f| require f }
+
+RSpec.configure do |config|
+  config.mock_with :rspec
+
+  config.filter_run_when_matching :focus
+
+  # config.include Rack::Test::Methods
+  # def app
+  # Rack::Lint.new(Routes::Root.app)
+  # end
+  # def check(*args); end
+end
 
 require_relative "../env"
 

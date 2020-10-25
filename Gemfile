@@ -41,12 +41,13 @@ group :development do
   gem "listen"
 
   gem "rubocop", require: false
+  gem "rubocop-rspec", require: false
 
-  gem "sequel-annotate"
+  # gem "sequel-annotate"
 end
 
 group :test do
-  gem "minitest"
+  gem "rspec"
 
   gem "simplecov", require: false
   gem "warning", require: false

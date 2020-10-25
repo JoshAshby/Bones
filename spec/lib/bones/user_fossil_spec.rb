@@ -1,42 +1,59 @@
 # frozen_string_literal: true
 
 describe Bones::UserFossil do
+  subject(:user_fossil) { described_class.new username }
+
   let(:username) { "test" }
+  let(:repo_name) { "test" }
 
-  subject { Bones::UserFossil.new username }
+  before do
+    user_fossil.ensure_fs!
+  end
 
-  describe "creating repositories" do
-    let(:repo_name) { "test" }
+  after do
+    next unless Bones.config.root_path.exist?
 
-    before do
-      subject.ensure_fs!
-    end
+    FileUtils.remove_dir Bones.config.root_path
+  end
 
-    after do
-      next unless Bones.config.root_path.exist?
+  describe "#create_repository" do
+    subject(:created_repo) { user_fossil.create_repository(repo_name, project_code: project_code) }
 
-      FileUtils.remove_dir Bones.config.root_path
-    end
-
-    it "doesn't set the project code when nil" do
-      expect(subject.create_repository(repo_name, project_code: nil)).wont_be_nil
-
-      subject.repository(repo_name).repository_db do |db|
-        val = db[:config].where(name: "project-code").get(:value)
-
-        expect(val).wont_be_nil
-        expect(val).wont_be_empty
+    let(:db_project_code) do
+      user_fossil.repository(repo_name).repository_db do |db|
+        db[:config].where(name: "project-code").get(:value)
       end
     end
 
-    it "doesn't set the project code when empty" do
-      expect(subject.create_repository(repo_name, project_code: "")).wont_be_nil
+    context "with a nil project code" do
+      let(:project_code) { nil }
 
-      subject.repository(repo_name).repository_db do |db|
-        val = db[:config].where(name: "project-code").get(:value)
+      it { expect(created_repo).not_to be_nil }
 
-        expect(val).wont_be_nil
-        expect(val).wont_be_empty
+      it "isn't a nil project-code" do
+        expect(created_repo).not_to be_nil
+        expect(db_project_code).not_to be_nil
+      end
+
+      it "isn't an empty project-code" do
+        expect(created_repo).not_to be_nil
+        expect(db_project_code).not_to be_empty
+      end
+    end
+
+    context "with an empty project code" do
+      let(:project_code) { "" }
+
+      it { expect(created_repo).not_to be_nil }
+
+      it "isn't a nil project-code" do
+        expect(created_repo).not_to be_nil
+        expect(db_project_code).not_to be_nil
+      end
+
+      it "isn't an empty project-code" do
+        expect(created_repo).not_to be_nil
+        expect(db_project_code).not_to be_empty
       end
     end
   end

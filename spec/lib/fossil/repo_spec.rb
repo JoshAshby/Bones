@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 describe Fossil::Repo do
-  def stub_failed_command exitstatus=1, &block
-    result_mock = Minitest::Mock.new Fossil::CmdResult.new nil, ""
-    result_mock.expect :exitstatus, exitstatus
-    result_mock.expect :exitstatus, exitstatus
-    result_mock.expect :success?, false
+  def stub_failed_command exitstatus=1
+    result_double = instance_double(Fossil::CmdResult)
+    allow(result_double).to receive(:exitstatus).and_return exitstatus
+    allow(result_double).to receive(:success?).and_return false
 
-    Fossil.stub :run_command, result_mock, &block
+    allow(Fossil).to receive(:run_command).and_return result_double
   end
 
-  let(:username) { "test-user" }
   let(:path) { Pathname.new(__FILE__).parent.join("test.fossil") }
 
   after do
@@ -18,24 +16,23 @@ describe Fossil::Repo do
   end
 
   describe ".create" do
-    subject { Fossil::Repo }
+    let(:username) { "test-user" }
 
     it "makes a new repo" do
-      res = subject.create path, username: username
+      res = described_class.create path, username: username
 
-      expect(res).must_be_instance_of Fossil::Repo
-      expect(res.path).path_must_exist
+      expect(res).to be_an_instance_of described_class
+      expect(res.path).to exist
     end
 
     it "raises existing repo error on dup repo" do
-      expect(subject.create(path, username: username)).must_be_instance_of Fossil::Repo
-      expect { subject.create path, username: username }.must_raise Fossil::ExistingRepositoryError
+      expect(described_class.create(path, username: username)).to be_an_instance_of described_class
+      expect { described_class.create path, username: username }.to raise_error Fossil::ExistingRepositoryError
     end
 
     it "raises command error when unsuccessful" do
-      stub_failed_command do
-        expect { subject.create path, username: "" }.must_raise Fossil::FossilCommandError
-      end
+      stub_failed_command
+      expect { described_class.create path, username: "" }.to raise_error Fossil::FossilCommandError
     end
   end
 
@@ -44,13 +41,12 @@ describe Fossil::Repo do
   # should be in 2.12 but I'm not 100% sure so I'll wait till 2.13 which is
   # pending release before trying these again
   describe ".clone" do
-    let(:cloned_path) { repo_path.dirname.join("clone.fossil") }
-
-    subject { Fossil::Repo }
+    let(:cloned_path) { path.dirname.join("clone.fossil") }
+    let(:username) { "test-user" }
 
     before do
       skip "Cloning is currently broken on my Fossil 2.12.1 from homebrew"
-      subject.create path username: username
+      # described_class.create path, username: username
     end
 
     after do
@@ -58,64 +54,65 @@ describe Fossil::Repo do
     end
 
     it "clones a repo" do
-      expect(subject.clone(cloned_path, url: "file://#{ path }", username: username)).must_be_nil
+      expect(described_class.clone(cloned_path, url: "file://#{ path }", username: username)).to be_nil
     end
 
     it "raises a dup repo error" do
       expect do
-        subject.clone(path, url: "file://#{ path }", username: username)
-      end.must_raise Fossil::ExistingRepositoryError
+        described_class.clone(path, url: "file://#{ path }", username: username)
+      end.to raise_error Fossil::ExistingRepositoryError
     end
 
     it "raises a command error when failed" do
-      expect { subject.clone(url: "file:///", username: username) }.must_raise Fossil::FossilCommandError
+      expect { described_class.clone(url: "file:///", username: username) }.to raise_error Fossil::FossilCommandError
     end
   end
 
   describe "#delete!" do
-    subject { Fossil::Repo.create(path, username: username) }
+    subject(:deleted_repo) { described_class.create(path, username: username) }
+
+    let(:username) { "test-user" }
 
     it "deletes a repo" do
-      expect(subject.delete!)
+      expect(deleted_repo.delete!).to be_truthy
     end
   end
 
   describe "editing a repository" do
-    subject { Fossil::Repo.create path, username: username }
+    subject(:created_repo) { described_class.create path, username: username }
+
+    let(:username) { "test-user" }
+    let(:password) { "testing" }
 
     it "creates a setup user" do
-      password = "testing"
-      expect(subject.create_setup_user(username: "test-1", contact_info: "bones user", password: password))
-        .wont_be_nil
+      expect(created_repo.create_setup_user(username: "test-1", contact_info: "bones user", password: password))
+        .not_to be_nil
     end
 
     it "fails creating a setup user with an empty password" do
       expect do
-        subject.create_setup_user(username: "test-1", contact_info: "bones user", password: "")
-      end.must_raise ArgumentError
+        created_repo.create_setup_user(username: "test-1", contact_info: "bones user", password: "")
+      end.to raise_error ArgumentError
     end
 
     it "raises a command error when creating a setup user fails" do
-      stub_failed_command do
-        expect do
-          subject.create_setup_user(username: username, contact_info: "bones user", password: "test")
-        end.must_raise Fossil::FossilCommandError
-      end
+      stub_failed_command
+      expect do
+        created_repo.create_setup_user(username: username, contact_info: "bones user", password: "test")
+      end.to raise_error Fossil::FossilCommandError
     end
 
     it "changes the password when given" do
-      password = "testing"
-      expect(subject.change_password(username: username, password: password)).wont_be_nil
+      expect(created_repo.change_password(username: username, password: password)).not_to be_nil
     end
 
     it "fails with an empty password" do
-      expect { subject.change_password(username: username, password: "") }.must_raise ArgumentError
+      expect { created_repo.change_password(username: username, password: "") }.to raise_error ArgumentError
     end
 
     it "raises a command error when changing the password fails" do
-      stub_failed_command do
-        expect { subject.change_password(username: "", password: "test") }.must_raise Fossil::FossilCommandError
-      end
+      stub_failed_command
+      expect { created_repo.change_password(username: "", password: "test") }.to raise_error Fossil::FossilCommandError
     end
   end
 end

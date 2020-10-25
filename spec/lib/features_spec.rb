@@ -3,27 +3,23 @@
 describe Features do
   let(:config) { { "feature_flags" => { "test_false" => false, "test_true" => true } } }
 
+  before do
+    allow(described_class).to receive(:config).and_return config
+  end
+
   it "returns true for enabled strings" do
-    Features.stub :config, config do
-      expect(Features.enabled?("test_true")).must_equal true
-    end
+    expect(described_class).to be_enabled("test_true")
   end
 
   it "returns true for enabled symbols" do
-    Features.stub :config, config do
-      expect(Features.enabled?(:test_true)).must_equal true
-    end
+    expect(described_class).to be_enabled(:test_true)
   end
 
   it "returns false for disabled" do
-    Features.stub :config, config do
-      expect(Features.enabled?(:test_false)).wont_equal true
-    end
+    expect(described_class).not_to be_enabled(:test_false)
   end
 
   it "fails for unknown features" do
-    Features.stub :config, config do
-      expect { Features.enabled?(:wut) }.must_raise Features::UnknownFeatureError
-    end
+    expect { described_class.enabled?(:wut) }.to raise_error(Features::UnknownFeatureError)
   end
 end
