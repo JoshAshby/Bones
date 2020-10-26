@@ -281,8 +281,15 @@ Style/SoleNestedConditional: # (new in 0.89)
 Style/StringConcatenation: # (new in 0.89)
   Enabled: true
 
-RSpec/StubbedMock: # (new in 1.44)
-  Enabled: true
+
+RSpec/DescribeClass:
+  Exclude:
+    - spec/feature/* # Feature specs aren't around a specific class so lets disable this
 
 RSpec/MultipleExpectations:
   Max: 2 # Sometimes I want to expect the initalization or setup of something needed for the main tests expectation
+  Exclude:
+    - spec/feature/* # Feature specs would be a complete pain if they were 1 expectation each
+
+RSpec/StubbedMock: # (new in 1.44)
+  Enabled: true

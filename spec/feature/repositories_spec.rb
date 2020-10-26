@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-feature "creating a repo" do
+describe "Creating a repo", type: :feature do
   before do
     create_user
     login_user
     visit "/dashboard/repository/create"
   end
 
-  scenario "valid input" do
+  it "with valid input" do
     fill_in "repository[name]", with: "testing"
     click_button "Create Repository"
 

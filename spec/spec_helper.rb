@@ -48,7 +48,7 @@ RSpec.configure do |config|
 
   config.filter_run_when_matching :focus
 
-  config.around :each do |example|
+  config.around do |example|
     DB.transaction(rollback: :always, savepoint: true) do
       example.run
     end
@@ -63,9 +63,6 @@ RSpec.configure do |config|
 
   config.include Rack::Test::Methods, type: :feature
   config.include Capybara::DSL, type: :feature
-
-  config.alias_example_group_to :feature, type: :feature
-  config.alias_example_to :scenario
 
   def app
     Rack::Lint.new Routes::Root.app
