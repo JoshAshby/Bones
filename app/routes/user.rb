@@ -118,8 +118,44 @@ class Routes::User < Routes::Base
     end
 
     r.root do
-      @repositories = DB[:repositories].where(account_id: rodauth.session_value)
+      @repositories = DB[:repositories].where(account_id: rodauth.session_value).map { RepositoryDecorator.new _1 }
       view "dashboard/index"
+    end
+  end
+end
+
+class RepositoryDecorator < SimpleDelegator
+  def username
+    DB[:accounts].where(id: __getobj__[:account_id]).get(:username)
+  end
+
+  def namespaced_name
+    "#{ username }/#{ __getobj__[:name] }"
+  end
+
+  def repo
+    Bones::UserFossil.new(username).repository(__getobj__[:name])
+  end
+
+  def url
+    "/user/#{ username }/repository/#{ __getobj__[:name] }"
+  end
+
+  def project_name
+    repo.repository_db do |db|
+      db[:config].where(name: "project-name").get(:value)
+    end
+  end
+
+  def description
+    repo.repository_db do |db|
+      db[:config].where(name: "project-description").get(:value)
+    end
+  end
+
+  def project_code
+    repo.repository_db do |db|
+      db[:config].where(name: "project-code").get(:value)
     end
   end
 end

@@ -1,19 +1,26 @@
 <%= render :_repository_info_card %>
 
 <% if @repositories.any? %>
-  <ul>
   <% @repositories.each do |repository| %>
-    <li>
-      <a href="/user/<%= shared[:account][:username] %>/repository/<%= repository[:name] %>">
-        <%= repository[:name] %>
-      </a>
-      -
-      <a href="/dashboard/repository/<%= repository[:id] %>/edit">Edit</a>
-      |
-      <a href="/dashboard/repository/<%= repository[:id] %>/delete">Delete</a>
-    </li>
+    <div class="flex w-full px-8 py-6 items-center justify-between mb-2 border-b border-gray-100">
+      <div class="flex flex-col">
+        <a href="<%= repository.url %>">
+          <%= repository.namespaced_name %>
+        </a>
+        <a href="<%= repository.url %>">
+          <%= repository.project_name %>
+        </a>
+
+        <p><%= repository.description %></p>
+        <small>Project Code: <%= repository.project_code %></small>
+      </div>
+
+      <div>
+        <a href="/dashboard/repository/<%= repository[:id] %>/edit">Edit</a>
+        <a href="/dashboard/repository/<%= repository[:id] %>/delete">Delete</a>
+      </div>
+    </div>
   <% end %>
-  </ul>
 <% else %>
   <div class="o-split-hero__container">
     <div class="o-split-hero__hero">
