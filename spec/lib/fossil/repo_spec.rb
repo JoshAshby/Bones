@@ -40,13 +40,12 @@ describe Fossil::Repo do
   # https://fossil-scm.org/forum/forumpost/469343699c?t=h It seems the fix
   # should be in 2.12 but I'm not 100% sure so I'll wait till 2.13 which is
   # pending release before trying these again
-  describe ".clone" do
+  xdescribe ".clone", skip: "Cloning is currently broken on my Fossil 2.12.1 from homebrew" do
     let(:cloned_path) { path.dirname.join("clone.fossil") }
     let(:username) { "test-user" }
 
     before do
-      skip "Cloning is currently broken on my Fossil 2.12.1 from homebrew"
-      # described_class.create path, username: username
+      described_class.create path, username: username
     end
 
     after do
