@@ -56,7 +56,7 @@ CONFIG = YAML.safe_load(Tilt::ErubiTemplate.new("config/#{ ENV['RACK_ENV'] }.yml
 
 # Delete DATABASE_URL from the environment, so it isn't accidently
 # passed to subprocesses. DATABASE_URL may contain passwords.
-DB = Sequel.connect ENV.delete("DATABASE_URL"), logger: LOGGER
+DB = Sequel.connect CONFIG.dig("database", "url"), logger: LOGGER
 DB.sql_log_level = :database
 
 DB.extension :date_arithmetic

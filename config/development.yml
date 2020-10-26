@@ -2,6 +2,9 @@ bones:
   repository_root: <%= ENV["REPO_ROOT"] %>
   fossil_binary: <%= ENV["FOSSIL_BINARY"] %>
 
+database:
+  url: <%= ENV.delete("DATABASE_URL") %>
+
 domain: http://localhost:3000
 email_from: no-reply@dev+bones.isin.space
 

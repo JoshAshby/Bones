@@ -2,6 +2,9 @@ bones:
   repository_root: ./tmp
   fossil_binary: <%= ENV["FOSSIL_BINARY"] %>
 
+database:
+  url: "sqlite://test.db"
+
 domain: https://bones.isin.space
 email_from: no-reply@bones.isin.space
 
