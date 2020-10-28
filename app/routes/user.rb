@@ -118,44 +118,44 @@ class Routes::User < Routes::Base
     end
 
     r.root do
-      @repositories = DB[:repositories].where(account_id: rodauth.session_value).map { RepositoryDecorator.new _1 }
+      @repositories = Repository.new.all_by_account_id shared[:account][:id] # DB[:repositories].where(account_id: rodauth.session_value).map { RepositoryDecorator.new _1 }
       view "dashboard/index"
     end
   end
 end
 
 class RepositoryDecorator < SimpleDelegator
-  def username
-    DB[:accounts].where(id: __getobj__[:account_id]).get(:username)
-  end
+  attr_accessor :username, :repo, :project_name, :description, :project_code
 
   def namespaced_name
     "#{ username }/#{ __getobj__[:name] }"
   end
 
-  def repo
-    Bones::UserFossil.new(username).repository(__getobj__[:name])
-  end
-
   def url
     "/user/#{ username }/repository/#{ __getobj__[:name] }"
   end
+end
 
-  def project_name
-    repo.repository_db do |db|
-      db[:config].where(name: "project-name").get(:value)
-    end
-  end
+class Repository
+  def all_by_account_id id
+    username = DB[:accounts].where(id: id).get(:username)
+    rows = DB[:repositories].where(account_id: id).all
 
-  def description
-    repo.repository_db do |db|
-      db[:config].where(name: "project-description").get(:value)
-    end
-  end
+    Bones::UserFossil.new(username).repositories.map do |repo|
+      row = rows.find { _1[:name] == repo.filename }
 
-  def project_code
-    repo.repository_db do |db|
-      db[:config].where(name: "project-code").get(:value)
+      dec = RepositoryDecorator.new row
+
+      dec.username = username
+      dec.repo = repo
+
+      repo.repository_db do |db|
+        dec.project_name = db[:config].where(name: "project-name").get(:value)
+        dec.description = db[:config].where(name: "project-description").get(:value)
+        dec.project_code = db[:config].where(name: "project-code").get(:value)
+      end
+
+      dec
     end
   end
 end
