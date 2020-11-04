@@ -7,6 +7,7 @@
       </span>
       <span class="a-card__title">Repository Information</span>
     </div>
+
     <div class="m-card-header__right">
       <button class="a-card__close-button" @click="$el.remove()">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -21,12 +22,14 @@
       hosted repositories but does not have control over a Fossil's permissions,
       you are required to go in and lock it down as you see fit.
     </p>
+
     <p>
       The created superuser in your new Fossil repository is the same as your
       username, <code><%= shared[:account][:username] %></code> and the password is
       <code><%= flash["repository_password"] %></code>. We'd recommend you go in
       and change this during setup.
     </p>
+
     <p>
       <% @repositories.find { _1[:id] == flash["repository_id"] }&.tap do |repository| %>
         <strong>URL:</strong> <a href="<%= CONFIG["domain"] %>/user/<%= shared[:account][:username] %>/repository/<%= repository[:name] %>"><code><%= CONFIG["domain"] %>/user/<%= shared[:account][:username] %>/repository/<%= repository[:name] %></code></a><br />

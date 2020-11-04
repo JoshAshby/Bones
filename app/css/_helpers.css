@@ -1,0 +1,12 @@
+/* Utils */
+.growing-space {
+  @apply flex-grow;
+}
+
+.center-horizontal {
+  @apply mx-auto;
+}
+
+.full-width {
+  @apply w-full;
+}

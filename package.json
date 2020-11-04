@@ -1,0 +1,26 @@
+{
+  "name": "pleasedonotrobfish",
+  "version": "1.0.0",
+  "description": "---",
+  "main": "postcss.config.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^10.0.1",
+    "cssnano": "^4.1.10",
+    "postcss": "^8.1.4",
+    "postcss-cli": "^8.2.0",
+    "postcss-easy-import": "^3.0.0",
+    "postcss-extend": "^1.0.5",
+    "postcss-import": "^13.0.0",
+    "postcss-nested": "^5.0.1",
+    "tailwindcss": "^1.9.6"
+  },
+  "scripts": {
+    "css": "postcss build app/css/styles.css -o public/styles.css"
+  },
+  "author": "",
+  "license": "MIT"
+}

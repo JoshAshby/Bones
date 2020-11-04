@@ -118,25 +118,25 @@ class Routes::User < Routes::Base
     end
 
     r.root do
-      @repositories = Repository.new.all_by_account_id shared[:account][:id] # DB[:repositories].where(account_id: rodauth.session_value).map { RepositoryDecorator.new _1 }
+      @repositories = Repository.new.all_by_account_id shared[:account][:id]
       view "dashboard/index"
     end
   end
 end
 
-class RepositoryDecorator < SimpleDelegator
-  attr_accessor :username, :repo, :project_name, :description, :project_code
-
-  def namespaced_name
-    "#{ username }/#{ __getobj__[:name] }"
-  end
-
-  def url
-    "/user/#{ username }/repository/#{ __getobj__[:name] }"
-  end
-end
-
 class Repository
+  class RepositoryDecorator < SimpleDelegator
+    attr_accessor :username, :repo, :project_name, :description, :project_code
+
+    def namespaced_name
+      "#{ username }/#{ __getobj__[:name] }"
+    end
+
+    def url
+      "/user/#{ username }/repository/#{ __getobj__[:name] }"
+    end
+  end
+
   def all_by_account_id id
     username = DB[:accounts].where(id: id).get(:username)
     rows = DB[:repositories].where(account_id: id).all
