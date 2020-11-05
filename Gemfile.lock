@@ -163,6 +163,7 @@ DEPENDENCIES
   forme
   listen
   mail
+  nokogiri
   rack-test
   rake
   roda
