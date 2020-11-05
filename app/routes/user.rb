@@ -118,7 +118,7 @@ class Routes::User < Routes::Base
     end
 
     r.root do
-      @repositories = DB[:repositories].where(account_id: rodauth.session_value)
+      @repositories = Repository.new.all_by_account_id shared[:account][:id]
       view "dashboard/index"
     end
   end

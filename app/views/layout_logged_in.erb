@@ -19,9 +19,11 @@
     <div class="m-sidebar__header">
       <%= render :_logo %>
     </div>
+
     <div class="m-sidebar__content o-sidebar-menu__container">
       <ul class="m-sidebar-menu__list -grow">
         <%= render :_sidebar_header, locals: { header: "Repositories" } %>
+
         <li class="a-sidebar-menu__list-item">
           <a href="/dashboard" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Dashboard" %>-active<% end %>">
             <span class="m-menu-link__icon -purple">
@@ -30,6 +32,7 @@
             <span class="a-menu-link__title">Dashboard</span>
           </a>
         </li>
+
         <li class="a-sidebar-menu__list-item">
           <a href="/dashboard/repository/create" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Create Repository" %>-active<% end %>">
             <span class="m-menu-link__icon -green">
@@ -39,6 +42,7 @@
             <span class="a-menu-link__title">Create Repository</span>
           </a>
         </li>
+
         <li class="a-sidebar-menu__list-item">
           <a href="/dashboard/repository/clone" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Clone Repository" %>-active<% end %>">
             <span class="m-menu-link__icon -green">
@@ -47,7 +51,9 @@
             <span class="a-menu-link__title">Clone Repository</span>
           </a>
         </li>
+
         <%= render :_sidebar_header, locals: { header: "Account" } %>
+
         <li class="a-sidebar-menu__list-item">
           <a href="/account" class="o-menu-link__container <% if shared[:breadcrumbs].include? "Account" %>-active<% end %>">
             <span class="m-menu-link__icon -gray">
@@ -59,6 +65,7 @@
           </a>
         </li>
       </ul>
+
       <ul class="m-sidebar-menu__list">
         <li class="a-sidebar-menu__list-item o-account-info__item">
           <span class="m-account-info__container">
@@ -66,6 +73,7 @@
             <span class="a-account-info__email"><%= shared[:account][:email] %></span>
           </span>
         </li>
+
         <li class="a-sidebar-menu__list-item">
           <form method="post" action="/account/logout">
             <%= rodauth.csrf_tag("/account/logout") %>
@@ -76,7 +84,6 @@
               </span>
               <span class="a-menu-link__title a-menu_link__button-text">Logout</span>
             </button>
-
           </form>
         </li>
       </ul>
@@ -101,7 +108,7 @@
     <footer class="o-footer__container">
       <div class="m-footer__content">
         <p class="a-footer__text">
-        © Joshua Ashby 2020 - <a href="/credits">Credits</a>
+        © <a href="https://joshisa.ninja">Joshua Ashby</a> 2020 - <a href="/credits">Credits</a>
         |
         <a href="https://thenounproject.com/term/dinosaur-skull/347287/">dinosaur skull by Erik Kuroow</a>
         </p>

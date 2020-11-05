@@ -40,6 +40,7 @@ Bones is missing these features but I *might* add them in the future:
   moment)
 - [ ] Possible webhook setup for pushes using the 2.12.1 hooks feature
 - [ ] Email relay to allow repos to send emails from Bones
+- [ ] Custom domain handling
 
 # Development
 
@@ -94,16 +95,16 @@ server is when changing `env.rb`, `config.ru` or `config/<environment>.yml`.
 ### Frontend Styles
 
 There is a [Tailwind CSS](https://tailwindcss.com/) setup for styling. Make style changes to
-`app/styles.pcss` and then run tailwind to regnerate the styles file.
+`app/styles.css` and then run tailwind to regnerate the styles file.
 
 ```shell
-npx tailwindcss build app/css/styles.pcss -o public/styles.css
+npm run css
 ```
 
 If you have [`entr`](http://eradman.com/entrproject/) installed you could run:
 
 ```shell
-echo app/css/styles.pcss | entr -c npx tailwindcss build /_ -o public/styles.css
+echo app/css/styles.pcss | entr -c npm run css
 ```
 
 to continueously rebuild the styles when working on them.

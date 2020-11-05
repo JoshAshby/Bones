@@ -108,6 +108,15 @@ if ENV["RACK_ENV"] == "development"
 
   Listen.to(*FOLDERS, wait_for_delay: 1) do
     LOADER.reload
+
+    Bones.configure do |config|
+      config.root = CONFIG.dig("bones", "repository_root")
+    end
+
+    Fossil.configure do |config|
+      config.fossil_binary = CONFIG.dig("bones", "fossil_binary")
+      config.logger = ->(*args) { LOGGER.fossil(*args) }
+    end
   end.start
 end
 
