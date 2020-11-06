@@ -26,12 +26,14 @@
 </head>
 
 <body class="o-body__container">
-  <aside class="o-sidebar__container">
+  <aside class="sidebar-container" x-data="{ open: false }" :class="{ '-opened': open }" @nav-toggle.window="open = !open" @click.away="open = false">
     <div class="m-sidebar__header" <%= render :_logo %></div>
 
     <div class="m-sidebar__content o-sidebar-menu__container">
       <ul class="m-sidebar-menu__list -grow">
-        <%= render :_sidebar_header, locals: { header: "Repositories" } %>
+        <li class="a-sidebar-menu__list-item">
+          <span class="a-menu__header">Repositories</span>
+        </li>
 
         <li class="a-sidebar-menu__list-item">
           <a href="/dashboard" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Dashboard" %>-active<% end %>">
@@ -54,7 +56,9 @@
           </a>
         </li>
 
-        <%= render :_sidebar_header, locals: { header: "Account" } %>
+        <li class="a-sidebar-menu__list-item">
+          <span class="a-menu__header">Account</span>
+        </li>
 
         <li class="a-sidebar-menu__list-item">
           <a href="/account" class="o-menu-link__container <% if shared[:breadcrumbs].include? "Account" %>-active<% end %>">
@@ -91,6 +95,8 @@
 
     <div class="o-content__container">
       <h1 class="a-content__header"><%= shared[:breadcrumbs].last %></h1>
+
+      <button class="sidebar-toggle" x-data @click="$dispatch('nav-toggle')">Menu</button>
 
       <div class="m-content__body">
         <div class="a-content__flashes">
