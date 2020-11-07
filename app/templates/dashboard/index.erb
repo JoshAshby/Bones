@@ -1,0 +1,38 @@
+<%= render :_repository_info_card %>
+
+<% if @repositories.any? %>
+  <% @repositories.each do |repository| %>
+    <div class="repository-row">
+      <div class="main">
+        <a href="<%= repository.url %>">
+          <%= repository.project_name %>
+        </a>
+
+        <a href="<%= repository.url %>">
+          <small><%= repository.namespaced_name %></small>
+        </a>
+
+        <p><%= repository.description || "No description available ..." %></p>
+      </div>
+
+      <div class="actions">
+        <a href="/dashboard/repository/<%= repository[:id] %>/edit">Edit</a>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="o-split-hero__container">
+    <div class="o-split-hero__hero">
+      <div class="m-split-hero__split">
+        <h1 class="a-split-hero__title">It's Empty!</h1>
+        <h2 class="a-split-hero__subtitle">No Repositories Yet</h2>
+
+        <p class="a-split-hero__content">
+          <a href="/dashboard/repository/create">Create a repository</a> to get started!
+        </p>
+      </div>
+
+      <div class="m-split-hero__split"><%= undraw_svg "code_thinking_1jeh" %></div>
+    </div>
+  </div>
+<% end %>

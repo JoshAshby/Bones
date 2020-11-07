@@ -1,14 +1,48 @@
 # frozen_string_literal: true
 
+module ViewHelpers
+  def inline_svg ident, **attrs
+    raw_svg = File.open("public/#{ ident }.svg") do |f|
+      f.read
+    end
+
+    with_svg(raw_svg) do |svg|
+      if attrs[:class]
+        classes = (svg["class"] || "").split(" ")
+        classes << attrs[:class]
+        svg["class"] = classes.join(" ")
+      end
+    end.to_html
+  end
+
+  def undraw_svg ident, **attrs
+    ident = "undraw_#{ ident }" unless ident.start_with? "undraw_"
+    inline_svg("undraw/#{ ident }", **attrs)
+  end
+
+  def feather_svg ident, **attrs
+    inline_svg("feather/#{ ident }", **attrs)
+  end
+
+  def with_svg(doc)
+    doc = Nokogiri::XML::Document.parse(doc, nil, "UTF-8")
+    svg = doc.at_css "svg"
+    yield svg if svg && block_given?
+    doc
+  end
+end
+
 class Routes::Base < Roda
   secret = ENV.fetch("SESSION_SECRET", SecureRandom.random_bytes(64))
+
+  include ViewHelpers
 
   plugin RequestLogger
   plugin :public
 
   plugin(
     :render,
-    views: "app/views",
+    views: "app/templates",
     template_opts: {
       engine_class: Erubi::CaptureEndEngine,
       outvar: "@_out_buf"

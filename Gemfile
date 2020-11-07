@@ -19,6 +19,7 @@ gem "rodauth"
 gem "thin"
 gem "tilt"
 gem "erubi"
+gem "nokogiri"
 
 gem "sqlite3"
 gem "sequel"

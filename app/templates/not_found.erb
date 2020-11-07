@@ -1,0 +1,15 @@
+<div class="o-split-hero__container">
+  <div class="o-split-hero__hero">
+    <div class="m-split-hero__split -md">
+      <h1 class="a-split-hero__title">404</h1>
+      <h2 class="a-split-hero__subtitle">Page Not Found :(</h2>
+
+      <% unless rodauth.logged_in? %>
+        <p class="a-split-hero__content">You might need to be <a href="/account/login">signed in</a> to see this page.</p>
+      <% end %>
+
+      <p class="a-split-hero__content">Return <a href="/">home.</a></p>
+    </div>
+    <div class="m-split-hero__split"><%= undraw_svg "Notify_re_65on" %></div>
+  </div>
+</div>
