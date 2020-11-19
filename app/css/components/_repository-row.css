@@ -6,6 +6,6 @@
   }
 
   & > .actions {
-    @apply;
+    /*@apply;*/
   }
 }

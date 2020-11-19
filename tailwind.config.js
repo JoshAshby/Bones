@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   future: {
     // removeDeprecatedGapUtilities: true,
@@ -7,6 +9,7 @@ module.exports = {
     theme: {
     extend: {
       colors: {
+        orange: colors.orange,
         brand: '#23334B',
         steelblue: {
           '50':  '#f7fafb',
