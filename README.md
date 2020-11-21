@@ -31,11 +31,14 @@ needing to be completed before the first version goes live:
 - [x] Feature flag for public sign-up
 - [x] Build out lighttpd setup and test it out
 - [x] Dockerfile for the ruby component
+- [-] Mobile/responsive design
+  - This is somewhat done, in that the site is mostly usable on mobile, but
+    doesn't have a good mobile friendly design
 
 Bones is missing these features but I *might* add them in the future:  
 
-- [ ] Mobile/responsive design
 - [ ] Periodic task to pull/sync cloned repos
+- [ ] Periodic task to mirror a repo to git automatically
 - [ ] Public/Private setting repositories (all repositories as "private" at the
   moment)
 - [ ] Possible webhook setup for pushes using the 2.12.1 hooks feature
@@ -94,7 +97,7 @@ server is when changing `env.rb`, `config.ru` or `config/<environment>.yml`.
 
 ### Frontend Styles
 
-There is a [Tailwind CSS](https://tailwindcss.com/) setup for styling. Make style changes to
+There is a [Tailwind CSS v2](https://tailwindcss.com/) setup for styling. Make style changes to
 `app/styles.css` and then run tailwind to regnerate the styles file.
 
 ```shell

@@ -30,6 +30,13 @@ module ViewHelpers
     yield svg if svg && block_given?
     doc
   end
+
+  def cell(name, model=nil, options={}, constant=::Cell::ViewModel, &block)
+    options[:context] ||= {}
+    options[:context][:controller] = self
+
+    constant.cell(name, model, options, &block)
+  end
 end
 
 class Routes::Base < Roda
@@ -61,7 +68,7 @@ class Routes::Base < Roda
 
   plugin :route_csrf
 
-  plugin :sessions, secret: secret
+  plugin :sessions, key: "bones.session", secret: secret
   plugin :shared_vars
 
   plugin :hooks
@@ -144,15 +151,5 @@ class Routes::Base < Roda
 
   plugin :not_found do
     view :not_found, layout: :layout_centered
-  end
-
-  def flash_key key
-    case key
-    when "info" then "Info"
-    when "notice" then "Notice"
-    when "warn" then "Warning"
-    when "alert" then "Alert"
-    else "Notice"
-    end
   end
 end

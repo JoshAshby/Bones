@@ -10,6 +10,6 @@
 
 @screen md {
   .sidebar-container {
-    @apply flex w-64 transform -translate-x-full transform translate-x-0 h-screen fixed;
+    @apply flex w-64 transform transform translate-x-0 h-screen fixed;
   }
 }
