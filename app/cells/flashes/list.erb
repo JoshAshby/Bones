@@ -1,0 +1,5 @@
+<div class="o-flash__container">
+<% messages.each do |msg| %>
+  <%= cell(Cells::FlashMessage, msg).render :msg %>
+<% end %>
+</div>

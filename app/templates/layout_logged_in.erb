@@ -77,7 +77,7 @@
 
       <div class="m-content__body">
         <div class="a-content__flashes">
-          <%= render :_flashes %>
+          <%= cell(Cells::Flashes, flash).render :list %>
         </div>
 
         <%= yield %>

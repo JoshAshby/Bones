@@ -23,7 +23,7 @@
   <div class="a-layout-centered__spacer"></div>
 
   <div class="center-horizontal">
-    <%= render :_flashes %>
+    <%= cell(Cells::Flashes, flash).render :list %>
 
     <%= yield %>
   </div>
