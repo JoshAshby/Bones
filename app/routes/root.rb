@@ -25,8 +25,6 @@ class Routes::Root < Routes::Base
     r.on "dashboard" do
       shared[:breadcrumbs] << "Dashboard"
 
-      flash[:info] = "hia"
-
       rodauth.require_authentication
       r.run Routes::User
     end

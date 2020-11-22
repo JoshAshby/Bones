@@ -1,0 +1,16 @@
+<div class="o-card__container" x-data>
+  <div class="m-card__header">
+    <div class="m-card-header__left">
+      <span class="a-card__icon -<%= icon_color %>"><%= feather_svg icon %></span>
+      <span class="a-card__title"><%= title %></span>
+    </div>
+
+    <div class="m-card-header__right">
+      <button class="a-card__close-button" @click="$el.remove()"><%= feather_svg "x" %></button>
+    </div>
+  </div>
+
+  <div class="m-card__body">
+    <%= yield %>
+  </div>
+</div>

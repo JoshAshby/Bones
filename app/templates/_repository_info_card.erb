@@ -1,17 +1,5 @@
 <% if flash["repository_id"] %>
-<div class="o-card__container" x-data>
-  <div class="m-card__header">
-    <div class="m-card-header__left">
-      <span class="a-card__icon -blue"><%= feather_svg "thumbs-up" %></span>
-      <span class="a-card__title">Repository Information</span>
-    </div>
-
-    <div class="m-card-header__right">
-      <button class="a-card__close-button" @click="$el.remove()"><%= feather_svg "x" %></button>
-    </div>
-  </div>
-
-  <div class="m-card__body">
+  <%|= cell(Cells::Card, nil, title: "Repository Information", icon: { icon: "thumbs-up", color: "blue" }).call do %>
     <p>
       Your repository has been created, however please remember that since
       Fossil is an all-in-one solution and Bones only handles creating and managing
@@ -33,6 +21,5 @@
         <strong>Password:</strong> <code><%= flash["repository_password"] %></code>
       <% end %>
     </p>
-  </div>
-</div>
+  <%| end %>
 <% end %>

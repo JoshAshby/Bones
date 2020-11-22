@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cells::FlashMessage < Cells::Base
   def flash_key
     case options[:key]

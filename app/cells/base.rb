@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class Cells::Base < Cell::ViewModel
   include ::Cell::Erb
+
+  include ViewHelpers
 
   # head-scratcher
   self.view_paths = ["app"]

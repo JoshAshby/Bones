@@ -41,14 +41,12 @@ class Routes::User < Routes::Base
           shared[:breadcrumbs] << "Delete"
           @repository = DB[:repositories].first id: id
 
-          r.get do
-            view "dashboard/repository/delete"
-          end
+          r.get { view "dashboard/repository/delete" }
 
           r.post do
             if r.params["repository"]["name"] == @repository[:name]
               repo = Bones::UserFossil.new(shared[:account][:username]).repository @repository[:name]
-              repo.delete_repository!
+              repo.delete!
 
               DB[:repositories].where(id: id).delete
 
