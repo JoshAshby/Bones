@@ -1,4 +1,22 @@
-<%= render :_repository_info_card %>
+<% if @repository_info %>
+  <%|= cell(Cells::Card, nil, title: "Repository Information", icon: { icon: "thumbs-up", color: "blue" }).call do %>
+    <p>
+      Your repository has been created, however please remember that since
+      Fossil is an all-in-one solution and Bones only handles creating and managing
+      hosted repositories but does not have control over a Fossil's permissions,
+      you are required to go in and lock it down as you see fit.
+    </p>
+
+    <p>
+      The created superuser in your new Fossil repository is the same as your
+      username, <code><%= @repository_info[:username] %></code> and the password is
+      <code><%= @repository_info[:password] %></code>. We'd recommend you go in
+      and change this during setup.
+    </p>
+
+    <p><%= cell(Cells::RepositoryInfo, @repository_info).call %></p>
+  <%| end %>
+<% end %>
 
 <% if @repositories.any? %>
   <% @repositories.each do |repository| %>

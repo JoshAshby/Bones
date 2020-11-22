@@ -117,6 +117,15 @@ class Routes::User < Routes::Base
 
     r.root do
       @repositories = Repository.new.all_by_account_id shared[:account][:id]
+
+      if flash["repository_id"]
+        @repository_info = {
+          repository: @repositories.find { _1[:id] == flash["repository_id"] },
+          username: shared[:account][:username],
+          password: flash["repository_password"]
+        }
+      end
+
       view "dashboard/index"
     end
   end

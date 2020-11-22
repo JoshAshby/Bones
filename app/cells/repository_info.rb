@@ -2,6 +2,6 @@
 
 class Cells::RepositoryInfo < Cells::Base
   def project_url
-    "#{ options[:domain] }/user/#{ options[:username] }/repository/#{ model[:name] }"
+    "#{ CONFIG["domain"] }/user/#{ model[:username] }/repository/#{ model[:repository][:name] }"
   end
 end
