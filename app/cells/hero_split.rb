@@ -13,11 +13,11 @@ class Cells::HeroSplit < Cells::Base
 
   def title text=nil, &block
     block ||= -> { text }
-    cell(Cells::HeroSplit::Title).call &block
+    cell(Cells::HeroSplit::Title).call(&block)
   end
 
   def subtitle text=nil, &block
     block ||= -> { text }
-    cell(Cells::HeroSplit::Subtitle).call &block
+    cell(Cells::HeroSplit::Subtitle).call(&block)
   end
 end
