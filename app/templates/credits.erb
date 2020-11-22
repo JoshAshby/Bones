@@ -1,11 +1,12 @@
-<%|= cell(Cells::HeroSplit, nil, undraw: "share_link_qtxe").call do %>
-  <div class="a-split-hero__title">Bones Credits</div>
-  <p class="a-split-hero__subtitle">
+<%|= cell(Cells::HeroSplit, nil, undraw: "share_link_qtxe").show do |c| %>
+  <%= c.title "Bones Credits" %>
+  <%|= c.subtitle do %>
     <a href="/" class="o-subtitle__link">
       <span><%= feather_svg "arrow-up-left" %></span>
       <span>Return to Bones</span>
     </a>
-  </p>
+  <%| end %>
+
   <p class="a-split-hero__content">
     Bones is produced with ❤️ by Josh Ashby but it wouldn't be nearly as nice or functional without ample use of the Open Source communities.
   </p>

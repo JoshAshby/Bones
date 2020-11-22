@@ -1,6 +1,6 @@
-<%|= cell(Cells::HeroSplit, nil, undraw: "fixing_bugs_w7gi").call do %>
-  <h1 class="a-split-hero__title"><%= @exception_code %></h1>
-  <h2 class="a-split-hero__subtitle">That's not gone well, has it?</h2>
+<%|= cell(Cells::HeroSplit, nil, undraw: "fixing_bugs_w7gi").call do |c| %>
+  <%= c.title @exception_code %>
+  <%= c.subtitle "That's not gone well, has it?" %>
 
   <% if ENV["RACK_ENV"] != "production" %>
     <p class="a-split-hero__content"><%= h @exception.class %></p>

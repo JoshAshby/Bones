@@ -1,6 +1,6 @@
-<%|= cell(Cells::HeroSplit, nil, undraw: "Notify_re_65on").call do %>
-  <h1 class="a-split-hero__title">404</h1>
-  <h2 class="a-split-hero__subtitle">Page Not Found :(</h2>
+<%|= cell(Cells::HeroSplit, nil, undraw: "Notify_re_65on").call do |c| %>
+  <%= c.title "404" %>
+  <%= c.subtitle "Page Not Found :(" %>
 
   <% unless rodauth.logged_in? %>
     <p class="a-split-hero__content">You might need to be <a href="/account/login">signed in</a> to see this page.</p>
