@@ -1,23 +1,18 @@
-<div class="o-split-hero__container">
-  <div class="o-split-hero__hero">
-    <div class="m-split-hero__split">
-      <h1 class="a-split-hero__title"><%= @exception_code %></h1>
-      <h2 class="a-split-hero__subtitle">That's not gone well, has it?</h2>
-
-      <% if ENV["RACK_ENV"] != "production" %>
-        <p class="a-split-hero__content"><%= h @exception.class %></p>
-        <p class="a-split-hero__content"><%= h @exception.message %></p>
-      <% end %>
-    </div>
-
-    <div class="m-split-hero__split"><%= undraw_svg "fixing_bugs_w7gi" %></div>
-  </div>
+<%|= cell(Cells::HeroSplit, nil, undraw: "fixing_bugs_w7gi").call do %>
+  <h1 class="a-split-hero__title"><%= @exception_code %></h1>
+  <h2 class="a-split-hero__subtitle">That's not gone well, has it?</h2>
 
   <% if ENV["RACK_ENV"] != "production" %>
+    <p class="a-split-hero__content"><%= h @exception.class %></p>
+    <p class="a-split-hero__content"><%= h @exception.message %></p>
+  <% end %>
+<%| end %>
+
+<% if ENV["RACK_ENV"] != "production" %>
   <details>
     <summary class="a-split-hero__subtitle">Backtrace</summary>
     <pre class="text-xs"><code><% @exception.backtrace.each do |line| %><%= h line %>
-<% end %></code></pre>
+  <% end %></code></pre>
   </details>
   <details>
     <summary class="a-split-hero__subtitle">View Variables</summary>
@@ -42,5 +37,4 @@
       </tbody>
     </table>
   </details>
-  <% end %>
-</div>
+<% end %>

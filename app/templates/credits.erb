@@ -1,27 +1,21 @@
-<div class="o-split-hero__container">
-  <div class="o-split-hero__hero">
-    <div class="m-split-hero__split -md">
-      <div class="a-split-hero__title">Bones Credits</div>
-      <p class="a-split-hero__subtitle">
-        <a href="/" class="o-subtitle__link">
-          <span><%= feather_svg "arrow-up-left" %></span>
-          <span>Return to Bones</span>
-        </a>
-      </p>
-      <p class="a-split-hero__content">
-        Bones is produced with ❤️ by Josh Ashby but it wouldn't be nearly as nice or functional without ample use of the Open Source communities.
-      </p>
+<%|= cell(Cells::HeroSplit, nil, undraw: "share_link_qtxe").call do %>
+  <div class="a-split-hero__title">Bones Credits</div>
+  <p class="a-split-hero__subtitle">
+    <a href="/" class="o-subtitle__link">
+      <span><%= feather_svg "arrow-up-left" %></span>
+      <span>Return to Bones</span>
+    </a>
+  </p>
+  <p class="a-split-hero__content">
+    Bones is produced with ❤️ by Josh Ashby but it wouldn't be nearly as nice or functional without ample use of the Open Source communities.
+  </p>
 
-      <p class="a-split-hero__content">
-        <ul>
-          <li>Landing page photo <span>Photo by <a href="https://unsplash.com/@bmeliti">Brett Meliti</a> on <a href="https://unsplash.com/">Unsplash</a></span> <a href="https://unsplash.com/license">Unsplash License</a></li>
-          <li>Dino skull "Logo" <a href="https://thenounproject.com/term/dinosaur-skull/347287/">dinosaur skull by Erik Kuroow</a> from the <a href="https://thenounproject.com/">Noun Project</a> Licensed Licensed <a href="https://creativecommons.org/licenses/by/3.0/us/legalcode">Creative Commons CCBY</a></li>
-          <li>Icons from <a href="https://feathericons.com/">Feather</a> Licensed <a href="https://github.com/feathericons/feather/blob/master/LICENSE">MIT</a></li>
-          <li>Various Illustrations from <a href="https://undraw.co/">unDraw</a> Licensed <a href="https://undraw.co/license">unDraw License</a></li>
-        </ul>
-      </p>
-    </div>
-
-    <div class="m-split-hero__split"><%= undraw_svg "share_link_qtxe" %></div>
-  </div>
-</div>
+  <p class="a-split-hero__content">
+    <ul>
+      <li>Landing page photo <span>Photo by <a href="https://unsplash.com/@bmeliti">Brett Meliti</a> on <a href="https://unsplash.com/">Unsplash</a></span> <a href="https://unsplash.com/license">Unsplash License</a></li>
+      <li>Dino skull "Logo" <a href="https://thenounproject.com/term/dinosaur-skull/347287/">dinosaur skull by Erik Kuroow</a> from the <a href="https://thenounproject.com/">Noun Project</a> Licensed Licensed <a href="https://creativecommons.org/licenses/by/3.0/us/legalcode">Creative Commons CCBY</a></li>
+      <li>Icons from <a href="https://feathericons.com/">Feather</a> Licensed <a href="https://github.com/feathericons/feather/blob/master/LICENSE">MIT</a></li>
+      <li>Various Illustrations from <a href="https://undraw.co/">unDraw</a> Licensed <a href="https://undraw.co/license">unDraw License</a></li>
+    </ul>
+  </p>
+<%| end %>

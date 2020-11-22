@@ -21,18 +21,12 @@
     </div>
   <% end %>
 <% else %>
-  <div class="o-split-hero__container">
-    <div class="o-split-hero__hero">
-      <div class="m-split-hero__split">
-        <h1 class="a-split-hero__title">It's Empty!</h1>
-        <h2 class="a-split-hero__subtitle">No Repositories Yet</h2>
+  <%|= cell(Cells::HeroSplit, nil, undraw: "code_thinking_1jeh").call do %>
+    <h1 class="a-split-hero__title">It's Empty!</h1>
+    <h2 class="a-split-hero__subtitle">No Repositories Yet</h2>
 
-        <p class="a-split-hero__content">
-          <a href="/dashboard/repository/create">Create a repository</a> to get started!
-        </p>
-      </div>
-
-      <div class="m-split-hero__split"><%= undraw_svg "code_thinking_1jeh" %></div>
-    </div>
-  </div>
+    <p class="a-split-hero__content">
+      <a href="/dashboard/repository/create">Create a repository</a> to get started!
+    </p>
+  <%| end %>
 <% end %>
