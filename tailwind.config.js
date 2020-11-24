@@ -6,7 +6,7 @@ module.exports = {
     // purgeLayersByDefault: true,
   },
   purge: [],
-    theme: {
+  theme: {
     extend: {
       colors: {
         orange: colors.orange,
@@ -135,5 +135,8 @@ module.exports = {
     }
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+  ],
 }
