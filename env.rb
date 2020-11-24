@@ -52,7 +52,9 @@ LOGGER = TTY::Logger.new do |config|
   ]
 end
 
-CONFIG = YAML.safe_load(Tilt::ErubiTemplate.new("config/#{ ENV['RACK_ENV'] }.yml").render)
+Tilt.register Cell::Erb::Template, "erb"
+
+CONFIG = YAML.safe_load(Tilt["erb"].new("config/#{ ENV['RACK_ENV'] }.yml").render)
 
 # Delete DATABASE_URL from the environment, so it isn't accidently
 # passed to subprocesses. DATABASE_URL may contain passwords.
@@ -91,7 +93,7 @@ Sequel.extension :core_refinements
 # Shrine.plugin :validation
 # Shrine.plugin :validation_helpers
 
-require "erubi/capture_end"
+# require "erubi/capture_end"
 
 Thread.abort_on_exception = true
 trap("INT") { exit }

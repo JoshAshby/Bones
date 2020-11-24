@@ -17,7 +17,7 @@ gem "roda"
 gem "rodauth"
 
 gem "tilt"
-gem "erubi"
+# gem "erubi"
 gem "nokogiri"
 gem "forme"
 

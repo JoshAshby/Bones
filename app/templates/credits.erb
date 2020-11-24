@@ -1,17 +1,17 @@
-<%|= cell(Cells::HeroSplit, nil, undraw: "share_link_qtxe").show do |c| %>
+<%= cell(Cells::HeroSplit, nil, undraw: "share_link_qtxe").show do |c| %>
   <%= c.title "Bones Credits" %>
-  <%|= c.subtitle do %>
+  <%= c.subtitle do %>
     <a href="/" class="flex flex-row">
       <span><%= feather_svg "arrow-up-left" %></span>
       <span>Return to Bones</span>
     </a>
-  <%| end %>
+  <% end %>
 
-  <p class="a-split-hero__content">
+  <p class="mb-2">
     Bones is produced with ❤️ by Josh Ashby but it wouldn't be nearly as nice or functional without ample use of the Open Source communities.
   </p>
 
-  <p class="a-split-hero__content">
+  <p>
     <ul>
       <li>Landing page photo <span>Photo by <a href="https://unsplash.com/@bmeliti">Brett Meliti</a> on <a href="https://unsplash.com/">Unsplash</a></span> <a href="https://unsplash.com/license">Unsplash License</a></li>
       <li>Dino skull "Logo" <a href="https://thenounproject.com/term/dinosaur-skull/347287/">dinosaur skull by Erik Kuroow</a> from the <a href="https://thenounproject.com/">Noun Project</a> Licensed Licensed <a href="https://creativecommons.org/licenses/by/3.0/us/legalcode">Creative Commons CCBY</a></li>
@@ -19,4 +19,4 @@
       <li>Various Illustrations from <a href="https://undraw.co/">unDraw</a> Licensed <a href="https://undraw.co/license">unDraw License</a></li>
     </ul>
   </p>
-<%| end %>
+<% end %>

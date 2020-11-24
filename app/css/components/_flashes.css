@@ -1,0 +1,43 @@
+.m-flash__flash {
+  @apply flex flex-row bg-white leading-none rounded shadow text-sm mb-1 w-full;
+}
+
+.m-flash__flash.-info {
+  @apply text-gray-600;
+}
+
+.m-flash__flash.-notice {
+  @apply text-steelblue-600;
+}
+
+.m-flash__flash.-warn {
+  @apply text-orange-600;
+}
+
+.m-flash__flash.-alert {
+  @apply text-plum-600;
+}
+
+.a-flash__key {
+  @apply rounded-l p-2 px-3 flex items-center;
+}
+
+.a-flash__key.-info {
+  @apply bg-gray-600 text-white;
+}
+
+.a-flash__key.-notice {
+  @apply bg-steelblue-600 text-white;
+}
+
+.a-flash__key.-warn {
+  @apply bg-orange-600 text-white;
+}
+
+.a-flash__key.-alert {
+  @apply bg-plum-600 text-white;
+}
+
+.a-flash__message {
+  @apply flex-grow px-3 p-1 flex items-center;
+}

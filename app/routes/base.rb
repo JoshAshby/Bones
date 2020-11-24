@@ -10,11 +10,7 @@ class Routes::Base < Roda
 
   plugin(
     :render,
-    views: "app/templates",
-    template_opts: {
-      engine_class: Erubi::CaptureEndEngine,
-      outvar: "@_out_buf"
-    }
+    views: "app/templates"
   )
 
   plugin :content_for
@@ -25,14 +21,16 @@ class Routes::Base < Roda
   plugin :forme
   plugin :forme_set, secret: secret
 
+  def _forme_form_class
+    Forme::Erbse
+  end
+
   plugin :flash
 
   plugin :route_csrf
 
   plugin :sessions, key: "bones.session", secret: secret
   plugin :shared_vars
-
-  # plugin :hooks
 
   plugin :rodauth, csrf: :route_csrf do
     db DB
@@ -110,7 +108,5 @@ class Routes::Base < Roda
     view :error, layout: :layout_centered
   end
 
-  plugin :not_found do
-    view :not_found, layout: :layout_centered
-  end
+  plugin(:not_found) { view :not_found, layout: :layout_centered }
 end

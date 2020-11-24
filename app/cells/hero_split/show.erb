@@ -1,9 +1,9 @@
-<div class="o-split-hero__container">
-  <div class="o-split-hero__hero">
-    <div class="m-split-hero__split -md">
+<div class="mx-auto w-full max-w-5xl overflow-scroll">
+  <div class="flex flex-col items-center justify-center px-5 text-gray-800 md:flex-row">
+    <div class="max-w-md flex-grow">
       <%= yield %>
     </div>
 
-    <div class="m-split-hero__split"><%= undraw_svg undraw %></div>
+    <div class="max-w-lg flex-grow"><%= undraw_svg undraw, class: "w-full" %></div>
   </div>
 </div>

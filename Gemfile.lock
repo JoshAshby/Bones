@@ -87,7 +87,6 @@ GEM
       dry-schema (~> 1.5, >= 1.5.2)
     erbse (0.1.4)
       temple
-    erubi (1.9.0)
     eventmachine (1.2.7)
     ffi (1.13.1)
     forme (1.11.0)
@@ -186,7 +185,6 @@ DEPENDENCIES
   dry-struct
   dry-types
   dry-validation
-  erubi
   forme
   listen
   mail

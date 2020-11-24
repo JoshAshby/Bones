@@ -1,0 +1,55 @@
+.o-menu-link__container {
+  @apply flex flex-row rounded-l-lg items-center h-10 text-steelblue-100;
+}
+
+.o-menu-link__container.-active {
+  @apply text-gray-800 bg-gray-100;
+}
+
+.o-menu-link__container:hover {
+  @apply text-gray-800 bg-white;
+}
+
+.m-menu-link__icon {
+  @apply flex items-center rounded-l-lg justify-center text-lg h-full p-3;
+}
+
+.m-menu-link__icon.-gray {
+  @apply text-gray-600;
+}
+
+.o-menu-link__container.-active > .m-menu-link__icon.-gray {
+  @apply bg-gray-600 text-gray-100;
+}
+
+.m-menu-link__icon.-green {
+  @apply text-green-500;
+}
+
+.o-menu-link__container.-active > .m-menu-link__icon.-green {
+  @apply bg-green-500 text-green-100;
+}
+
+.m-menu-link__icon.-red {
+  @apply text-indianred-600;
+}
+
+.o-menu-link__container.-active > .m-menu-link__icon.-red {
+  @apply bg-indianred-600 text-indianred-50;
+}
+
+.m-menu-link__icon.-purple {
+  @apply text-palevioletred-600;
+}
+
+.o-menu-link__container.-active > .m-menu-link__icon.-purple {
+  @apply bg-palevioletred-600 text-palevioletred-50;
+}
+
+.m-menu-link__icon > svg {
+  @apply h-6 w-6 stroke-current;
+}
+
+.a-menu-link__title {
+  @apply ml-3 w-full;
+}

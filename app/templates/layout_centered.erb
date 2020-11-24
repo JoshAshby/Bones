@@ -3,24 +3,25 @@
 <%= render :_head %>
 
 <body class="flex flex-col min-h-screen bg-gray-100 text-gray-800">
-  <div class="o-layout-page-header__container">
-    <header class="o-navbar__container -blue">
-      <nav class="m-navbar__holder">
+
+  <div class="w-full border-t-4 border-steelblue-600 flex flex-col">
+    <header class="flex flex-col px-8 py-2 flex-grow bg-brand">
+      <nav class="flex items-center justify-between">
         <%= render :_logo %>
 
         <% unless rodauth.logged_in? %>
-        <div class="m-navbar__links">
+        <div class="flex items-center">
           <% if Features.enabled? :sign_up %>
-            <a href="/account/create" class="a-navbar__link">Sign up</a>
+            <a href="/account/create" class="mx-1 py-2 px-3 rounded border-2 border-transparent text-steelblue-50 hover:border-steelblue-300">Sign up</a>
           <% end %>
-          <a href="/account/login" class="a-navbar__link -bordered-blue">Log in</a>
+          <a href="/account/login" class="mx-1 py-2 px-3 rounded border-2 border-transparent border-steelblue-600 text-steelblue-50 hover:border-steelblue-300">Log in</a>
         </div>
         <% end %>
       </nav>
     </header>
   </div>
 
-  <div class="a-layout-centered__spacer"></div>
+  <div class="h-6"></div>
 
   <div class="mx-auto">
     <%= cell(Cells::Flashes, flash).render :list %>
