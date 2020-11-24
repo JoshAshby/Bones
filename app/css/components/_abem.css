@@ -28,58 +28,58 @@
   @apply text-indianred-600;
 }
 
-.o-body__container {
-  @apply flex flex-col min-h-screen bg-gray-100 text-gray-800;
-}
+/*.o-body__container {*/
+  /*@apply flex flex-col min-h-screen bg-gray-100 text-gray-800;*/
+/*}*/
 
 /* Sidebar */
-.o-sidebar__container {
-  @apply w-64 transform -translate-x-full bg-brand flex;
-}
+/*.o-sidebar__container {*/
+  /*@apply w-64 transform -translate-x-full bg-brand flex;*/
+/*}*/
 
-@screen md {
-  .o-sidebar__container {
-    @apply transform translate-x-0 flex-col h-screen fixed;
-  }
-}
+/*@screen md {*/
+  /*.o-sidebar__container {*/
+    /*@apply transform translate-x-0 flex-col h-screen fixed;*/
+  /*}*/
+/*}*/
 
-.m-sidebar__header {
-  @apply flex items-center justify-center py-4 pt-10;
-}
+/*.m-sidebar__header {*/
+  /*@apply flex items-center justify-center py-4 pt-10;*/
+/*}*/
 
-.m-sidebar__content {
-  @apply pb-10 pl-4;
-}
+/*.m-sidebar__content {*/
+  /*@apply pb-10 pl-4;*/
+/*}*/
 
 /* Logo/Brandname Header */
-.o-logo__container {
-  @apply inline-flex;
-}
+/*.o-logo__container {*/
+  /*@apply inline-flex;*/
+/*}*/
 
-.m-logo__link {
-  @apply inline-flex flex-row items-center;
-}
+/*.m-logo__link {*/
+  /*@apply inline-flex flex-row items-center;*/
+/*}*/
 
-.m-logo__link > svg {
-  @apply w-10 h-10 text-palevioletred-400;
-}
+/*.m-logo__link > svg {*/
+  /*@apply w-10 h-10 text-palevioletred-400;*/
+/*}*/
 
-.a-logo__brandname {
-  @apply leading-10 text-steelblue-50 text-2xl font-bold ml-2 uppercase;
-}
+/*.a-logo__brandname {*/
+  /*@apply leading-10 text-steelblue-50 text-2xl font-bold ml-2 uppercase;*/
+/*}*/
 
 /* Sidebar Menu */
-.o-sidebar-menu__container {
-  @apply flex flex-col flex-grow;
-}
+/*.o-sidebar-menu__container {*/
+  /*@apply flex flex-col flex-grow;*/
+/*}*/
 
-.m-sidebar-menu__list {
-  @apply flex flex-col;
-}
+/*.m-sidebar-menu__list {*/
+  /*@apply flex flex-col;*/
+/*}*/
 
-.m-sidebar-menu__list.-grow {
-  @apply w-full flex-grow;
-}
+/*.m-sidebar-menu__list.-grow {*/
+  /*@apply w-full flex-grow;*/
+/*}*/
 
 .a-sidebar-menu__list-item {
   @apply my-px;
@@ -215,17 +215,17 @@
 }
 
 /* Footer */
-.o-footer__container {
-  @apply px-4 py-6;
-}
+/*.o-footer__container {*/
+  /*@apply px-4 py-6;*/
+/*}*/
 
-.m-footer__content {
-  /*@apply*/
-}
+/*.m-footer__content {*/
+  /*[>@apply<]*/
+/*}*/
 
-.a-footer__text {
-  @apply text-sm text-gray-600 text-center;
-}
+/*.a-footer__text {*/
+  /*@apply text-sm text-gray-600 text-center;*/
+/*}*/
 
 /* Split Hero */
 .o-split-hero__container {
@@ -493,5 +493,3 @@
 .a-signin-card__link:hover {
   @apply text-gray-800;
 }
-
-

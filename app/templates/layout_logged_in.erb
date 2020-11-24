@@ -2,50 +2,25 @@
 <html lang="en">
 <%= render :_head %>
 
-<body class="o-body__container">
-  <aside class="sidebar-container" x-data="{ open: false }" :class="{ '-opened': open }" @nav-toggle.window="open = !open" @click.away="open = false">
-    <div class="m-sidebar__header" <%= render :_logo %></div>
+<body class="flex flex-col min-h-screen bg-gray-100 text-gray-800">
 
-    <div class="m-sidebar__content o-sidebar-menu__container">
-      <ul class="m-sidebar-menu__list -grow">
-        <li class="a-sidebar-menu__list-item">
-          <span class="a-menu__header">Repositories</span>
-        </li>
+  <aside class="absolute md:fixed md:h-screen w-full md:w-64 flex md:flex flex-col bg-brand transform" x-data="{ open: false }" :class="{ 'hidden': !open }" @nav-toggle.window="open = !open" @click.away="open = false">
+    <div class="flex items-center justify-center py-4 pt-10" <%= render :_logo %></div>
 
-        <li class="a-sidebar-menu__list-item">
-          <a href="/dashboard" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Dashboard" %>-active<% end %>">
-            <span class="m-menu-link__icon -purple"><%= feather_svg "home" %></span>
-            <span class="a-menu-link__title">Dashboard</span>
-          </a>
-        </li>
+    <div class="flex flex-col flex-grow pb-10 pl-4">
+      <ul class="flex flex-col flex-grow w-full">
+        <%= cell Cells::Sidebar::Header, title: "Repositories" %>
 
-        <li class="a-sidebar-menu__list-item">
-          <a href="/dashboard/repository/create" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Create Repository" %>-active<% end %>">
-            <span class="m-menu-link__icon -green"><%= feather_svg "plus" %></span>
-            <span class="a-menu-link__title">Create Repository</span>
-          </a>
-        </li>
+        <%= cell Cells::Sidebar::Link, href: "/dashboard", title: "Dashboard", icon: "home", icon_color: "-purple", active: shared[:breadcrumbs].last == "Dashboard" %>
+        <%= cell Cells::Sidebar::Link, href: "/dashboard/repository/create", title: "Create Repository", icon: "plus", icon_color: "-green", active: shared[:breadcrumbs].last == "Create Repository" %>
+        <%= cell Cells::Sidebar::Link, href: "/dashboard/repository/clone", title: "Clone Repository", icon: "copy", icon_color: "-green", active: shared[:breadcrumbs].last == "Clone Repository" %>
 
-        <li class="a-sidebar-menu__list-item">
-          <a href="/dashboard/repository/clone" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Clone Repository" %>-active<% end %>">
-            <span class="m-menu-link__icon -green"><%= feather_svg "copy" %></span>
-            <span class="a-menu-link__title">Clone Repository</span>
-          </a>
-        </li>
+        <%= cell Cells::Sidebar::Header, title: "Account" %>
 
-        <li class="a-sidebar-menu__list-item">
-          <span class="a-menu__header">Account</span>
-        </li>
-
-        <li class="a-sidebar-menu__list-item">
-          <a href="/account" class="o-menu-link__container <% if shared[:breadcrumbs].include? "Account" %>-active<% end %>">
-            <span class="m-menu-link__icon -gray"><%= feather_svg "user" %></span>
-            <span class="a-menu-link__title">Profile</span>
-          </a>
-        </li>
+        <%= cell Cells::Sidebar::Link, href: "/account", title: "Account", icon: "user", icon_color: "-grey", active: shared[:breadcrumbs].include?("Account") %>
       </ul>
 
-      <ul class="m-sidebar-menu__list">
+      <ul class="flex flex-col">
         <li class="a-sidebar-menu__list-item o-account-info__item">
           <span class="m-account-info__container">
             <span class="a-account-info__username"><%= shared[:account][:username] %></span>
@@ -68,12 +43,13 @@
   </aside>
 
   <main class="o-main__container">
+    <button class="md:hidden" x-data @click="$dispatch('nav-toggle')">Menu</button>
+
     <%#= render :_header_content %>
 
     <div class="o-content__container">
       <h1 class="a-content__header"><%= shared[:breadcrumbs].last %></h1>
 
-      <button class="sidebar-toggle" x-data @click="$dispatch('nav-toggle')">Menu</button>
 
       <div class="m-content__body">
         <div class="a-content__flashes">
@@ -84,15 +60,7 @@
       </div>
     </div>
 
-    <footer class="o-footer__container">
-      <div class="m-footer__content">
-        <p class="a-footer__text">
-        © <a href="https://joshisa.ninja">Joshua Ashby</a> 2020 - <a href="/credits">Credits</a>
-        |
-        <a href="https://thenounproject.com/term/dinosaur-skull/347287/">dinosaur skull by Erik Kuroow</a>
-        </p>
-      </div>
-    </footer>
+    <%= render :_footer %>
   </main>
 </body>
 </html>

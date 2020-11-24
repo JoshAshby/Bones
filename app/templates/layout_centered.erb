@@ -2,7 +2,7 @@
 <html lang="en">
 <%= render :_head %>
 
-<body class="o-body__container -columns">
+<body class="flex flex-col min-h-screen bg-gray-100 text-gray-800">
   <div class="o-layout-page-header__container">
     <header class="o-navbar__container -blue">
       <nav class="m-navbar__holder">
@@ -22,22 +22,14 @@
 
   <div class="a-layout-centered__spacer"></div>
 
-  <div class="center-horizontal">
+  <div class="mx-auto">
     <%= cell(Cells::Flashes, flash).render :list %>
 
     <%= yield %>
   </div>
 
-  <div class="growing-space"></div>
+  <div class="flex-grow"></div>
 
-  <footer class="o-footer__container">
-    <div class="m-footer__content">
-      <p class="a-footer__text">
-      © <a href="https://joshisa.ninja">Joshua Ashby</a> 2020 - <a href="/credits">Credits</a>
-      |
-      <a href="https://thenounproject.com/term/dinosaur-skull/347287/">dinosaur skull by Erik Kuroow</a>
-      </p>
-    </div>
-  </footer>
+  <%= render :_footer %>
 </body>
 </html>

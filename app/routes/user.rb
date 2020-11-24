@@ -2,7 +2,6 @@
 
 class Routes::User < Routes::Base
   route do |r|
-    shared[:breadcrumbs] << "Dashboard"
     set_layout_options template: :layout_logged_in
 
     r.on "repository" do
