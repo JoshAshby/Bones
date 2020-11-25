@@ -10,25 +10,27 @@ gem "zeitwerk"
 
 gem "rake"
 gem "tty-logger"
-# gem "tty-option"
-# gem "tty-prompt"
-# gem "tty-config"
+
+gem "thin"
 
 gem "roda"
 gem "rodauth"
-gem "thin"
+
 gem "tilt"
-gem "erubi"
+# gem "erubi"
 gem "nokogiri"
+gem "forme"
+
+gem "cells", github: "trailblazer/cells"
+gem "cells-erb", github: "trailblazer/cells-erb"
 
 gem "sqlite3"
 gem "sequel"
 
+# gem "shrine", "~> 3.0"
+
 gem "bcrypt"
 gem "mail"
-
-# gem "shrine", "~> 3.0"
-gem "forme"
 
 gem "dry-struct"
 gem "dry-types"

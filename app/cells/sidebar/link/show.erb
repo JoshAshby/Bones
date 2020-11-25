@@ -1,0 +1,6 @@
+<%= cell(Cells::Sidebar::Item).show do %>
+  <a href="<%= model[:href] %>" class="o-menu-link__container <% if model[:active] %>-active<% end %>">
+    <span class="m-menu-link__icon <%= model[:icon_color] %>"><%= feather_svg model[:icon] %></span>
+    <span class="a-menu-link__title"><%= model[:title ] %></span>
+  </a>
+<% end %>

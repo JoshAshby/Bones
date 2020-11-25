@@ -2,7 +2,6 @@
 
 class Routes::User < Routes::Base
   route do |r|
-    shared[:breadcrumbs] << "Dashboard"
     set_layout_options template: :layout_logged_in
 
     r.on "repository" do
@@ -41,14 +40,12 @@ class Routes::User < Routes::Base
           shared[:breadcrumbs] << "Delete"
           @repository = DB[:repositories].first id: id
 
-          r.get do
-            view "dashboard/repository/delete"
-          end
+          r.get { view "dashboard/repository/delete" }
 
           r.post do
             if r.params["repository"]["name"] == @repository[:name]
               repo = Bones::UserFossil.new(shared[:account][:username]).repository @repository[:name]
-              repo.delete_repository!
+              repo.delete!
 
               DB[:repositories].where(id: id).delete
 
@@ -119,6 +116,15 @@ class Routes::User < Routes::Base
 
     r.root do
       @repositories = Repository.new.all_by_account_id shared[:account][:id]
+
+      if flash["repository_id"]
+        @repository_info = {
+          repository: @repositories.find { _1[:id] == flash["repository_id"] },
+          username: shared[:account][:username],
+          password: flash["repository_password"]
+        }
+      end
+
       view "dashboard/index"
     end
   end

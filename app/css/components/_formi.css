@@ -1,0 +1,31 @@
+/* purgecss start ignore */
+.o-form {}
+.o-form__fielset {}
+.m-form__input-group {
+  @apply mb-2;
+}
+
+.a-form__label {}
+.a-form__label.-error {
+  @apply text-indianred-600;
+}
+
+.a-form__button {}
+
+.a-form__button.-primary {
+  @apply bg-brand text-steelblue-50;
+}
+
+.a-form__button.-primary:hover {
+  @apply bg-steelblue-700 text-steelblue-50;
+}
+
+.a-form__input {}
+.a-form__input.-error {
+  @apply border-indianred-600 text-indianred-700;
+}
+
+.a-form__error-message {
+  @apply text-indianred-600;
+}
+/* purgecss end ignore */

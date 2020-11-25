@@ -1,0 +1,5 @@
+<div class="w-full flex flex-col">
+<% messages.each do |msg| %>
+  <%= cell(Cells::FlashMessage, msg).render :msg %>
+<% end %>
+</div>

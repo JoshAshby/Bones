@@ -1,12 +1,7 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
-  },
-  purge: [],
-    theme: {
+  theme: {
     extend: {
       colors: {
         orange: colors.orange,
@@ -135,5 +130,8 @@ module.exports = {
     }
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    //require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+  ],
 }

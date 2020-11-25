@@ -31,11 +31,14 @@ needing to be completed before the first version goes live:
 - [x] Feature flag for public sign-up
 - [x] Build out lighttpd setup and test it out
 - [x] Dockerfile for the ruby component
+- [-] Mobile/responsive design
+  - This is somewhat done, in that the site is mostly usable on mobile, but
+    doesn't have a good mobile friendly design
 
 Bones is missing these features but I *might* add them in the future:  
 
-- [ ] Mobile/responsive design
 - [ ] Periodic task to pull/sync cloned repos
+- [ ] Periodic task to mirror a repo to git automatically
 - [ ] Public/Private setting repositories (all repositories as "private" at the
   moment)
 - [ ] Possible webhook setup for pushes using the 2.12.1 hooks feature
@@ -92,22 +95,20 @@ Additionally the project is configured with
 code in development, the only time you should have to manually restart the
 server is when changing `env.rb`, `config.ru` or `config/<environment>.yml`.
 
-### Frontend Styles
+### Frontend
 
-There is a [Tailwind CSS](https://tailwindcss.com/) setup for styling. Make style changes to
-`app/styles.css` and then run tailwind to regnerate the styles file.
+Bones is moving towards a utility css backed, componentized view setup with
+Trailblazer cells; Frontend magic is done with the help of some splashes of
+AlpineJS. I'll fill this section out more in the future when the migration is
+finished or at least solidified in practices.
 
-```shell
-npm run css
-```
+While there is a `app/styles.css` and some small amount of rscss that'll
+probably remain in place, for the most part everything is done with Tailwind
+and the css gets stripped with purgecss. See [Tailwind CSS v2](https://tailwindcss.com/)
+for more help with the available classes.
 
-If you have [`entr`](http://eradman.com/entrproject/) installed you could run:
-
-```shell
-echo app/css/styles.pcss | entr -c npm run css
-```
-
-to continueously rebuild the styles when working on them.
+If you do need to rebuild the `public/styles.css` file after changing something
+in `app/css/`, just run the `css` npm script: `npm run css`
 
 ## Release Prep
 

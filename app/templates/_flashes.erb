@@ -1,8 +1,0 @@
-<div class="o-flash__container">
-<% flash.slice("info", "notice", "warn", "alert").each do |(key, message)| %>
-  <div class="m-flash__flash -<%= key %>">
-    <span class="a-flash__key -<%= key %>"><%= flash_key key %></span>
-    <span class="a-flash__message"><%= message %></span>
-  </div>
-<% end %>
-</div>

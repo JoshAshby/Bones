@@ -2,97 +2,64 @@
 <html lang="en">
 <%= render :_head %>
 
-<body class="o-body__container">
-  <aside class="sidebar-container" x-data="{ open: false }" :class="{ '-opened': open }" @nav-toggle.window="open = !open" @click.away="open = false">
-    <div class="m-sidebar__header" <%= render :_logo %></div>
+<body class="flex flex-col min-h-screen bg-gray-100 text-gray-800">
 
-    <div class="m-sidebar__content o-sidebar-menu__container">
-      <ul class="m-sidebar-menu__list -grow">
-        <li class="a-sidebar-menu__list-item">
-          <span class="a-menu__header">Repositories</span>
-        </li>
+  <aside class="absolute md:fixed md:h-screen w-full md:w-64 flex md:flex flex-col bg-brand transform" x-data="{ open: false }" :class="{ 'hidden': !open }" @nav-toggle.window="open = !open" @click.away="open = false">
+    <div class="flex items-center justify-center py-4 pt-10" <%= render :_logo %></div>
 
-        <li class="a-sidebar-menu__list-item">
-          <a href="/dashboard" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Dashboard" %>-active<% end %>">
-            <span class="m-menu-link__icon -purple"><%= feather_svg "home" %></span>
-            <span class="a-menu-link__title">Dashboard</span>
-          </a>
-        </li>
+    <div class="flex flex-col flex-grow pb-10 pl-4">
+      <ul class="flex flex-col flex-grow w-full">
+        <%= cell Cells::Sidebar::Header, title: "Repositories" %>
 
-        <li class="a-sidebar-menu__list-item">
-          <a href="/dashboard/repository/create" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Create Repository" %>-active<% end %>">
-            <span class="m-menu-link__icon -green"><%= feather_svg "plus" %></span>
-            <span class="a-menu-link__title">Create Repository</span>
-          </a>
-        </li>
+        <%= cell Cells::Sidebar::Link, href: "/dashboard", title: "Dashboard", icon: "home", icon_color: "-purple", active: shared[:breadcrumbs].last == "Dashboard" %>
+        <%= cell Cells::Sidebar::Link, href: "/dashboard/repository/create", title: "Create Repository", icon: "plus", icon_color: "-green", active: shared[:breadcrumbs].last == "Create Repository" %>
+        <%= cell Cells::Sidebar::Link, href: "/dashboard/repository/clone", title: "Clone Repository", icon: "copy", icon_color: "-green", active: shared[:breadcrumbs].last == "Clone Repository" %>
 
-        <li class="a-sidebar-menu__list-item">
-          <a href="/dashboard/repository/clone" class="o-menu-link__container <% if shared[:breadcrumbs].last == "Clone Repository" %>-active<% end %>">
-            <span class="m-menu-link__icon -green"><%= feather_svg "copy" %></span>
-            <span class="a-menu-link__title">Clone Repository</span>
-          </a>
-        </li>
+        <%= cell Cells::Sidebar::Header, title: "Account" %>
 
-        <li class="a-sidebar-menu__list-item">
-          <span class="a-menu__header">Account</span>
-        </li>
-
-        <li class="a-sidebar-menu__list-item">
-          <a href="/account" class="o-menu-link__container <% if shared[:breadcrumbs].include? "Account" %>-active<% end %>">
-            <span class="m-menu-link__icon -gray"><%= feather_svg "user" %></span>
-            <span class="a-menu-link__title">Profile</span>
-          </a>
-        </li>
+        <%= cell Cells::Sidebar::Link, href: "/account", title: "Account", icon: "user", icon_color: "-grey", active: shared[:breadcrumbs].include?("Account") %>
       </ul>
 
-      <ul class="m-sidebar-menu__list">
-        <li class="a-sidebar-menu__list-item o-account-info__item">
-          <span class="m-account-info__container">
-            <span class="a-account-info__username"><%= shared[:account][:username] %></span>
-            <span class="a-account-info__email"><%= shared[:account][:email] %></span>
+      <ul class="flex flex-col">
+        <%= cell(Cells::Sidebar::Item).show do %>
+          <span class="flex flex-col m-2">
+            <span class="text-palevioletred-400 font-semibold tracking-wide leading-none"><%= shared[:account][:username] %></span>
+            <span class="text-gray-500 text-xs leading-none mt-1"><%= shared[:account][:email] %></span>
           </span>
-        </li>
+        <% end %>
 
-        <li class="a-sidebar-menu__list-item">
+        <%= cell(Cells::Sidebar::Item).show do %>
           <form method="post" action="/account/logout">
             <%= rodauth.csrf_tag("/account/logout") %>
 
-            <button type="submit" class="o-menu-link__container m-menu-link__button">
+            <button type="submit" class="o-menu-link__container w-full rounded-r-none bg-transparent border-0 p-0 appearance-none">
               <span class="m-menu-link__icon -red"><%= feather_svg "log-out" %></span>
-              <span class="a-menu-link__title a-menu_link__button-text">Logout</span>
+              <span class="a-menu-link__title justify-self-start flex">Logout</span>
             </button>
           </form>
-        </li>
+        <% end %>
       </ul>
     </div>
   </aside>
 
-  <main class="o-main__container">
+  <main class="flex flex-col flex-grow ml-0 md:ml-64">
+    <button class="md:hidden" x-data @click="$dispatch('nav-toggle')">Menu</button>
+
     <%#= render :_header_content %>
 
-    <div class="o-content__container">
-      <h1 class="a-content__header"><%= shared[:breadcrumbs].last %></h1>
+    <div class="flex flex-col flex-grow p-4">
+      <h1 class="font-bold text-2xl text-gray-800"><%= shared[:breadcrumbs].last %></h1>
 
-      <button class="sidebar-toggle" x-data @click="$dispatch('nav-toggle')">Menu</button>
-
-      <div class="m-content__body">
-        <div class="a-content__flashes">
-          <%= render :_flashes %>
+      <div class="flex flex-col flex-grow bg-white rounded mt-4 p-8 shadow">
+        <div class="w-1/2 flex items-center mx-auto">
+          <%= cell(Cells::Flashes, flash).render :list %>
         </div>
 
         <%= yield %>
       </div>
     </div>
 
-    <footer class="o-footer__container">
-      <div class="m-footer__content">
-        <p class="a-footer__text">
-        © <a href="https://joshisa.ninja">Joshua Ashby</a> 2020 - <a href="/credits">Credits</a>
-        |
-        <a href="https://thenounproject.com/term/dinosaur-skull/347287/">dinosaur skull by Erik Kuroow</a>
-        </p>
-      </div>
-    </footer>
+    <%= render :_footer %>
   </main>
 </body>
 </html>

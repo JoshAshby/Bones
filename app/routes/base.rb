@@ -1,37 +1,5 @@
 # frozen_string_literal: true
 
-module ViewHelpers
-  def inline_svg ident, **attrs
-    raw_svg = File.open("public/#{ ident }.svg") do |f|
-      f.read
-    end
-
-    with_svg(raw_svg) do |svg|
-      if attrs[:class]
-        classes = (svg["class"] || "").split(" ")
-        classes << attrs[:class]
-        svg["class"] = classes.join(" ")
-      end
-    end.to_html
-  end
-
-  def undraw_svg ident, **attrs
-    ident = "undraw_#{ ident }" unless ident.start_with? "undraw_"
-    inline_svg("undraw/#{ ident }", **attrs)
-  end
-
-  def feather_svg ident, **attrs
-    inline_svg("feather/#{ ident }", **attrs)
-  end
-
-  def with_svg(doc)
-    doc = Nokogiri::XML::Document.parse(doc, nil, "UTF-8")
-    svg = doc.at_css "svg"
-    yield svg if svg && block_given?
-    doc
-  end
-end
-
 class Routes::Base < Roda
   secret = ENV.fetch("SESSION_SECRET", SecureRandom.random_bytes(64))
 
@@ -42,11 +10,7 @@ class Routes::Base < Roda
 
   plugin(
     :render,
-    views: "app/templates",
-    template_opts: {
-      engine_class: Erubi::CaptureEndEngine,
-      outvar: "@_out_buf"
-    }
+    views: "app/templates"
   )
 
   plugin :content_for
@@ -57,14 +21,16 @@ class Routes::Base < Roda
   plugin :forme
   plugin :forme_set, secret: secret
 
+  def _forme_form_class
+    Forme::Erbse
+  end
+
   plugin :flash
 
   plugin :route_csrf
 
-  plugin :sessions, secret: secret
+  plugin :sessions, key: "bones.session", secret: secret
   plugin :shared_vars
-
-  plugin :hooks
 
   plugin :rodauth, csrf: :route_csrf do
     db DB
@@ -142,17 +108,5 @@ class Routes::Base < Roda
     view :error, layout: :layout_centered
   end
 
-  plugin :not_found do
-    view :not_found, layout: :layout_centered
-  end
-
-  def flash_key key
-    case key
-    when "info" then "Info"
-    when "notice" then "Notice"
-    when "warn" then "Warning"
-    when "alert" then "Alert"
-    else "Notice"
-    end
-  end
+  plugin(:not_found) { view :not_found, layout: :layout_centered }
 end

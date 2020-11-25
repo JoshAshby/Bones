@@ -1,0 +1,16 @@
+<div class="rounded-md shadow bg-gray-100 mb-4 mt-2" x-data>
+  <div class="flex justify-between border-b border-gray-200 p-4">
+    <div class="flex">
+      <span class="<%= icon_color %>"><%= feather_svg icon %></span>
+      <span class="font-bold text-gray-800 text-lg ml-2"><%= title %></span>
+    </div>
+
+    <div>
+      <button class="text-gray-500 hover:text-red-600" @click="$el.remove()"><%= feather_svg "x" %></button>
+    </div>
+  </div>
+
+  <div class="p-4 text-gray-700">
+    <%= yield %>
+  </div>
+</div>

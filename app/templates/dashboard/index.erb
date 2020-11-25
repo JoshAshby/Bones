@@ -1,4 +1,22 @@
-<%= render :_repository_info_card %>
+<% if @repository_info %>
+  <%= cell(Cells::Card, nil, title: "Repository Information", icon: { icon: "thumbs-up", color: "text-blue-500" }).call do %>
+    <p class="mb-2">
+      Your repository has been created, however please remember that since
+      Fossil is an all-in-one solution and Bones only handles creating and managing
+      hosted repositories but does not have control over a Fossil's permissions,
+      you are required to go in and lock it down as you see fit.
+    </p>
+
+    <p class="mb-2">
+      The created superuser in your new Fossil repository is the same as your
+      username, <code><%= @repository_info[:username] %></code> and the password is
+      <code><%= @repository_info[:password] %></code>. We'd recommend you go in
+      and change this during setup.
+    </p>
+
+    <p><%= cell(Cells::RepositoryInfo, @repository_info).call %></p>
+  <% end %>
+<% end %>
 
 <% if @repositories.any? %>
   <% @repositories.each do |repository| %>
@@ -21,18 +39,10 @@
     </div>
   <% end %>
 <% else %>
-  <div class="o-split-hero__container">
-    <div class="o-split-hero__hero">
-      <div class="m-split-hero__split">
-        <h1 class="a-split-hero__title">It's Empty!</h1>
-        <h2 class="a-split-hero__subtitle">No Repositories Yet</h2>
+  <%= cell(Cells::HeroSplit, nil, undraw: "code_thinking_1jeh").call do |c| %>
+    <%= c.title "It's Empty!" %>
+    <%= c.subtitle "No Repositories Yet" %>
 
-        <p class="a-split-hero__content">
-          <a href="/dashboard/repository/create">Create a repository</a> to get started!
-        </p>
-      </div>
-
-      <div class="m-split-hero__split"><%= undraw_svg "code_thinking_1jeh" %></div>
-    </div>
-  </div>
+    <p><a href="/dashboard/repository/create">Create a repository</a> to get started!</p>
+  <% end %>
 <% end %>
