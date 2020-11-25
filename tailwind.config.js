@@ -129,9 +129,10 @@ module.exports = {
       }
     }
   },
+  //purge: ['./app/**/*.erb'],
   variants: {},
   plugins: [
-    //require('@tailwindcss/forms'),
+    require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
   ],
 }
