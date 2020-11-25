@@ -1,3 +1,4 @@
+/* purgecss start ignore */
 .m-flash__flash {
   @apply flex flex-row bg-white leading-none rounded shadow text-sm mb-1 w-full;
 }
@@ -41,3 +42,4 @@
 .a-flash__message {
   @apply flex-grow px-3 p-1 flex items-center;
 }
+/* purgecss end ignore */

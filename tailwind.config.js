@@ -1,11 +1,6 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
-  },
-  purge: [],
   theme: {
     extend: {
       colors: {
@@ -136,7 +131,7 @@ module.exports = {
   },
   variants: {},
   plugins: [
-    require('@tailwindcss/forms'),
+    //require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
   ],
 }
