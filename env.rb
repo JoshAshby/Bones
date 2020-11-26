@@ -132,11 +132,11 @@ forme_inputs = {
 Forme.register_transformer(:formatter, :sidebyside) do |input|
   input.opts[:class] ||= forme_inputs.fetch input.type, forme_inputs[:default]
 
-  puts
-  puts "-------------- formatter (#{ input.type }) ------------"
-  puts input.opts
+  # puts
+  # puts "-------------- formatter (#{ input.type }) ------------"
+  # puts input.opts
 
-  puts caller.first
+  # puts caller.first
 
   Forme::Formatter.new.call input
 end
@@ -144,10 +144,10 @@ end
 Forme.register_transformer(:labeler, :sidebyside) do |tag, input|
   input.opts[:label_attr] ||= { class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" }
 
-  puts
-  puts "========= labeler (#{ tag.type }) ========="
-  puts input.opts
-  puts tag.class
+  # puts
+  # puts "========= labeler (#{ tag.type }) ========="
+  # puts input.opts
+  # puts tag.class
 
   Forme::Labeler::Explicit.new.call tag, input
 end
@@ -166,10 +166,10 @@ Forme.register_transformer(:error_handler, :sidebyside) do |tag, input|
 end
 
 Forme.register_transformer(:wrapper, :sidebyside) do |tags, input|
-  puts
-  puts "-=-=-=-=-=- Wrapper -=-=-=-=-=-"
-  puts input.opts
-  puts
+  # puts
+  # puts "-=-=-=-=-=- Wrapper -=-=-=-=-=-"
+  # puts input.opts
+  # puts
 
   a = tags.flatten
   labels, other = a.partition { |e| e.is_a?(Forme::Tag) && e.type.to_s == "label" }
@@ -190,10 +190,10 @@ Forme.register_transformer(:wrapper, :sidebyside_actions) do |tags, input|
 end
 
 Forme.register_transformer(:inputs_wrapper, :sidebyside) do |form, opts, &block|
-  puts
-  puts "********** Inputs Wrapper () ***************"
-  puts opts
-  puts
+  # puts
+  # puts "********** Inputs Wrapper () ***************"
+  # puts opts
+  # puts
 
   form.tag :div, { class: "pt-8 space-y-6 sm:pt-10 sm:space-y-5" } do
     form.tag :fieldset do

@@ -10,7 +10,7 @@ describe "Creating a repo", type: :feature do
 
   it "with valid input" do
     fill_in "repository[name]", with: "testing"
-    click_button "Create Repository"
+    click_button "Create!"
 
     expect(page).to have_current_path("/dashboard")
 
