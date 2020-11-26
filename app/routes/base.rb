@@ -19,11 +19,57 @@ class Routes::Base < Roda
   plugin :run_append_slash
 
   plugin :forme
-  plugin :forme_set, secret: secret
+  plugin :forme_route_csrf
 
   def _forme_form_class
     Forme::Erbse
   end
+
+  # def form(obj=nil, attr={}, opts={}, &block)
+  # if obj.is_a?(Hash)
+  # attribs = obj
+  # options = attr = attr.dup
+  # else
+  # attribs = attr
+  # options = opts = opts.dup
+  # end
+
+  # apply_csrf = options[:csrf]
+
+  # if apply_csrf || apply_csrf.nil?
+  # unless method = attribs[:method] || attribs['method']
+  # if obj && !obj.is_a?(Hash) && obj.respond_to?(:forme_default_request_method)
+  # method = obj.forme_default_request_method
+  # end
+  # end
+  # end
+
+  # if apply_csrf.nil?
+  # apply_csrf = csrf_options[:check_request_methods].include?(method.to_s.upcase)
+  # end
+
+  # if apply_csrf
+  # token = if options.fetch(:use_request_specific_token){use_request_specific_csrf_tokens?}
+  # csrf_token(csrf_path(attribs[:action]), method)
+  # else
+  # csrf_token
+  # end
+
+  # options[:csrf] = [csrf_field, token]
+  # options[:hidden_tags] ||= []
+  # options[:hidden_tags] += [{csrf_field=>token}]
+  # end
+
+  # # options[:output] = @_out_buf if block
+  # _forme_form_options(options)
+  # form = _forme_form_class.new(obj, opts)
+
+  # # res = yield form
+
+  # # res1 = form.form(attr)
+
+  # binding.irb
+  # end
 
   plugin :flash
 

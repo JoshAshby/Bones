@@ -1,10 +1,13 @@
-<% form @form, method: :post, action: "/dashboard/repository/create", class: "space-y-8 divide-y divide-gray-200" do |f| %>
-  <div class="space-y-6 sm:space-y-5">
+<%= form @form, { method: :post, action: "/dashboard/repository/create", class: "space-y-8 md:max-w-prose" }, { config: :sidebyside } do |f| %>
+  <%= f.inputs legend: "Repository Information", legend_sub: "Required settings for your new repository." do %>
     <%= f.input :name, type: :text, label: "Repository Name", required: true %>
+  <% end %>
+
+  <%= f.inputs legend: "Optional Settings", legend_sub: "Additional settings for configuring your new repository." do %>
     <%= f.input :password, type: :password, label: "Admin Password", help: "Leave this blank to auto-generate an admin password" %>
 
     <%= f.input :project_code, type: :text, label: "Project Code", help: "If you are pushing an existing repository, you'll need to fill this out with the existing repository's project code." %>
+  <% end %>
 
-    <%= f.button "Create Repository" %>
-  </div>
+  <%= f.button value: "Create!", wrapper: :sidebyside_actions %>
 <% end %>

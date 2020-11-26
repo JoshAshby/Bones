@@ -22,13 +22,6 @@ module ViewHelpers
     inline_svg("feather/#{ ident }", **attrs)
   end
 
-  def with_svg(doc)
-    doc = Nokogiri::XML::Document.parse(doc, nil, "UTF-8")
-    svg = doc.at_css "svg"
-    yield svg if svg && block_given?
-    doc
-  end
-
   def cell(name, model=nil, options={}, constant=::Cell::ViewModel, &block)
     options[:context] ||= {}
     options[:context][:controller] = self
@@ -38,5 +31,14 @@ module ViewHelpers
 
   def capture
     yield
+  end
+
+  protected
+
+  def with_svg(doc)
+    doc = Nokogiri::XML::Document.parse(doc, nil, "UTF-8")
+    svg = doc.at_css "svg"
+    yield svg if svg && block_given?
+    doc
   end
 end
