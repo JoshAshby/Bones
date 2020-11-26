@@ -171,7 +171,7 @@ Forme.register_transformer(:wrapper, :sidebyside) do |tags, input|
   # puts input.opts
   # puts
 
-  a = tags.flatten
+  a = Array(tags).flatten
   labels, other = a.partition { |e| e.is_a?(Forme::Tag) && e.type.to_s == "label" }
 
   if labels.length == 1
