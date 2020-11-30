@@ -1,8 +1,10 @@
-<%= form method: :post, action: "/dashboard/repository/#{ @repository[:id] }/delete" do |f| %>
+<%= form({ method: :post, action: "/dashboard/repository/#{ @repository[:id] }/delete", class: "space-y-8 md:max-w-prose" }, { config: :sidebyside }) do |f| %>
   <p>Please type the name of this repository to delete it:</p>
   <p><code><%= @repository[:name] %></code></p>
 
   <%= f.input :text, name: "repository[name]", label: "Repository Name" %>
 
-  <%= f.button "Delete" %>
+  <%= f.inputs inputs_wrapper: :sidebyside_actions, wrapper: :default do %>
+    <%= f.button "Delete" %>
+  <% end %>
 <% end %>

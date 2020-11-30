@@ -122,6 +122,7 @@ end
 
 LOADER.setup
 
+# rubocop:disable Layout/LineLength
 forme_inputs = {
   default: "max-w-lg block w-full shadow-inner focus:ring-steelblue-500 focus:border-steelblue-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md",
   button: "bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-steelblue-500",
@@ -185,8 +186,12 @@ Forme.register_transformer(:wrapper, :sidebyside) do |tags, input|
   input.tag :div, { class: "sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:pt-5" }, [ltd, rtd]
 end
 
-Forme.register_transformer(:wrapper, :sidebyside_actions) do |tags, input|
-  input.tag :div, { class: "pt-5" }, [input.tag(:div, { class: "flex justify-end" }, Array(tags))]
+Forme.register_transformer(:inputs_wrapper, :sidebyside_actions) do |form, _opts, &block|
+  res = Forme.raw(block.call)
+
+  form.tag :div, { class: "pt-5" } do
+    form.tag :div, { class: "flex justify-end" }, [res]
+  end
 end
 
 Forme.register_transformer(:inputs_wrapper, :sidebyside) do |form, opts, &block|
@@ -195,16 +200,18 @@ Forme.register_transformer(:inputs_wrapper, :sidebyside) do |form, opts, &block|
   # puts opts
   # puts
 
+  res = Forme.raw(block.call)
+
   form.tag :div, { class: "pt-8 space-y-6 sm:pt-10 sm:space-y-5" } do
     form.tag :fieldset do
-      form.tag :div, class: "pb-6 sm:pb-5 sm:border-b sm:border-gray-200" do
-        form.tag :legend, { class: "text-lg leading-6 font-medium text-gray-900" }, opts[:legend]
-        form.tag :p, { class: "mt-1 text-sm text-gray-500" }, opts[:legend_sub] if opts[:legend_sub]
+      if opts[:legend]
+        form.tag :div, class: "pb-6 sm:pb-5 sm:border-b sm:border-gray-200" do
+          form.tag :legend, { class: "text-lg leading-6 font-medium text-gray-900" }, opts[:legend]
+          form.tag :p, { class: "mt-1 text-sm text-gray-500" }, opts[:legend_sub] if opts[:legend_sub]
+        end
       end
 
-      form.tag :div, class: "mt-6 sm:mt-5 space-y-6 sm:space-y-5" do
-        block.call
-      end
+      form.tag :div, { class: "mt-6 sm:mt-5 space-y-6 sm:space-y-5" }, res
     end
   end
 end
@@ -220,6 +227,7 @@ sidebyside = {
 }
 
 Forme.register_config :sidebyside, sidebyside
+# rubocop:enable Layout/LineLength
 
 Mail.defaults do
   if CONFIG.dig("mail", "delivery_method") == "logger"

@@ -1,7 +1,10 @@
-<%= form @form, method: :post, action: "/dashboard/repository/#{@form.attributes[:id]}/edit" do |f| %>
+<%= form @form, { method: :post, action: "/dashboard/repository/#{@form.attributes[:id]}/edit", class: "space-y-8 md:max-w-prose" }, { config: :sidebyside } do |f| %>
   <%= f.input :password, type: :password, label: "Reset Admin Password" %>
 
-  <%= f.button "Update Repository" %>
+  <%= f.inputs inputs_wrapper: :sidebyside_actions, wrapper: :default do %>
+    <a href="/dashboard/repository/<%= @form.attributes[:id] %>/delete">Delete</a>
+
+    <%= f.button "Update" %>
+  <% end %>
 <% end %>
 
-<a href="/dashboard/repository/<%= @form.attributes[:id] %>/delete">Delete</a>
