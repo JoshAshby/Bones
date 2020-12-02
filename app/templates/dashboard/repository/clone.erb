@@ -1,4 +1,4 @@
-<%= form @form, { method: :post, action: "/dashboard/repository/clone", class: "space-y-8 md:max-w-prose" }, { config: :sidebyside } do |f| %>
+<%= form @form, { method: :post, action: "/dashboard/repository/clone", class: "md:max-w-xl" }, { config: :sidebyside } do |f| %>
   <%= f.inputs legend: "Repository Information", legend_sub: "Required settings for your clone." do %>
     <%= f.input :name, type: :text, label: "Repository Name", required: true %>
     <%= f.input :clone_url, type: :url, label: "Repository Clone URL", required: true %>

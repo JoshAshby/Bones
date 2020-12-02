@@ -1,10 +1,12 @@
-<%= form({ method: :post, action: "/dashboard/repository/#{ @repository[:id] }/delete", class: "space-y-8 md:max-w-prose" }, { config: :sidebyside }) do |f| %>
-  <p>Please type the name of this repository to delete it:</p>
-  <p><code><%= @repository[:name] %></code></p>
+<%= form({ method: :post, action: "/dashboard/repository/#{ @repository[:id] }/delete", class: "md:max-w-xl" }, { config: :sidebyside }) do |f| %>
+  <%= f.inputs do %>
+    <p>Deleting this repository <strong>cannot</strong> be undone. This will permanently delete your repository <strong><%= @repository[:name] %></strong> from Bones. Please type the name of this repository to proceed and delete it:</p>
+    <p><code class="select-none rounded bg-gray-200 px-4 py-2"><%= @repository[:name] %></code></p>
 
-  <%= f.input :text, name: "repository[name]", label: "Repository Name" %>
+    <%= f.input :text, name: "repository[name]", label: "Repository Name" %>
+  <% end %>
 
   <%= f.inputs inputs_wrapper: :sidebyside_actions, wrapper: :default do %>
-    <%= f.button "Delete" %>
+    <%= f.button value: "Got it, please delete this repository", class: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 bg-red-600 hover:bg-red-700 focus:ring-red-500" %>
   <% end %>
 <% end %>

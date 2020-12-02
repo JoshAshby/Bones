@@ -1,5 +1,7 @@
-<%= form @form, { method: :post, action: "/dashboard/repository/#{@form.attributes[:id]}/edit", class: "space-y-8 md:max-w-prose" }, { config: :sidebyside } do |f| %>
-  <%= f.input :password, type: :password, label: "Reset Admin Password" %>
+<%= form @form, { method: :post, action: "/dashboard/repository/#{@form.attributes[:id]}/edit", class: "md:max-w-xl" }, { config: :sidebyside } do |f| %>
+  <%= f.inputs legend: "Password Reset", legend_sub: "Reset the admin password for your user in the event you've misplaced or did not record the old one." do %>
+    <%= f.input :password, type: :password, label: "Reset Admin Password" %>
+  <% end %>
 
   <%= f.inputs inputs_wrapper: :sidebyside_actions, wrapper: :default do %>
     <a href="/dashboard/repository/<%= @form.attributes[:id] %>/delete">Delete</a>
