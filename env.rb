@@ -93,8 +93,6 @@ Sequel.extension :core_refinements
 # Shrine.plugin :validation
 # Shrine.plugin :validation_helpers
 
-# require "erubi/capture_end"
-
 Thread.abort_on_exception = true
 trap("INT") { exit }
 trap("TERM") { exit }
@@ -124,8 +122,7 @@ end
 
 LOADER.setup
 
-Formi.register_to_forme
-Forme.default_config = :formi
+require_relative "./forme_sidebyside"
 
 Mail.defaults do
   if CONFIG.dig("mail", "delivery_method") == "logger"
