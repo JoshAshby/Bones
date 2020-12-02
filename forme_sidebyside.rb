@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Layout/LineLength
 forme_inputs = {
   default: "max-w-lg block w-full shadow-inner focus:ring-steelblue-500 focus:border-steelblue-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md",
