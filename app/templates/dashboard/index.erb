@@ -20,21 +20,21 @@
 
 <% if @repositories.any? %>
   <% @repositories.each do |repository| %>
-    <div class="repository-row">
-      <div class="main">
-        <a href="<%= repository.url %>">
+    <div class="flex flex-row py-6 mb-2 border-b border-gray-200">
+      <div class="flex flex-col flex-grow">
+        <a href="<%= repository.url %>" class="">
           <%= repository.project_name %>
         </a>
 
-        <a href="<%= repository.url %>">
-          <small><%= repository.namespaced_name %></small>
+        <a href="<%= repository.url %>" class="text-gray-500 font-medium leading-tight text-sm">
+          <%= repository.namespaced_name %>
         </a>
 
-        <p><%= repository.description || "No description available ..." %></p>
+        <p class="mt-2"><%= repository.description || "No description available ..." %></p>
       </div>
 
-      <div class="actions">
-        <a href="/dashboard/repository/<%= repository[:id] %>/edit">Edit</a>
+      <div class="">
+        <a href="/dashboard/repository/<%= repository[:id] %>/edit" class="font-semibold">Edit</a>
       </div>
     </div>
   <% end %>

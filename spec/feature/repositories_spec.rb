@@ -18,3 +18,10 @@ describe "Creating a repo", type: :feature do
     expect(page).to have_text("Password: ")
   end
 end
+
+describe "Deleting a repo", type: :feature do
+  before do
+    create_user
+    login_user
+  end
+end

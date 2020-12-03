@@ -4,8 +4,8 @@
 forme_inputs = {
   default: "max-w-lg block w-full shadow-inner focus:ring-steelblue-500 focus:border-steelblue-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md",
   button: "cursor-pointer bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-steelblue-500",
-  submit: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-steelblue-600 hover:bg-steelblue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-steelblue-500",
-  reset: ""
+  submit: "cursor-pointer ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-steelblue-600 hover:bg-steelblue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-steelblue-500",
+  reset: "cursor-pointer"
 }
 
 Forme.register_transformer(:formatter, :sidebyside) do |input|
