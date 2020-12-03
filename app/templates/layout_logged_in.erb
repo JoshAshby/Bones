@@ -38,14 +38,14 @@
         </ul>
 
         <ul class="flex flex-col">
-          <%= cell(Cells::Sidebar::Item).show do %>
+          <%= cell(Cells::Sidebar::Item).call do %>
             <span class="flex flex-col m-2">
               <span class="text-palevioletred-400 font-semibold tracking-wide leading-none"><%= shared[:account][:username] %></span>
               <span class="text-gray-500 text-xs leading-none mt-1"><%= shared[:account][:email] %></span>
             </span>
           <% end %>
 
-          <%= cell(Cells::Sidebar::Item).show do %>
+          <%= cell(Cells::Sidebar::Item).call do %>
             <form method="post" action="/account/logout">
               <%= rodauth.csrf_tag("/account/logout") %>
 
@@ -67,12 +67,7 @@
       <h1 class="font-bold text-2xl text-gray-800"><%= shared[:breadcrumbs].last %></h1>
 
       <div class="flex flex-col flex-grow bg-white rounded mt-4 p-8 shadow -mx-4 sm:mx-0">
-        <% if flash.any? %>
-          <%# TODO: Move this logic into a cell that conditionally renders the flash container %>
-          <div class="w-1/2 flex items-center mx-auto">
-            <%= cell(Cells::Flashes, flash).render :list %>
-          </div>
-        <% end %>
+        <%= cell(Cells::Flashes, flash).list %>
 
         <%= yield %>
       </div>

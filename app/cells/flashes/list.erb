@@ -1,5 +1,8 @@
-<div class="w-full flex flex-col">
-<% messages.each do |msg| %>
-  <%= cell(Cells::FlashMessage, msg).render :msg %>
-<% end %>
+<%#div class="fixed inset-0 flex px-4 py-6 pointer-events-none sm:p-6 translate-y-0 opacity-100 sm:translate-x-0 flex-col space-x-1 space-y-2 md:items-end"%>
+<div class="fixed inset-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end">
+  <div class="flex flex-col space-y-4 max-w-sm w-full">
+    <% messages.each do |msg| %>
+      <%= cell(Cells::FlashMessage, msg).render :msg %>
+    <% end %>
+  </div>
 </div>

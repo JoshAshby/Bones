@@ -41,6 +41,9 @@ class Routes::Base < Roda
 
     email_from CONFIG["email_from"]
 
+    session_key_prefix "bones_"
+    remember_cookie_key "_bones_remember"
+
     prefix "/account"
 
     login_label "Email"
