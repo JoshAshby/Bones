@@ -10,13 +10,6 @@ forme_inputs = {
 
 Forme.register_transformer(:formatter, :sidebyside) do |input|
   input.opts[:class] ||= forme_inputs.fetch input.type, forme_inputs[:default]
-  # Forme.attr_classes input.opts, forme_inputs.fetch(input.type, forme_inputs[:default])
-
-  # puts
-  # puts "-------------- formatter (#{ input.type }) ------------"
-  # puts input.opts
-
-  # puts caller.first
 
   Forme::Formatter.new.call input
 end
@@ -24,16 +17,14 @@ end
 Forme.register_transformer(:labeler, :sidebyside) do |tag, input|
   input.opts[:label_attr] ||= { class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" }
 
-  # puts
-  # puts "========= labeler (#{ tag.type }) ========="
-  # puts input.opts
-  # puts tag.class
-
   Forme::Labeler::Explicit.new.call tag, input
 end
 
 Forme.register_transformer(:helper, :sidebyside) do |tag, input|
-  [tag, input.tag(:p, { class: "mt-2 text-sm text-gray-500" }, input.opts[:help])]
+  [
+    tag,
+    input.tag(:p, { class: "mt-2 text-sm text-gray-500" }, input.opts[:help])
+  ]
 end
 
 Forme.register_transformer(:error_handler, :sidebyside) do |tag, input|
@@ -46,11 +37,6 @@ Forme.register_transformer(:error_handler, :sidebyside) do |tag, input|
 end
 
 Forme.register_transformer(:wrapper, :sidebyside) do |tags, input|
-  # puts
-  # puts "-=-=-=-=-=- Wrapper -=-=-=-=-=-"
-  # puts input.opts
-  # puts
-
   a = Array(tags).flatten
   labels, other = a.partition { |e| e.is_a?(Forme::Tag) && e.type.to_s == "label" }
 
@@ -66,21 +52,12 @@ Forme.register_transformer(:wrapper, :sidebyside) do |tags, input|
 end
 
 Forme.register_transformer(:inputs_wrapper, :sidebyside_actions) do |form, _opts, &block|
-  res = Forme.raw(block.call)
-
   form.tag :div, { class: "pt-5 sm:border-t sm:border-gray-200" } do
-    form.tag :div, { class: "flex justify-end items-baseline" }, [res]
+    form.tag :div, { class: "flex justify-end items-baseline" }, &block
   end
 end
 
 Forme.register_transformer(:inputs_wrapper, :sidebyside) do |form, opts, &block|
-  # puts
-  # puts "********** Inputs Wrapper () ***************"
-  # puts opts
-  # puts
-
-  res = Forme.raw(block.call)
-
   form.tag :div, { class: "pb-8 space-y-6 sm:pb-10 sm:space-y-5" } do
     form.tag :fieldset do
       if opts[:legend]
@@ -90,7 +67,7 @@ Forme.register_transformer(:inputs_wrapper, :sidebyside) do |form, opts, &block|
         end
       end
 
-      form.tag :div, { class: "mt-6 sm:mt-5 space-y-6 sm:space-y-5" }, res
+      form.tag :div, { class: "mt-6 sm:mt-5 space-y-6 sm:space-y-5" }, &block
     end
   end
 end
