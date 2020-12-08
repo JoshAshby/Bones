@@ -1,0 +1,9 @@
+./docs/
+./node_modules/
+./coverage/
+./docker/
+./repos/
+./spec/
+./logs/
+./.*
+*.db
