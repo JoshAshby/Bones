@@ -1,0 +1,10 @@
+<%= form action: rodauth.change_login_path, method: :post, class: "md:max-w-xl" do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :email, name: rodauth.login_param, label: "New Email", required: true, autocomplete: "email", error: rodauth.field_error(rodauth.login_param) %>
+    <%= f.input :password, name: rodauth.password_param, label: "Password", required: true, autocomplete: rodauth.password_field_autocomplete_value, error: rodauth.field_error(rodauth.password_param) %>
+  <% end %>
+
+  <%= f.inputs inputs_wrapper: :sidebyside_actions, wrapper: :default do %>
+    <%= f.button rodauth.change_login_button %>
+  <% end %>
+<% end %>

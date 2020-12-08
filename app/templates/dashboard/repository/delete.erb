@@ -1,4 +1,4 @@
-<%= form({ method: :post, action: "/dashboard/repository/#{ @repository[:id] }/delete", class: "md:max-w-xl" }, { config: :sidebyside }) do |f| %>
+<%= form method: :post, action: "/dashboard/repository/#{ @repository[:id] }/delete", class: "md:max-w-xl" do |f| %>
   <%= f.inputs do %>
     <p>Deleting this repository <strong>cannot</strong> be undone. This will permanently delete your repository <strong><%= @repository[:name] %></strong> from Bones. Please type the name of this repository to proceed and delete it:</p>
     <p><code class="select-none rounded bg-gray-200 px-4 py-2"><%= @repository[:name] %></code></p>

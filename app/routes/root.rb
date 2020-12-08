@@ -34,6 +34,8 @@ class Routes::Root < Routes::Base
       view :credits, layout: :layout_centered
     end
 
+    r.on("test") { r.run Routes::Test } if ENV["RACK_ENV"] != "production"
+
     r.root do
       next r.redirect "/dashboard" if rodauth.logged_in?
 

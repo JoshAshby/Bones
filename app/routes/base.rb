@@ -17,6 +17,7 @@ class Routes::Base < Roda
   plugin :view_options
 
   plugin :run_append_slash
+  plugin :route_csrf
 
   plugin :forme
   plugin :forme_route_csrf
@@ -25,58 +26,9 @@ class Routes::Base < Roda
     Forme::Erbse
   end
 
-  # def form(obj=nil, attr={}, opts={}, &block)
-  # if obj.is_a?(Hash)
-  # attribs = obj
-  # options = attr = attr.dup
-  # else
-  # attribs = attr
-  # options = opts = opts.dup
-  # end
-
-  # apply_csrf = options[:csrf]
-
-  # if apply_csrf || apply_csrf.nil?
-  # unless method = attribs[:method] || attribs['method']
-  # if obj && !obj.is_a?(Hash) && obj.respond_to?(:forme_default_request_method)
-  # method = obj.forme_default_request_method
-  # end
-  # end
-  # end
-
-  # if apply_csrf.nil?
-  # apply_csrf = csrf_options[:check_request_methods].include?(method.to_s.upcase)
-  # end
-
-  # if apply_csrf
-  # token = if options.fetch(:use_request_specific_token){use_request_specific_csrf_tokens?}
-  # csrf_token(csrf_path(attribs[:action]), method)
-  # else
-  # csrf_token
-  # end
-
-  # options[:csrf] = [csrf_field, token]
-  # options[:hidden_tags] ||= []
-  # options[:hidden_tags] += [{csrf_field=>token}]
-  # end
-
-  # # options[:output] = @_out_buf if block
-  # _forme_form_options(options)
-  # form = _forme_form_class.new(obj, opts)
-
-  # # res = yield form
-
-  # # res1 = form.form(attr)
-
-  # binding.irb
-  # end
-
-  plugin :flash
-
-  plugin :route_csrf
-
   plugin :sessions, key: "bones.session", secret: secret
   plugin :shared_vars
+  plugin :flash
 
   plugin :rodauth, csrf: :route_csrf do
     db DB
@@ -87,25 +39,36 @@ class Routes::Base < Roda
 
     hmac_secret secret
 
-    email_from { CONFIG["email_from"] }
+    session_key_prefix "bones_"
+    remember_cookie_key "_bones_remember"
+
+    email_from CONFIG["email_from"]
 
     prefix "/account"
 
-    login_label { "Email" }
-    change_login_button { "Change Email" }
-    change_login_route { "change-email" }
+    login_view { scope.view "account/login", layout: :layout_centered }
+    after_login { remember_login }
+
+    logout_redirect "/"
+
+    reset_password_request_view { scope.view "account/forgot_password", layout: :layout_centered }
+    reset_password_view { scope.view "account/reset_password", layout: :layout_centered }
+
+    change_login_route "change-email"
+    change_login_view { scope.view "account/change_email", layout: :layout_logged_in }
+
+    change_password_view { scope.view "account/change_password", layout: :layout_logged_in }
+
+    close_account_route "close"
+    close_account_view { scope.view "account/close_account", layout: :layout_logged_in }
 
     if Features.enabled? :sign_up
       enable :create_account
+
       create_account_route "create"
+      create_account_view { scope.view "account/signup" }
 
       require_login_confirmation? false
-      create_account_additional_form_tags <<~HTML
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input name='username' id='username' type="text">
-        </div>
-      HTML
 
       before_create_account do
         username = param_or_nil("username")
@@ -121,27 +84,8 @@ class Routes::Base < Roda
       end
 
       after_create_account do
-        Bones::UserFossil.new(username: account[:username]).ensure_fs!
+        Bones::UserFossil.new(account[:username]).ensure_fs!
       end
-    end
-
-    after_login do
-      remember_login
-    end
-
-    logout_redirect { "/" }
-
-    close_account_route "close"
-    before_close_account_route do
-      scope.set_layout_options template: :layout_logged_in
-    end
-
-    before_change_password_route do
-      scope.set_layout_options template: :layout_logged_in
-    end
-
-    before_change_login_route do
-      scope.set_layout_options template: :layout_logged_in
     end
   end
 

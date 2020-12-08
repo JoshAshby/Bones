@@ -17,4 +17,4 @@ mail:
      #port: 1025
 
 feature_flags:
-  sign_up: false
+  sign_up: true

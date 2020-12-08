@@ -1,10 +1,10 @@
 @import "tailwindcss/base";
-
-/*@import "./_base.css";*/
-/*@import "./_helpers.css";*/
-
 @import "tailwindcss/components";
-
 @import 'components/*';
-
 @import "tailwindcss/utilities";
+
+@layer base {
+  a {
+    @apply text-steelblue-500 hover:underline hover:text-steelblue-600;
+  }
+}

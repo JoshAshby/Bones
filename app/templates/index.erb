@@ -23,23 +23,25 @@
 
       <div class="w-full mt-6 md:max-w-md">
         <div class="bg-white shadow-md rounded-lg px-4 py-4 mb-6">
-          <%= form action: "/account/login", method: "post" do |f| %>
+          <%= form action: rodauth.login_path, method: :post do |f| %>
             <div class="flex items-center justify-center">
-              <h2 class="text-2xl font-bold tracking-wide">Welcome Back</h2> 
+              <h2 class="text-2xl font-bold tracking-wide">Welcome Back</h2>
             </div>
-            <h3 class="text-xl text-center font-semibold text-gray-800 mb-2">Log In</h3>
+            <h3 class="text-xl text-center font-semibold text-gray-800 mb-2">Please Log In</h3>
+  
+            <%= f.inputs do %>
+              <%= f.input :email, name: rodauth.login_param, label: "Email" %>
+              <%= f.input :password, name: rodauth.password_param, label: "Password" %>
+            <% end %>
 
-            <%= f.input :text, name: :login, placeholder: "Email Address", class: "w-full" %>
-            <%= f.input :password, name: :password, placeholder: "Password", class: "w-full" %>
-
-            <div class="flex items-center justify-between">
-              <a href="/account/reset-password-request" class="text-gray-600 hover:text-gray-800">Forget Password?</a>
-              <%= f.button value: "Log In" %>
-            </div>
+            <%= f.inputs inputs_wrapper: :sidebyside_actions, wrapper: :default do %>
+              <a href="<%= rodauth.reset_password_request_path %>" class="text-gray-600 hover:text-gray-800">Forget your Password?</a>
+              <%= f.button rodauth.login_button %>
+            <% end %>
           <% end %>
         </div>
 
-        <%= cell(Cells::Flashes, flash).render :list %>
+        <%= cell(Cells::Flashes, flash).list %>
       </div>
     </div>
   </div>

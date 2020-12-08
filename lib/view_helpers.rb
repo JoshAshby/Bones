@@ -5,11 +5,9 @@ module ViewHelpers
     raw_svg = File.open("public/#{ ident }.svg", &:read)
 
     with_svg(raw_svg) do |svg|
-      if attrs[:class]
-        classes = (svg["class"] || "").split(" ")
-        classes << attrs[:class]
-        svg["class"] = classes.join(" ")
-      end
+      svg.add_class attrs.delete(:class) if attrs[:class]
+
+      attrs.each { svg.set_attribute _1, _2 }
     end.to_html
   end
 

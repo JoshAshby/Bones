@@ -123,6 +123,7 @@ end
 LOADER.setup
 
 require_relative "./forme_sidebyside"
+Forme.default_config = :sidebyside
 
 Mail.defaults do
   if CONFIG.dig("mail", "delivery_method") == "logger"

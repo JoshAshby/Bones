@@ -21,10 +21,8 @@
     </header>
   </div>
 
-  <div class="h-6"></div>
-
-  <div class="mx-auto">
-    <%= cell(Cells::Flashes, flash).render :list %>
+  <div class="mx-auto mt-4">
+    <%= cell(Cells::Flashes, flash).list %>
 
     <%= yield %>
   </div>

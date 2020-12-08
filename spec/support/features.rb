@@ -26,13 +26,15 @@ module FeatureSpecHelper
     )
 
     Bones::UserFossil.new(username).ensure_fs!
+
+    account_id
   end
 
   def login_user email: "test@example.com", password: "testing"
     visit "/"
     fill_in "login", with: email
     fill_in "password", with: password
-    click_on "Log In"
+    click_on "Login"
   end
 end
 

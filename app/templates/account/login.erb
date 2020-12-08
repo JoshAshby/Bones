@@ -1,0 +1,16 @@
+<div class="flex items-center justify-center">
+  <h2 class="text-2xl font-bold tracking-wide">Welcome Back</h2>
+</div>
+<h3 class="text-xl text-center font-semibold text-gray-800 mb-2">Please Log In</h3>
+
+<%= form action: rodauth.login_path, method: :post, class: "md:max-w-xl" do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :email, name: rodauth.login_param, label: "Email", value: rodauth.param_or_nil(rodauth.login_param), autocomplete: "email", required: true, error: rodauth.field_error(rodauth.login_param) %>
+    <%= f.input :password, name: rodauth.password_param, label: "Password", autocomplete: rodauth.password_field_autocomplete_value, required: true, error: rodauth.field_error(rodauth.password_param) %>
+  <% end %>
+
+  <%= f.inputs inputs_wrapper: :sidebyside_actions, wrapper: :default do %>
+    <a href="<%= rodauth.reset_password_request_path %>">Forgot your password?</a>
+    <%= f.button rodauth.login_button %>
+  <% end %>
+<% end %>

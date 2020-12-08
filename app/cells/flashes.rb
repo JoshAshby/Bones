@@ -2,6 +2,12 @@
 
 class Cells::Flashes < Cells::Base
   def messages
-    model.slice "info", "notice", "warn", "alert"
+    @messages ||= model.transform_keys(&:to_s).slice "info", "notice", "warn", "alert"
+  end
+
+  def list
+    return "" unless messages.any?
+
+    render :list
   end
 end
