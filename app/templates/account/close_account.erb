@@ -1,0 +1,12 @@
+<p class="md:max-w-xl">If you would like to close your account on Bones and delete all your hosted repositories and account data, you may enter your password below.</p>
+<p class="md:max-w-xl">This is a <strong>permanent</strong> action. If you change your mind after proceeding, you'll have to make a new account and reupload your repositories!</p>
+
+<%= form action: rodauth.close_account_path, method: :post, class: "md:max-w-xl" do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :password, name: rodauth.password_param, label: "Password", required: true, autocomplete: rodauth.password_field_autocomplete_value %>
+  <% end %>
+
+  <%= f.inputs inputs_wrapper: :sidebyside_actions, wrapper: :default do %>
+    <%= f.button value: "Please Close and Delete my Account", class: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 bg-red-600 hover:bg-red-700 focus:ring-red-500" %>
+  <% end %>
+<% end %>

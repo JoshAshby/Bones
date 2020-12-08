@@ -16,6 +16,7 @@ end
 
 Forme.register_transformer(:labeler, :sidebyside) do |tag, input|
   input.opts[:label_attr] ||= { class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" }
+  input.opts[:label] = "#{ input.opts[:label] }*" if input.opts[:required]
 
   Forme::Labeler::Explicit.new.call tag, input
 end

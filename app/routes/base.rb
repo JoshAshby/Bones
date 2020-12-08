@@ -39,28 +39,36 @@ class Routes::Base < Roda
 
     hmac_secret secret
 
-    email_from CONFIG["email_from"]
-
     session_key_prefix "bones_"
     remember_cookie_key "_bones_remember"
 
+    email_from CONFIG["email_from"]
+
     prefix "/account"
 
-    login_label "Email"
-    change_login_button "Change Email"
+    login_view { scope.view "account/login", layout: :layout_centered }
+    after_login { remember_login }
+
+    logout_redirect "/"
+
+    reset_password_request_view { scope.view "account/forgot_password", layout: :layout_centered }
+    reset_password_view { scope.view "account/reset_password", layout: :layout_centered }
+
     change_login_route "change-email"
+    change_login_view { scope.view "account/change_email", layout: :layout_logged_in }
+
+    change_password_view { scope.view "account/change_password", layout: :layout_logged_in }
+
+    close_account_route "close"
+    close_account_view { scope.view "account/close_account", layout: :layout_logged_in }
 
     if Features.enabled? :sign_up
       enable :create_account
+
       create_account_route "create"
+      create_account_view { scope.view "account/signup" }
 
       require_login_confirmation? false
-      create_account_additional_form_tags <<~HTML
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input name='username' id='username' type="text">
-        </div>
-      HTML
 
       before_create_account do
         username = param_or_nil("username")
@@ -76,27 +84,8 @@ class Routes::Base < Roda
       end
 
       after_create_account do
-        Bones::UserFossil.new(username: account[:username]).ensure_fs!
+        Bones::UserFossil.new(account[:username]).ensure_fs!
       end
-    end
-
-    after_login do
-      remember_login
-    end
-
-    logout_redirect { "/" }
-
-    close_account_route "close"
-    before_close_account_route do
-      scope.set_layout_options template: :layout_logged_in
-    end
-
-    before_change_password_route do
-      scope.set_layout_options template: :layout_logged_in
-    end
-
-    before_change_login_route do
-      scope.set_layout_options template: :layout_logged_in
     end
   end
 
