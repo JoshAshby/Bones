@@ -13,7 +13,7 @@ COPY ./docker/ruby-entrypoint.sh ./
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
-COPY env.rb config.ru Rakefile ./
+COPY env.rb forme_sidebyside.rb config.ru Rakefile ./
 COPY app app/
 COPY bin bin/
 COPY config config/
