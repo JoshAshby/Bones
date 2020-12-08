@@ -8,7 +8,8 @@ module.exports = {
     require('@fullhuman/postcss-purgecss')({
       content: [
         './app/**/*.erb',
-        './forme_sidebyside.rb'
+        './forme_sidebyside.rb',
+        './app/cells/*.rb'
       ],
       defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
     }),
