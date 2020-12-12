@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+image="bones/app"
+registry="thecontainer.isin.space"
+
+short_sha=$(fossil json status | jq -r ".payload.checkout.uuid[0:16]")
+build_time=$(date "+%Y-%m-%d %H:%M:%S")
+
+function build_dets() {
+cat <<JSON
+{
+  "built_at": "${build_time}",
+  "built_sha": "${short_sha}"
+}
+JSON
+}
+
+build_dets > public/build.json
+
+docker build -t "${registry}/${image}:latest" -t "${registry}/${image}:${short_sha}" -f docker/Dockerfile.ruby .
+docker push "${registry}/${image}"

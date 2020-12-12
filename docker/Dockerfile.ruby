@@ -8,11 +8,10 @@ VOLUME /shared
 WORKDIR /code
 
 ENV RACK_ENV production
-COPY ./docker/ruby-entrypoint.sh ./
 
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
 COPY ./ ./
 
-ENTRYPOINT ["/bin/bash", "ruby-entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "docker/ruby-entrypoint.sh"]
