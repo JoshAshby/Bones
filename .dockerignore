@@ -1,4 +1,4 @@
-./docs/
+./doc/
 ./node_modules/
 ./coverage/
 ./docker/
